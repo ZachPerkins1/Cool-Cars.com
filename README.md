@@ -26,3 +26,6 @@ Server set up:
 2. Run npm build if you haven't already.
 
 3. Run npm start.
+
+Design page:
+link: https://excalidraw.com/#room=16a945752ef61c486cf6,ka1BTvS9Wn6db8lmewD16A
