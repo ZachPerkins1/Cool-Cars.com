@@ -2,6 +2,9 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import * as db from './database.js';
+
+console.log(db)
 
 const app = express();
 const PORT = process.env.PORT || 3000;
