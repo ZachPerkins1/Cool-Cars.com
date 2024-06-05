@@ -46,5 +46,6 @@ const credentials = {
     host: process.env.DB_HOST,
   };
   
-  const pool = new Pool(credentials);
+const pool = new Pool(credentials);
+
 export default pool;
