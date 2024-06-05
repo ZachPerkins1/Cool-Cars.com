@@ -2,15 +2,30 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios'
 
 import Button from '@mui/material/Button';
 
 function App() {
+  const [cars, setCars] = useState('')
   const [count, setCount] = useState(0)
-
+  const getCars = function () {
+    axios.get('http://localhost:3000/cars', {
+      params: {}
+    })
+      .then(function (response) {
+        setCars(JSON.stringify(response.data[0]))
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(function () {
+        console.log('done')
+      });
+  }
   return (
     <>
-      <Button variant="contained">Hello world</Button>
+      <Button onClick={() => getCars()} variant="contained">Hello world</Button>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -20,6 +35,14 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <div className="card">
+        <button>
+          Example car: {cars}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
