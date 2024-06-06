@@ -8,6 +8,7 @@ import App from './App.jsx'
 import ErrorPage from './ErrorPage.jsx';
 import InventoryPage from './InventoryPage.jsx'
 import './index.css'
+import AboutUs from './AboutUs.jsx'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
   {
     path: "inventory",
     element: <InventoryPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "aboutUs",
+    element: <AboutUs />,
     errorElement: <ErrorPage />,
   },
 ]);
