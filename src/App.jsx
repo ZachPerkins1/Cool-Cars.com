@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import NavBar from './components/NavBar.jsx'
 
 import Button from '@mui/material/Button';
 
@@ -26,6 +27,7 @@ function App() {
   }
   return (
     <>
+      <NavBar />
       <Button onClick={() => getCars()} variant="contained">Show a car object</Button>
       <div>
         <Link to={`inventory`}>
@@ -58,7 +60,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Click on the Vite and React logos to learn more dsjknvsafkvjakfvbakjf
       </p>
     </>
   )
