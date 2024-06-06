@@ -10,6 +10,7 @@ import InventoryPage from './InventoryPage.jsx';
 import AboutUs from './AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
 import './index.css'
+import AboutUs from './AboutUs.jsx'
 
 const router = createBrowserRouter([
   {
@@ -27,11 +28,13 @@ const router = createBrowserRouter([
     element: <AboutUs />,
     errorElement: <ErrorPage />,
   },
+
   {
     path: "wishlist",
     element: <Wishlist />,
     errorElement: <ErrorPage />,
   }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
