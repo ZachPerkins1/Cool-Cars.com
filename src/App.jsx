@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import NavBar from './components/NavBar.jsx'
 
 import Button from '@mui/material/Button';
 
