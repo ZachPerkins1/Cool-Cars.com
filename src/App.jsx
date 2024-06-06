@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import Button from '@mui/material/Button';
 
@@ -25,7 +26,12 @@ function App() {
   }
   return (
     <>
-      <Button onClick={() => getCars()} variant="contained">Hello world</Button>
+      <Button onClick={() => getCars()} variant="contained">Show a car object</Button>
+      <div>
+        <Link to={`inventory`}>
+          <Button variant="contained">This is a Link to Inventory</Button>
+        </Link>
+      </div>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
