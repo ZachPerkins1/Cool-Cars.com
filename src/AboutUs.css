@@ -1,0 +1,28 @@
+.root {
+    margin-top: 64px;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}
+
+.textContainer {
+    padding: 16px;
+}
+
+.gridItem {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 100%;
+    max-width: 345px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px auto;
+}
