@@ -7,7 +7,7 @@ import {
 import App from './App.jsx'
 import ErrorPage from './ErrorPage.jsx';
 import InventoryPage from './InventoryPage.jsx';
-// import AboutUs from './AboutUs.jsx';
+import AboutUs from './AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
 import './index.css'
 import LeaveReview from './LeaveReview.jsx';
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "aboutUs",
-    // element: <AboutUs />,
+    element: <AboutUs />,
     errorElement: <ErrorPage />,
   },
   {
