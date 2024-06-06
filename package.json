@@ -17,7 +17,6 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.19",
     "@mui/material": "^5.15.19",
-    "@mui/icons-material": "^5.15.19",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
@@ -26,7 +25,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
-    "sequelize": "^6.37.3"
+    "react-slick": "^0.30.2",
+    "sequelize": "^6.37.3",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

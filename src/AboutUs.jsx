@@ -1,6 +1,7 @@
 import { Container, Typography, Card, CardContent, Avatar, Grid, Box, Rating } from '@mui/material';
 import { useState } from 'react';
 import NavBar from './components/NavBar.jsx';
+import ImageCarousel from './ImageCarousel.jsx';
 import './AboutUs.css';
 
 
@@ -133,6 +134,12 @@ const AboutUs = () => {
                         </Grid>
                     </Grid>
                 </Box>
+                <Box className="carouselSection" marginBottom={10}>
+                    <Typography variant="h4" align="center" gutterBottom>
+                        Explore Our Dealership
+                    </Typography>
+                    <ImageCarousel />
+                </Box>
                 <Box className="reviewsContainer">
                     <Typography variant="h4" align="center" gutterBottom>
                         Customer Reviews
@@ -154,6 +161,7 @@ const AboutUs = () => {
                                 </Card>
                             </Grid>
                         ))}
+                        <button id='reviewButton' type='submit'>Leave a review</button>
                     </Grid>
                 </Box>
             </Container>
