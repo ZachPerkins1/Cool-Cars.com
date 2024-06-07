@@ -137,6 +137,13 @@ INSERT INTO Users (id, first_name, last_name, role) VALUES
 (12, 'Karen', 'Thomas', 'customer'),
 (13, 'Leo', 'Jackson', 'admin');
 
+INSERT INTO Reviews (name, review, rating, avatar) VALUES
+('Brad Pitt', 'Excellent service and a great selection of cars. Highly recommend!', 5, './images/brad.jpeg'),
+('Margot Robbie', 'The staff was very friendly and helped me find the perfect car.', 4.5, './images/margot.jpeg'),
+('Matthew Mcconaughey', 'Good experience overall, but the process took longer than expected.', 4, './images/matthew.jpeg'),
+('Leonardo Decaprio', 'Great prices and fantastic customer service. Will come back again!', 5, './images/leo.webp'),
+('Scarlet Johanson', 'Great selection of cars, quick and easy process!.', 5, './images/scarlet.jpeg');
+
 SELECT * FROM Makes;
 SELECT * FROM Models;
 SELECT * FROM Colors;

@@ -1,13 +1,30 @@
-import { Container, Typography, Card, CardContent, Avatar, Grid, Box, Rating } from '@mui/material';
-import { useState } from 'react';
+import { Container, Typography, Card, CardContent, Avatar, Grid, Box, Rating, Button } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
-import ImageCarousel from './ImageCarousel.jsx';
+import ImageCarousel from './components/ImageCarousel.jsx';
 import './AboutUs.css';
+import axios from 'axios';
+
+// image exports
+import shaan from './assets/shaan.png';
+import juan from './assets/juan.png';
+import noah from './assets/noah.png';
+import yellowMiata from './assets/yellow_miata.png'
+
+
+// import brad from './assets/brad.jpeg';
+// import leo from './assets/leo.webp';
+// import scarlet from './assets/scarlet.jpeg';
+// import matthew from './assets/matthew.jpeg';
+// import margot from './assets/margot.jpeg';
 
 
 
 const AboutUs = () => {
     const [expandedCard, setExpandedCard] = useState(null);
+    const [reviews, setReviews] = useState([]);
+
 
     const handleCardClick = (personName) => {
         if (expandedCard === personName) {
@@ -19,26 +36,23 @@ const AboutUs = () => {
 
     const isCardExpanded = (personName) => expandedCard === personName;
 
-    const reviews = [
-        {
-            avatar: '/images/reviewer1.png',
-            name: 'Alice Johnson',
-            rating: 5,
-            review: 'Great service and an amazing selection of cars! Highly recommend this dealership.'
-        },
-        {
-            avatar: '/images/reviewer2.png',
-            name: 'Bob Smith',
-            rating: 4,
-            review: 'Friendly staff and a smooth buying process. Will definitely come back for my next car.'
-        },
-        {
-            avatar: '/images/reviewer3.png',
-            name: 'Carol Williams',
-            rating: 5,
-            review: 'Excellent experience! The team went above and beyond to find the perfect car for me.'
-        }
-    ];
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/reviews');
+                console.log('Response:', response);
+                if (Array.isArray(response.data)) {
+                    setReviews(response.data);
+                } else {
+                    console.error('Invalid data format received:', response.data);
+                }
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+            }
+        };
+
+        fetchReviews();
+    }, []);
 
     return (
         <>
@@ -46,7 +60,7 @@ const AboutUs = () => {
             <Container className="root">
                 <Grid container spacing={4} alignItems="center">
                     <Grid item xs={12} md={6}>
-                        <img src="/images/yellow_miata.jpeg" alt=" About Us" className="image" />
+                        <img src={yellowMiata} alt=" About Us" className="image" />
                     </Grid>
                     <Grid item xs={12} md={6} className="textContainer">
                         <Typography variant="h3" align="center" gutterBottom>
@@ -66,7 +80,7 @@ const AboutUs = () => {
                         <Grid item xs={12} sm={6} md={4} className="gridItem">
                             <Card className={isCardExpanded('Shaan Malhotra') ? 'expandedCard' : 'card'} onClick={() => handleCardClick('Shaan Malhotra')}>
                                 <CardContent>
-                                    <Avatar className="avatar" alt="Shaan Malhotra" src="/images/shaan.png" />
+                                    <Avatar className="avatar" alt="Shaan Malhotra" src={shaan} />
                                     <Typography variant="h5" gutterBottom>
                                         Shaan Malhotra
                                     </Typography>
@@ -89,7 +103,7 @@ const AboutUs = () => {
                         <Grid item xs={12} sm={6} md={4} className="gridItem">
                             <Card className={isCardExpanded('Juan Pinol') ? 'expandedCard' : 'card'} onClick={() => handleCardClick('Juan Pinol')}>
                                 <CardContent>
-                                    <Avatar className="avatar" alt="Juan Pinol" src="/images/juan.png" />
+                                    <Avatar className="avatar" alt="Juan Pinol" src={juan} />
                                     <Typography variant="h5" gutterBottom>
                                         Juan Pinol
                                     </Typography>
@@ -112,7 +126,7 @@ const AboutUs = () => {
                         <Grid item xs={12} sm={6} md={4} className="gridItem">
                             <Card className={isCardExpanded('Noah Beito') ? 'expandedCard' : 'card'} onClick={() => handleCardClick('Noah Beito')}>
                                 <CardContent>
-                                    <Avatar className="avatar" alt="Noah Beito" src="/images/noah.png" />
+                                    <Avatar className="avatar" alt="Noah Beito" src={noah} />
                                     <Typography variant="h5" gutterBottom>
                                         Noah Beito
                                     </Typography>
@@ -144,24 +158,28 @@ const AboutUs = () => {
                     <Typography variant="h4" align="center" gutterBottom>
                         Customer Reviews
                     </Typography>
-                    <Grid container spacing={4} justifyContent="center">
-                        {reviews.map((review, index) => (
-                            <Grid item xs={12} sm={6} md={4} key={index} className="gridItem">
+                    <Grid container spacing={4}>
+                        {reviews.map((review) => (
+                            <Grid item xs={12} sm={6} md={4} key={review.id}>
                                 <Card className="reviewCard">
                                     <CardContent>
-                                        <Avatar className="avatar" alt={review.name} src={review.avatar} />
-                                        <Typography variant="h6" gutterBottom>
+                                        <Avatar className="reviewAvatar" src={review.avatar} alt={review.name} />
+                                        <Typography variant="h5" gutterBottom>
                                             {review.name}
                                         </Typography>
-                                        <Rating value={review.rating} readOnly />
-                                        <Typography variant="body2" color="textSecondary" paragraph>
+                                        <Typography variant="body2" color="textSecondary">
+                                            {review.rating} stars
+                                        </Typography>
+                                        <Typography variant="body1">
                                             {review.review}
                                         </Typography>
                                     </CardContent>
                                 </Card>
                             </Grid>
                         ))}
-                        <button id='reviewButton' type='submit'>Leave a review</button>
+                        <Button sx={{ mt: 5 }} variant="contained" color="primary" component={Link} to="/leaveReview">
+                            Leave a Review
+                        </Button>
                     </Grid>
                 </Box>
             </Container>

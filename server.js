@@ -23,7 +23,13 @@ app.get('/', (req, res) => {
 app.get('/cars', async (req, res) => {
     const result = await pool.query('SELECT * FROM cars');
     res.json(result.rows)
-})
+});
+
+//Route to get all reviews
+app.get('/reviews', async (req, res) => {
+    const result = await pool.query('SELECT * FROM reviews');
+    res.json(result.rows)
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
