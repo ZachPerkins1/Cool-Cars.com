@@ -1,6 +1,10 @@
-import React from 'react';
+
 import Slider from 'react-slick';
 import { Container, Box, Grid, Typography } from '@mui/material';
+import carSquad from '../assets/car_squad.png';
+import carOptions from '../assets/cars_options.png';
+import carSale from '../assets/car_sale.png';
+import carCheck from '../assets/car_check.png';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -18,22 +22,22 @@ const ImageCarousel = () => {
 
     const carouselItems = [
         {
-            image: '/images/car_check.jpeg',
+            image: carCheck,
             header: 'Tested for Quality',
             text: 'Every vehicle in our inventory undergoes a rigorous quality check to ensure it meets our high standards. Drive with confidence knowing your car is reliable and safe.'
         },
         {
-            image: '/images/car_sale.webp',
+            image: carSale,
             header: 'Exceptional Service',
             text: 'Our team is dedicated to providing outstanding service from the moment you walk in. Experience a seamless car buying process with our knowledgeable staff.'
         },
         {
-            image: '/images/cars_options.jpeg',
+            image: carOptions,
             header: 'Wide Selection',
             text: 'Explore our extensive range of vehicles to find the perfect match for your needs. Whether you are looking for a luxury sedan or a family SUV, we have something for everyone.'
         },
         {
-            image: '/images/car_squad.webp',
+            image: carSquad,
             header: 'Building a Community',
             text: 'We believe in building a strong community of car enthusiasts. Join us for events, meetups, and more as we share our passion for automobiles.'
         },
