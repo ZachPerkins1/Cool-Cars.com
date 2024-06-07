@@ -1,0 +1,29 @@
+/* .carouselContainer {
+    margin-top: 32px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa;
+  }
+  
+  .carouselItemBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .carouselImage {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+  }
+  
+  .carouselTextContainer {
+    padding-left: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    max-width: 100%;
+  } */

@@ -40,6 +40,11 @@ function App() {
         </Link>
       </div>
       <div>
+        <Link to={`landing`}>
+          <Button variant="contained">This is a Link to Landing</Button>
+        </Link>
+      </div>
+      <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
