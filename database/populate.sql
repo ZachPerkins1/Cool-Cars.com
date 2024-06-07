@@ -1,4 +1,7 @@
 INSERT INTO Makes (id, name) VALUES
+(1, 'Toyota'),
+(2, 'Honda'),
+(3, 'Ford'),
 (4, 'Chevrolet'),
 (5, 'Nissan'),
 (6, 'BMW'),
@@ -12,6 +15,9 @@ INSERT INTO Makes (id, name) VALUES
 
 -- Insert dummy data into the Models table
 INSERT INTO Models (id, name) VALUES
+(1, 'Corolla'),
+(2, 'Civic'),
+(3, 'Mustang'),
 (4, 'Malibu'),
 (5, 'Altima'),
 (6, '3 Series'),
@@ -25,6 +31,9 @@ INSERT INTO Models (id, name) VALUES
 
 -- Insert dummy data into the Colors table
 INSERT INTO Colors (id, name) VALUES
+(1, 'Red'),
+(2, 'Blue'),
+(3, 'Green'),
 (4, 'Black'),
 (5, 'White'),
 (6, 'Silver'),
@@ -37,6 +46,9 @@ INSERT INTO Colors (id, name) VALUES
 
 -- Insert dummy data into the Bodies table
 INSERT INTO Bodies (id, name) VALUES
+(1, 'Sedan'),
+(2, 'SUV'),
+(3, 'Coupe'),
 (4, 'Hatchback'),
 (5, 'Convertible'),
 (6, 'Pickup Truck'),
@@ -49,6 +61,9 @@ INSERT INTO Bodies (id, name) VALUES
 
 -- Insert dummy data into the FuelType table
 INSERT INTO FuelType (id, name) VALUES
+(1, 'Petrol'),
+(2, 'Diesel'),
+(3, 'Electric'),
 (4, 'Hybrid'),
 (5, 'Hydrogen'),
 (6, 'Natural Gas'),
@@ -61,6 +76,8 @@ INSERT INTO FuelType (id, name) VALUES
 
 -- Insert dummy data into the Promotions table
 INSERT INTO Promotions (id, name, start_date, end_date) VALUES
+(1, 'Summer Sale', '2024-06-01', '2024-06-30'),
+(2, 'Winter Discount', '2024-12-01', '2024-12-31'),
 (3, 'Spring Sale', '2024-03-01', '2024-03-31'),
 (4, 'Fall Discount', '2024-09-01', '2024-09-30'),
 (5, 'Black Friday Sale', '2024-11-25', '2024-11-30'),
@@ -74,6 +91,9 @@ INSERT INTO Promotions (id, name, start_date, end_date) VALUES
 
 -- Insert dummy data into the Images table
 INSERT INTO Images (id, image_link, car_id, default_image) VALUES
+(1, 'http://example.com/car1.jpg', 1, TRUE),
+(2, 'http://example.com/car2.jpg', 2, TRUE),
+(3, 'http://example.com/car3.jpg', 3, TRUE),
 (4, 'http://example.com/car4.jpg', 4, TRUE),
 (5, 'http://example.com/car5.jpg', 5, TRUE),
 (6, 'http://example.com/car6.jpg', 6, TRUE),
@@ -87,6 +107,9 @@ INSERT INTO Images (id, image_link, car_id, default_image) VALUES
 
 -- Insert dummy data into the Cars table
 INSERT INTO Cars (id, name, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id) VALUES
+(1, 'Toyota Corolla 2021', 1, 1, 1, 1, 15000, 1, 1, '2024-01-15', 20000, TRUE, NULL, 1),
+(2, 'Honda Civic 2022', 2, 2, 2, 1, 10000, 1, 1, '2024-02-20', 22000, TRUE, NULL, 2),
+(3, 'Ford Mustang 2020', 3, 3, 3, 3, 20000, 1, 2, '2024-03-25', 30000, TRUE, NULL, 3),
 (4, 'Chevrolet Malibu 2019', 4, 4, 4, 1, 25000, 1, 3, '2024-04-15', 18000, TRUE, NULL, 4),
 (5, 'Nissan Altima 2018', 5, 5, 5, 2, 30000, 1, 4, '2024-05-20', 17000, TRUE, NULL, 5),
 (6, 'BMW 3 Series 2021', 6, 6, 6, 3, 10000, 1, 5, '2024-06-25', 35000, TRUE, NULL, 6),
@@ -100,6 +123,9 @@ INSERT INTO Cars (id, name, make_id, model_id, color_id, body_id, mileage, fuel_
 
 -- Insert dummy data into the Users table
 INSERT INTO Users (id, first_name, last_name, role) VALUES
+(1, 'John', 'Doe', 'admin'),
+(2, 'Jane', 'Smith', 'sales'),
+(3, 'Bob', 'Johnson', 'customer'),
 (4, 'Alice', 'Williams', 'admin'),
 (5, 'David', 'Brown', 'sales'),
 (6, 'Emma', 'Davis', 'customer'),
