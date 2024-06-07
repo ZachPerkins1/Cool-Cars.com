@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import { Grid, TextField, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
+import CarCard from './components/CarCard.jsx';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -31,24 +32,26 @@ function InventoryPage() {
                         <FormControlLabel control={<Checkbox />} label="Disabled" />
                     </FormGroup>
                 </Grid>
-                <Grid item xs={8}>
-                    <TextField id="outlined-basic" label="Search for a Car" variant="outlined" />
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardMedia
-                            component="img"
-                            height="194"
-                            image="https://hips.hearstapps.com/hmg-prod/images/mac01634-1661870031.jpg?crop=0.668xw:1.00xh;0.167xw,0&resize=1200:*"
-                            alt="Paella dish"
-                        />
-                        <CardContent>
-                            <Typography variant="body2" color="text.secondary">
-                            Experience the thrill of driving with this stunning 2019 Mazda 
-                            Miata in vibrant Sunshine Yellow. This iconic roadster combines 
-                            classic sports car charm with modern technology, offering an exhilarating 
-                            open-air driving experience.
-                            </Typography>
-                        </CardContent>
-                    </Card>
+
+                <Grid container justifyContent="center" columns={1}>
+                    <Grid item >
+                        <TextField id="outlined-basic" label="Search for a Car" variant="outlined" />
+                    </Grid>
+                    <Grid item >
+                    <Grid container columns={2}>
+                    <Grid item >
+                        <CarCard></CarCard>
+                    </Grid>
+                    <Grid item >
+                        <CarCard></CarCard>
+                    </Grid>
+                    <Grid item >
+                        <CarCard></CarCard>
+                    </Grid>
+
+                    </Grid>
+                        <CarCard></CarCard>
+                    </Grid>
                 </Grid>
             </Grid>
         </>
