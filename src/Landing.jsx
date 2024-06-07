@@ -1,6 +1,7 @@
 import Navbar from './components/NavBar';
 import Carousel from './components/Carousel';
-import { ImageList, ImageListItem , Button, Box } from '@mui/material';
+import SalesBanner from './components/SalesBanner';
+import { ImageList, ImageListItem , Button, Box, Link } from '@mui/material';
 
 function LandingPage() {
     const images = [
@@ -31,10 +32,13 @@ function LandingPage() {
             title: 'Convertible'    
         }
     ];
+    
+    const salesBannerMessage = 'Welcome to Cool Cars!';
 
     return (
         <div>
             <Navbar />
+            <SalesBanner message={salesBannerMessage} />
             <Box  sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', mb: 4 }}>
                 <Carousel images={images} />
                 <Box>
@@ -50,6 +54,7 @@ function LandingPage() {
                     <ImageList sx={{ width: '100%', height: 450 }} cols={3} rowHeight={200}>
                         {vehicleTypes.map((item) => (
                             <ImageListItem key={item.img}>
+                                {/* TODO: make images clickable and link to search for that vehicle type */}
                                 <img
                                     srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                                     src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
