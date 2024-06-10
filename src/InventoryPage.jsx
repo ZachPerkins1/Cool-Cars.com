@@ -1,19 +1,25 @@
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Navbar from './components/NavBar';
 import { Grid, TextField, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import CarCard from './components/CarCard.jsx';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+
+const getCars = async () => {
+    const { data } = await axios.get('http://localhost:3000/cars');
+    return data;
+}
 
 function InventoryPage() {
+    const [cars, setCars] = useState([]);
+    const carCards = cars.map((car) =>
+        <Grid item key={car.id}>
+            <CarCard ></CarCard>
+        </Grid>
+    );
+    useEffect(() => {
+        const result = getCars().then((data) => setCars(data))
+
+    }, [])
 
     return (
         <>
@@ -32,28 +38,11 @@ function InventoryPage() {
                         <FormControlLabel control={<Checkbox />} label="Convertible" />
                     </FormGroup>
                 </Grid>
-                <Grid lg={8} sx={{ mt: 4 }}>
+                <Grid item lg={8} sx={{ mt: 4, ml: -8 }}>
                     <h2>Search for a car:</h2>
-                    <TextField id="outlined-basic" label="Search for a Car" variant="outlined" />
-                    <Grid container sx={{mt: 3}} spacing={4}>
-                        <Grid item >
-                            <CarCard></CarCard>
-                        </Grid>
-                        <Grid item >
-                            <CarCard></CarCard>
-                        </Grid>
-                        <Grid item >
-                            <CarCard></CarCard>
-                        </Grid>
-                        <Grid item >
-                            <CarCard></CarCard>
-                        </Grid>
-                        <Grid item >
-                            <CarCard></CarCard>
-                        </Grid>
-                        <Grid item >
-                            <CarCard></CarCard>
-                        </Grid>
+                    <TextField id="outlined-basic" label="Search for a Car" variant="outlined" sx={{ width: '90%' }} />
+                    <Grid container sx={{ mt: 3 }} spacing={4}>
+                        {carCards}
                     </Grid>
                 </Grid>
             </Grid>
