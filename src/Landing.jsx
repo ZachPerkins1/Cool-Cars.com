@@ -14,7 +14,7 @@ import sedan from './assets/sedan.png';
 import suv from './assets/suv.png';
 import pickupTruck from './assets/pickup_truck.png';
 import van from './assets/van.png';
-import convertible from './assets/convertible_yellow.png';
+import convertible from './assets/convertible.png';
 import miata from './assets/2018_mazda_mx_5_miata_sideview-removebg-preview.png';
 
 function LandingPage() {
