@@ -163,13 +163,11 @@ const AboutUs = () => {
                             <Grid item xs={12} sm={6} md={4} key={review.id}>
                                 <Card className="reviewCard">
                                     <CardContent>
-                                        <Avatar className="reviewAvatar" src={review.avatar} alt={review.name} />
+                                        <Avatar className="reviewAvatar" src={`http://localhost:3000${review.avatar}`} alt={review.name} />
                                         <Typography variant="h5" gutterBottom>
                                             {review.name}
                                         </Typography>
-                                        <Typography variant="body2" color="textSecondary">
-                                            {review.rating} stars
-                                        </Typography>
+                                        <Rating value={review.rating} readOnly />
                                         <Typography variant="body1">
                                             {review.review}
                                         </Typography>
