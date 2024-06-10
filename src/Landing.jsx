@@ -5,36 +5,44 @@ import './Landing.css';
 import { ImageList, ImageListItem , Button, Box, Link, Typography } from '@mui/material';
 import Footer from './components/Footer';
 
+import img1 from './assets/pexels-robert-hess-216886-4824774.jpg';
+import img2 from './assets/pexels-tnarg-8717323.jpg';
+import img3 from './assets/pexels-wearelivingart-7862143.jpg';
+import bogoSale from './assets/bogo_sale.png';
+import carDealership from './assets/pexels-shkrabaanthony-7144174.jpg';
+import sedan from './assets/sedan.png';
+import suv from './assets/suv.png';
+import pickupTruck from './assets/pickup_truck.png';
+import van from './assets/van.png';
+import convertible from './assets/convertible_yellow.png';
+import miata from './assets/2018_mazda_mx_5_miata_sideview-removebg-preview.png';
+
 function LandingPage() {
-    const images = [
-        'images/pexels-robert-hess-216886-4824774.jpg',
-        'images/pexels-tnarg-8717323.jpg',
-        'images/pexels-wearelivingart-7862143.jpg'
-    ];
+    const images = [img1, img2, img3];
 
     const vehicleTypes = [
         {
-            img: 'images/sedan.png',
+            img: sedan,
             title: 'Sedan'
         },
         {
-            img: 'images/suv.png',
+            img: suv,
             title: 'SUV'
         },
         {
-            img: 'images/pickup_truck.png',
+            img: pickupTruck,
             title: 'Pickup Truck'
         },
         {
-            img: 'images/van.png',
+            img: van,
             title: 'Van'
         },
         {
-            img: 'images/convertible_yellow.png',
+            img: convertible,
             title: 'Convertible'    
         },
         {
-            img: 'images/2018_mazda_mx_5_miata_sideview-removebg-preview.png',
+            img: miata,
             title: 'Miata'
         }
     ];
@@ -53,12 +61,12 @@ function LandingPage() {
                     <Carousel images={images} />
                 </Box>
                 <Box sx={{ ml: 4, mt: 4 }}>
-                    <img src='images/bogo_sale.png' alt='bogo sale' />
+                    <img src={bogoSale} alt='bogo sale' />
                 </Box>
             </Box>
             <Box sx={{ display: 'flex'}}>
                 <Box sx={{ width: '40%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src='images/pexels-shkrabaanthony-7144174.jpg' alt='Car dealership' style={{ width: '80%', height: '80%', objectFit: 'cover' }} />
+                    <img src={carDealership} alt='Car dealership' style={{ width: '80%', height: '80%', objectFit: 'cover' }} />
                 </Box>
                 <Box sx={{ width: '60%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mr: 8 }}>
                     <Button variant="contained" sx={{ width: '50%' }}>Click here to view all inventory</Button>
