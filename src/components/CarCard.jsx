@@ -31,7 +31,7 @@ function CarCard({car}) {
                 alt="Paella dish"
             />
             <CardContent>
-                <Typography style={{display:'inline', paddingRight:'50px'}}>{car.name}</Typography>
+                <Typography style={{display:'inline'}}>{car.name}</Typography>
                 <Dot color={colorMap[car.color_id]} />
                 <Typography>${car.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                 <Typography>Miles: {car.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>

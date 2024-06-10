@@ -6,7 +6,8 @@ function Dot({ color }) {
             backgroundColor: color, 
             height: '20px', 
             width: '20px', 
-            border: '1px solid black'
+            border: '2px solid black',
+            marginLeft: '50px'
         }}></div>
     )
 }
