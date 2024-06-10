@@ -25,6 +25,11 @@ app.get('/cars', async (req, res) => {
     res.json(result.rows)
 });
 
+app.get('/colors', async (req, res) => {
+    const result = await pool.query('SELECT * FROM colors');
+    res.json(result.rows)
+});
+
 //Route to get all reviews
 app.get('/reviews', async (req, res) => {
     const result = await pool.query('SELECT * FROM reviews');

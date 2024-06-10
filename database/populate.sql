@@ -119,7 +119,7 @@ INSERT INTO Cars (id, name, make_id, model_id, color_id, body_id, mileage, fuel_
 (10, 'Hyundai Elantra 2018', 10, 10, 10, 4, 27000, 1, 9, '2024-10-20', 15000, TRUE, NULL, 10),
 (11, 'Kia Sorento 2017', 11, 11, 11, 5, 35000, 1, 10, '2024-11-25', 25000, TRUE, NULL, 11),
 (12, 'Subaru Outback 2020', 12, 12, 12, 6, 20000, 1, 11, '2024-12-30', 28000, TRUE, NULL, 12),
-(13, 'Mazda Mazda3 2019', 13, 13, 13, 3, 23000, 1, 12, '2024-01-05', 19000, TRUE, NULL, 13);
+(13, 'Mazda Mazda3 2019', 13, 13, 5, 3, 23000, 1, 12, '2024-01-05', 19000, TRUE, NULL, 13);
 
 -- Insert dummy data into the Users table
 INSERT INTO Users (id, first_name, last_name, role) VALUES

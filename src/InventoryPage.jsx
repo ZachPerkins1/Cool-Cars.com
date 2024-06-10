@@ -13,9 +13,10 @@ function InventoryPage() {
     const [cars, setCars] = useState([]);
     const carCards = cars.map((car) =>
         <Grid item key={car.id}>
-            <CarCard ></CarCard>
+            <CarCard car={car}></CarCard>
         </Grid>
     );
+    console.log(cars)
     useEffect(() => {
         const result = getCars().then((data) => setCars(data))
 
