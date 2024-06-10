@@ -32,6 +32,10 @@ function LandingPage() {
         {
             img: 'images/convertible_yellow.png',
             title: 'Convertible'    
+        },
+        {
+            img: 'images/2018_mazda_mx_5_miata_sideview-removebg-preview.png',
+            title: 'Miata'
         }
     ];
     
@@ -42,13 +46,13 @@ function LandingPage() {
             <Navbar />
             <SalesBanner message={salesBannerMessage} />
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 8, mt: 4}}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Box sx={{ mt: 6 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Box sx={{ mt: 6, ml: 6, mb: 6 }}>
                         <Typography variant="h5">Showcasing the coolest cars</Typography>
                     </Box>
                     <Carousel images={images} />
                 </Box>
-                <Box sx={{ ml: 4 }}>
+                <Box sx={{ ml: 4, mt: 4 }}>
                     <img src='images/bogo_sale.png' alt='bogo sale' />
                 </Box>
             </Box>

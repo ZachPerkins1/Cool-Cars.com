@@ -1,9 +1,9 @@
 import React from 'react';
 import Slider from 'react-slick';
-import './Carousel.css';
 import { Box, Container } from '@mui/material';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
+import './Carousel.css';
 
 const Carousel = ({images}) => {
   const settings = {
@@ -12,17 +12,19 @@ const Carousel = ({images}) => {
     autoplay: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
+    slidesToShow: 1,
     slidesToScroll: 1
   };
 
   return (
-    <Container className="carouselContainer" maxWidth='md'>
+    <Container className="carouselContainerLanding" maxWidth='md'>
       <Slider {...settings}>
         {images.map((image, index) => (
-          <Box key={index} className="carouselImageBox" >
-            <img src={image} alt={`Carousel ${index + 1}`} className="carouselImage" />
-          </Box>
+          <div key={index} className="carouselImageContainerLanding">
+            <Box className="carouselImageBoxLanding">
+              <img src={image} alt={`Carousel ${index + 1}`} className="carouselImageLanding" />
+            </Box>
+          </div>
         ))}
       </Slider>
     </Container>
