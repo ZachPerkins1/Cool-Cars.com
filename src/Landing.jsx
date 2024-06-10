@@ -3,6 +3,7 @@ import Carousel from './components/Carousel';
 import SalesBanner from './components/SalesBanner';
 import './Landing.css';
 import { ImageList, ImageListItem , Button, Box, Link, Typography } from '@mui/material';
+import Footer from './components/Footer';
 
 function LandingPage() {
     const images = [
@@ -83,6 +84,7 @@ function LandingPage() {
                     </ImageList>
                 </Box>
             </Box>
+            <Footer />
         </div>
     );
 }
