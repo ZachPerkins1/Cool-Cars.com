@@ -10,6 +10,7 @@ import InventoryPage from './InventoryPage.jsx';
 import AboutUs from './AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
 import './index.css'
+import LeaveReview from './LeaveReview.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,12 @@ const router = createBrowserRouter([
   {
     path: "wishlist",
     element: <Wishlist />,
+    errorElement: <ErrorPage />,
+  },
+
+  {
+    path: "leaveReview",
+    element: <LeaveReview />,
     errorElement: <ErrorPage />,
   }
 

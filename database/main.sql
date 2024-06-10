@@ -61,6 +61,17 @@ CREATE TABLE Models(
     "name" TEXT NOT NULL
 );
 
+CREATE TABLE Reviews(
+    "id" SERIAL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "review" TEXT NOT NULL,
+    "rating" SMALLINT NOT NULL,
+    "avatar" TEXT NULL
+);
+
+ALTER TABLE Cars
+ADD COLUMN review_id INTEGER;
+
 ALTER TABLE Cars ADD CONSTRAINT cars_color_id_foreign FOREIGN KEY(color_id) REFERENCES Colors(id);
 ALTER TABLE Cars ADD CONSTRAINT cars_make_id_foreign FOREIGN KEY(make_id) REFERENCES Makes(id);
 ALTER TABLE Cars ADD CONSTRAINT cars_body_id_foreign FOREIGN KEY(body_id) REFERENCES Bodies(id);
@@ -68,3 +79,4 @@ ALTER TABLE Cars ADD CONSTRAINT cars_promo_id_foreign FOREIGN KEY(promo_id) REFE
 ALTER TABLE Cars ADD CONSTRAINT cars_fuel_id_foreign FOREIGN KEY(fuel_id) REFERENCES FuelType(id);
 ALTER TABLE Cars ADD CONSTRAINT cars_model_id_foreign FOREIGN KEY(model_id) REFERENCES Models(id);
 ALTER TABLE Cars ADD CONSTRAINT cars_image_id_foreign FOREIGN KEY(image_id) REFERENCES Images(id);
+ALTER TABLE Cars ADD CONSTRAINT cars_review_id_foreign FOREIGN KEY(review_id) REFERENCES Reviews(id);
