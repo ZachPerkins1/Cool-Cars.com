@@ -9,8 +9,8 @@ function SalesBanner({message}) {
         <Box sx={{ mr: 4 }}>
           <p>SUMMER SALE ON NOW</p>
         </Box>
-        <Box sx={{ width: '60%', overflow: 'hidden' }}> {/* Add a container for the ticker text */}
-          <p className="ticker">{message}</p> {/* Add the ticker class to the p element */}
+        <Box sx={{ width: '60%', overflow: 'hidden' }}>
+          <p className="ticker">{message}</p>
         </Box>
       </Box>
     </>

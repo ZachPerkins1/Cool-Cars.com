@@ -24,6 +24,7 @@
 
 .carouselImageLanding {
     max-height: 400px;
+    max-width: 550px;
     object-fit: cover;
     border-radius: 0px;
 }

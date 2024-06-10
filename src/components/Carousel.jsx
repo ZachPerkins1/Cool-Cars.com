@@ -17,7 +17,7 @@ const Carousel = ({images}) => {
   };
 
   return (
-    <Container className="carouselContainerLanding" maxWidth='md'>
+    <Container className="carouselContainerLanding" maxWidth='sm'>
       <Slider {...settings}>
         {images.map((image, index) => (
           <div key={index} className="carouselImageContainerLanding">
