@@ -1,0 +1,11 @@
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  
+  .ticker {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 50%;
+    animation: ticker 20s linear infinite;
+  }
