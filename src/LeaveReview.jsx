@@ -1,15 +1,37 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Rating, Box } from '@mui/material';
+import axios from 'axios';
 
 const LeaveReview = () => {
     const [name, setName] = useState('');
     const [review, setReview] = useState('');
     const [rating, setRating] = useState(0);
+    const [avatar, setAvatar] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle the form submission logic (e.g., send data to the server)
-        console.log({ name, review, rating });
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('review', review);
+        formData.append('rating', rating);
+        formData.append('avatar', avatar);
+
+        try {
+            await axios.post('/reviews', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            alert('Review submitted successfully!');
+            setName('');
+            setReview('');
+            setRating(0);
+            setAvatar(null);
+        } catch (error) {
+            console.error('Error submitting review:', error);
+            alert('Failed to submit review.');
+        }
     };
 
     return (
@@ -45,6 +67,13 @@ const LeaveReview = () => {
                         value={rating}
                         onChange={(event, newValue) => setRating(newValue)}
                         required
+                    />
+                </Box>
+                <Box mb={3}>
+                    <input
+                        accept="image/*"
+                        type="file"
+                        onChange={(e) => setAvatar(e.target.files[0])}
                     />
                 </Box>
                 <Button type="submit" variant="contained" color="primary" fullWidth>

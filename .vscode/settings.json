@@ -5,15 +5,6 @@
             "server": "localhost",
             "port": 5432,
             "driver": "PostgreSQL",
-            "name": "sakila",
-            "database": "sakila",
-            "username": "postgres"
-        },
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
             "name": "coolcars",
             "database": "coolcars",
             "username": "postgres"
