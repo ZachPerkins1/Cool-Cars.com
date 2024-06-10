@@ -69,6 +69,12 @@ CREATE TABLE Reviews(
     "avatar" TEXT NULL
 );
 
+CREATE TABLE UserFavorites(
+    "id" SERIAL PRIMARY KEY,
+    "user_id" INTEGER NOT NULL,
+    "car_id" INTEGER NOT NULL
+);
+
 ALTER TABLE Cars
 ADD COLUMN review_id INTEGER;
 
@@ -80,3 +86,6 @@ ALTER TABLE Cars ADD CONSTRAINT cars_fuel_id_foreign FOREIGN KEY(fuel_id) REFERE
 ALTER TABLE Cars ADD CONSTRAINT cars_model_id_foreign FOREIGN KEY(model_id) REFERENCES Models(id);
 ALTER TABLE Cars ADD CONSTRAINT cars_image_id_foreign FOREIGN KEY(image_id) REFERENCES Images(id);
 ALTER TABLE Cars ADD CONSTRAINT cars_review_id_foreign FOREIGN KEY(review_id) REFERENCES Reviews(id);
+
+ALTER TABLE UserFavorites ADD CONSTRAINT user_favorites_user_id_foreign FOREIGN KEY(user_id) REFERENCES Users(id);
+ALTER TABLE UserFavorites ADD CONSTRAINT user_favorites_car_id_foreign FOREIGN KEY(car_id) REFERENCES Cars(id);
