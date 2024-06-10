@@ -28,7 +28,6 @@ const router = createBrowserRouter([
     element: <AboutUs />,
     errorElement: <ErrorPage />,
   },
-
   {
     path: "wishlist",
     element: <Wishlist />,
@@ -40,7 +39,6 @@ const router = createBrowserRouter([
     element: <LeaveReview />,
     errorElement: <ErrorPage />,
   }
-
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
