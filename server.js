@@ -72,9 +72,23 @@ app.post('/reviews', upload.single('avatar'), async (req, res) => {
     }
 });
 
+// Get user favorite by user id and car id
+app.get('/favorite', async (req, res) => {
+    const { userId, carId } = req.query;
+    console.log('userId:', userId, 'carId:', carId);
+    try {
+        const result = await pool.query('SELECT * FROM userfavorites WHERE user_id = $1 AND car_id = $2', [userId, carId]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error getting favorite:', error);
+        res.status(500).send('Server error');
+    }
+});
+
 // GET User Favorites
 app.get('/favorites', async (req, res) => {
     const userId = req.query.userId;
+    console.log('query:', req.query, 'userId:', userId);
     try {
         const result = await pool.query('SELECT * FROM cars JOIN userfavorites ON cars.id = userfavorites.car_id WHERE user_id = $1', [userId]); 
         res.json(result.rows);
@@ -82,6 +96,7 @@ app.get('/favorites', async (req, res) => {
         console.error('Error getting favorites:', error);
         res.status(500).send('Server error');}
 });
+
 
 // POST User Favorited Car
 app.post('/favorites', async (req, res) => {

@@ -11,6 +11,7 @@ import AboutUs from './AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
 import './index.css'
 import LeaveReview from './LeaveReview.jsx';
+import { FavoritesProvider } from './contexts/FavoritesContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <FavoritesProvider>
+      <RouterProvider router={router} />
+    </FavoritesProvider>
   </React.StrictMode>,
 )
