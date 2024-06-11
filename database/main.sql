@@ -66,7 +66,8 @@ CREATE TABLE Reviews(
     "name" TEXT NOT NULL,
     "review" TEXT NOT NULL,
     "rating" SMALLINT NOT NULL,
-    "avatar" TEXT NULL
+    "avatar" TEXT NULL,
+    "date" DATE NOT NULL DEFAULT (CURRENT_DATE)
 );
 
 ALTER TABLE Cars
