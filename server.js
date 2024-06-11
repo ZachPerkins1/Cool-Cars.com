@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
+
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -65,6 +68,22 @@ app.post('/reviews', upload.single('avatar'), async (req, res) => {
         res.status(201).send('Review added successfully');
     } catch (error) {
         console.error('Error adding review:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+// POST User Favorited Car
+app.post('/favorite', async (req, res) => {
+    console.log('req.body:', req.body);
+    const { userId, carId } = req.body;
+    try {
+        await pool.query(
+            'INSERT INTO userfavorites (user_id, car_id) VALUES ($1, $2)',
+            [userId, carId]
+        );
+        res.status(201).send('Favorite added successfully');
+    } catch (error) {
+        console.error('Error adding favorite:', error);
         res.status(500).send('Server error');
     }
 });
