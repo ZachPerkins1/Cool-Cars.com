@@ -3,13 +3,9 @@ CREATE TABLE Reviews(
     "name" TEXT NOT NULL,
     "review" TEXT NOT NULL,
     "rating" SMALLINT NOT NULL,
-    "avatar" TEXT NULL
+    "avatar" TEXT NULL,
+    "date" DATE NOT NULL
 );
-
-ALTER TABLE Cars
-ADD COLUMN review_id INTEGER;
-
-ALTER TABLE Cars ADD CONSTRAINT cars_review_id_foreign FOREIGN KEY(review_id) REFERENCES Reviews(id);
 
 INSERT INTO Reviews (name, review, rating, avatar) VALUES
 ('Brad Pitt', 'Excellent service and a great selection of cars. Highly recommend!', 5, './images/brad.jpeg'),
