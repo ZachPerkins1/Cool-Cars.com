@@ -38,7 +38,12 @@ app.get('/', (req, res) => {
 //ROUTE TO GET ALL CARS
 app.get('/cars', async (req, res) => {
     const result = await pool.query(`
-    SELECT * FROM Cars 
+    SELECT 
+	Cars.id, name, mileage, arrival_date, 
+	price, availability, date_sold, 
+	image_id, review_id, color, make, 
+	model, body_style, fuel_type
+	FROM Cars 
 	JOIN Colors ON Cars.color_id=Colors.id
 	JOIN Makes ON Cars.make_id=Makes.id
 	JOIN Models ON Cars.model_id=Models.id
@@ -84,6 +89,12 @@ app.post('/reviews', upload.single('avatar'), async (req, res) => {
         console.error('Error adding review:', error);
         res.status(500).send('Server error');
     }
+});
+
+app.patch('/availability/:id', async (req, res) => {
+    let id = (req.params.id)
+    const result = await pool.query(`UPDATE Cars SET Availability = NOT Availability WHERE id = ${id}`);
+    res.json(result)
 });
 
 app.listen(PORT, () => {

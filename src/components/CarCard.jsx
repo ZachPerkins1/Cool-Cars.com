@@ -1,7 +1,6 @@
 import {Card, CardMedia, Typography, CardContent} from '@mui/material';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Dot from './Dot';
 
 const getColors = async () => {
     const { data } = await axios.get('http://localhost:3000/colors');
@@ -32,7 +31,6 @@ function CarCard({car}) {
             />
             <CardContent>
                 <Typography style={{display:'inline'}}>{car.name}</Typography>
-                <Dot color={colorMap[car.color_id]} />
                 <Typography>${car.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                 <Typography>Miles: {car.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                 <Typography variant="body2" color="text.secondary">

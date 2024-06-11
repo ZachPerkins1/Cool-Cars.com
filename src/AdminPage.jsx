@@ -12,8 +12,7 @@ import Paper from '@mui/material/Paper';
 
 function AdminPage() {
     const [cars, setCars] = useState([]);
-    const [models, setModels] = useState({});
-    const [colors, setColors] = useState({});
+
     const headers = ['Make', 'Model', 'Year', 'Mileage', 'Price', 'Color', 'Fuel', 'Available'];
 
     const headerTitles = headers.map((header) =>
@@ -22,12 +21,21 @@ function AdminPage() {
         </TableCell>
     );
 
-    const unpackData = (dataArr) => {
-        let dataObj = {};
-        for (let property in dataArr) {
-            dataObj[Number(property) + 1] = dataArr[property].name
+    const changeAvailability = async (id) => {
+        const result = await axios.patch(`http://localhost:3000/availability/${id}`)
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+        return result
+    }
+
+    const handleAvailableClick = (e) => {
+        console.log(e.target)
+        if (e.target.innerHTML === 'Available') {
+            e.target.innerHTML = 'Unavailable'
+        } else {
+            e.target.innerHTML = 'Available'           
         }
-        return dataObj;
+        changeAvailability(e.target.id)
     }
 
     const getCars = async () => {
@@ -38,7 +46,6 @@ function AdminPage() {
       useEffect(() => {
         getCars().then((data) => {
             setCars(data)
-            console.log(cars)
         })
     }, [])
 
@@ -55,7 +62,7 @@ function AdminPage() {
                 <TableBody>
                     {cars.map((car) => (
                         <TableRow
-                            key={car.id}
+                            key={Math.random()}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
@@ -79,7 +86,7 @@ function AdminPage() {
                             <TableCell component="th" scope="row">
                                 {car.fuel_type}
                             </TableCell>
-                            <TableCell component="th" scope="row">
+                            <TableCell component="th" scope="row" id={car.id} onClick={(e) => handleAvailableClick(e)}>
                                 {car.availability ? 'Available' : 'Not Available'}
                             </TableCell>
                         </TableRow>
