@@ -1,4 +1,4 @@
-INSERT INTO Makes (id, name) VALUES
+INSERT INTO Makes (id, make) VALUES
 (1, 'Toyota'),
 (2, 'Honda'),
 (3, 'Ford'),
@@ -14,7 +14,7 @@ INSERT INTO Makes (id, name) VALUES
 (13, 'Mazda');
 
 -- Insert dummy data into the Models table
-INSERT INTO Models (id, name) VALUES
+INSERT INTO Models (id, model) VALUES
 (1, 'Corolla'),
 (2, 'Civic'),
 (3, 'Mustang'),
@@ -30,7 +30,7 @@ INSERT INTO Models (id, name) VALUES
 (13, 'Mazda3');
 
 -- Insert dummy data into the Colors table
-INSERT INTO Colors (id, name) VALUES
+INSERT INTO Colors (id, color) VALUES
 (1, 'Red'),
 (2, 'Blue'),
 (3, 'Green'),
@@ -45,7 +45,7 @@ INSERT INTO Colors (id, name) VALUES
 (12, 'Pink');
 
 -- Insert dummy data into the Bodies table
-INSERT INTO Bodies (id, name) VALUES
+INSERT INTO Bodies (id, body_style) VALUES
 (1, 'Sedan'),
 (2, 'SUV'),
 (3, 'Coupe'),
@@ -60,7 +60,7 @@ INSERT INTO Bodies (id, name) VALUES
 (12, 'Luxury Sedan');
 
 -- Insert dummy data into the FuelType table
-INSERT INTO FuelType (id, name) VALUES
+INSERT INTO FuelType (id, fuel_type) VALUES
 (1, 'Petrol'),
 (2, 'Diesel'),
 (3, 'Electric'),
