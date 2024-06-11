@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NavBar from './components/NavBar.jsx';
@@ -8,7 +7,7 @@ import axios from 'axios';
 
 function Wishlist() {
     const [cars, setCars] = useState([]);
-    const [userId, setUserId] = useState(1);
+    const [userId, setUserId] = useState(1); // TODO: Update this to use the logged in user's ID
 
     useEffect(() => {
         axios.get(`http://localhost:3000/favorites?userId=${userId}`)
@@ -21,6 +20,16 @@ function Wishlist() {
             });
     }, []);
 
+    const handleDelete = (carId) => {
+        axios.delete(`http://localhost:3000/favorites`, { data: { userId, carId } })
+            .then((response) => {
+                console.log("delete response: ", response.data);
+                setCars(cars.filter(car => car.id !== carId))
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
 
     return (
         <>
@@ -32,16 +41,13 @@ function Wishlist() {
                     {cars.map(car => (
                         <Stack key={car.id}>
                             <CarCard car={car} />
-                            <Button variant='outlined' startIcon={<DeleteIcon />}>Delete</Button>
+                            <Button variant='outlined' startIcon={<DeleteIcon />} onClick={() => handleDelete(car.id)}>Delete</Button>
                         </Stack>
                     ))}
                 </Box>
-                <Link to={`/`}>
-                    <button variant="contained" style={{ marginTop: 100 }}>Link to Home.</button>
-                </Link>
             </Box>
         </>
-    )
-}
+    );
+};
 
-export default Wishlist
+export default Wishlist;

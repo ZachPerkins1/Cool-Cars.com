@@ -99,6 +99,22 @@ app.post('/favorites', async (req, res) => {
     }
 });
 
+// DELETE User Favorited Car
+app.delete('/favorites', async (req, res) => {
+    const { userId, carId } = req.body;
+    console.log('userId:', userId, 'carId:', carId);
+    try {
+        await pool.query(
+            'DELETE FROM userfavorites WHERE user_id = $1 AND car_id = $2',
+            [userId, carId]
+        );
+        res.status(200).send('Favorite deleted successfully');
+    } catch (error) {
+        console.error('Error deleting favorite:', error);
+        res.status(500).send('Server error');
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
