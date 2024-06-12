@@ -1,3 +1,4 @@
+import React from 'react';
 import {Box, Card, CardMedia, Typography, CardContent, IconButton} from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -45,7 +46,7 @@ function CarCard({car, showFavoriteIcon = true}) {
             } else {
                 const alreadyFavorite = favorites.some(favorite => favorite.car_id === carId);
                 if (!alreadyFavorite) {
-                    const { data } = await axios.post('http://localhost:3000/favorites', { userId, carId });
+                    await axios.post('http://localhost:3000/favorites', { userId, carId });
                     setFavorites([...favorites, car]);
                     setIsFavorite(true);
                 }
@@ -67,7 +68,7 @@ function CarCard({car, showFavoriteIcon = true}) {
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                     <Typography style={{display:'inline'}}>{car.name}</Typography>
                     <Dot color={colorMap[car.color_id]} />
-                    <IconButton aria-label="add to cart" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none'}}>
+                    <IconButton aria-label="add to favorites" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none'}}>
                         {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                 </Box>

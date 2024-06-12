@@ -115,6 +115,7 @@ app.post('/login', async (req, res) => {
         console.error('Error during login:', error);
         res.status(500).send('Server error');
     }
+    };
 });
 
 // Get user favorite by user id and car id
