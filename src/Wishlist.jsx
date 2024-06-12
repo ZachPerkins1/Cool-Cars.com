@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NavBar from './components/NavBar.jsx';
 import CarCard from './components/CarCard.jsx';
+import Footer from './components/Footer.jsx';
 import axios from 'axios';
 import { FavoritesContext } from './contexts/FavoritesContext.jsx';
 
@@ -35,18 +36,21 @@ function Wishlist() {
     return (
         <>
             <NavBar />
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mt: 2, ml: 16, mr: 16 }}>
-                <Typography variant="h4" component="div">Wishlist</Typography>
-                <Typography variant="body1" component="div">You have {favorites.length} saved items.</Typography>
-                <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', mt: 2 }}>
-                    {favorites.map(car => (
-                        <Stack key={car.id}>
-                            <CarCard car={car} showFavoriteIcon={false}/>
-                            <Button variant='outlined' startIcon={<DeleteIcon />} onClick={() => handleDelete(car.car_id)}>Delete</Button>
-                        </Stack>
-                    ))}
+            <Container maxWidth='lg'>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mt: 4, mb: 4}}>
+                    <Typography variant="h4" component="div">Wishlist</Typography>
+                    <Typography variant="body1" component="div">You have {favorites.length} saved items.</Typography>
+                    <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', mt: 2 }}>
+                        {favorites.map(car => (
+                            <Stack key={car.id}>
+                                <CarCard car={car} showFavoriteIcon={false}/>
+                                <Button variant='outlined' startIcon={<DeleteIcon />} onClick={() => handleDelete(car.car_id)}>Delete</Button>
+                            </Stack>
+                        ))}
+                    </Box>
                 </Box>
-            </Box>
+            </Container>
+            <Footer />
         </>
     );
 };
