@@ -45,7 +45,7 @@ function CarCard({car, showFavoriteIcon = true}) {
             } else {
                 const alreadyFavorite = favorites.some(favorite => favorite.car_id === carId);
                 if (!alreadyFavorite) {
-                    const { data } = await axios.post('http://localhost:3000/favorites', { userId, carId });
+                    await axios.post('http://localhost:3000/favorites', { userId, carId });
                     setFavorites([...favorites, car]);
                     setIsFavorite(true);
                 }
