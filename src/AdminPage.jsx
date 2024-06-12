@@ -21,6 +21,23 @@ const getCars = async () => {
   return data;
 }
 
+const changeAvailability = async (id) => {
+  const result = await axios.patch(`http://localhost:3000/availability/${id}`)
+  .then(response => console.log(response.data))
+  .catch(error => console.error(error));
+  return result
+}
+
+const handleAvailableClick = (e) => {
+  console.log(e.target)
+  if (e.target.innerHTML === 'Available') {
+      e.target.innerHTML = 'Unavailable'
+  } else {
+      e.target.innerHTML = 'Available'           
+  }
+  changeAvailability(e.target.id)
+}
+
 const rows = await getCars();
 
 function descendingComparator(a, b, orderBy) {
@@ -269,7 +286,7 @@ export default function AdminPage() {
                       <TableCell>${row.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
                       <TableCell>{row.color}</TableCell>
                       <TableCell>{row.fuel_type}</TableCell>
-                      <TableCell>{row.availability ? 'Available' : 'Not Available'}</TableCell>
+                      <TableCell id={row.id} onClick={handleAvailableClick}>{row.availability ? 'Available' : 'Not Available'}</TableCell>
                     </TableRow>
                   );
                 })}
