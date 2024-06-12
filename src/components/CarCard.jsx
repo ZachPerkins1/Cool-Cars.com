@@ -37,7 +37,6 @@ function CarCard({car, showFavoriteIcon = true}) {
     }, [])
     
     const handleFavoriteClick = async () => {
-        
         try {
             if (isFavorite) {
                 await axios.delete('http://localhost:3000/favorites', { data: { userId, carId } });
