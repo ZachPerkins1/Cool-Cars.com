@@ -21,6 +21,7 @@ CREATE TABLE FuelType(
 CREATE TABLE Cars(
     "id" SERIAL PRIMARY KEY,
     "name" TEXT NOT NULL,
+    "year" INT NOT NULL,
     "make_id" BIGINT NOT NULL,
     "model_id" BIGINT NOT NULL,
     "color_id" BIGINT NOT NULL,

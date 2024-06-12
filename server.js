@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 app.get('/cars', async (req, res) => {
     const result = await pool.query(`
     SELECT 
-	Cars.id, name, mileage, arrival_date, 
+	Cars.id, name, mileage, arrival_date, year,
 	price, availability, date_sold, 
 	image_id, review_id, color, make, 
 	model, body_style, fuel_type

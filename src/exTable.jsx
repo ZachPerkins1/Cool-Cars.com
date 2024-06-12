@@ -22,9 +22,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import axios from 'axios';
+import NavBar from './components/NavBar.jsx';
+import { useState, useEffect } from 'react'; 
 
 const getCars = async () => {
   const { data } = await axios.get('http://localhost:3000/cars');
+  console.log(data)
   return data;
 }
 
@@ -60,49 +63,49 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'Make',
+    id: 'make',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Make',
   },
   {
-    id: 'Model',
+    id: 'model',
     numeric: false,
     disablePadding: false,
     label: 'Model',
   },
   {
-    id: 'Year',
+    id: 'year',
     numeric: true,
     disablePadding: false,
     label: 'Year',
   },
   {
-    id: 'Mileage',
+    id: 'mileage',
     numeric: true,
     disablePadding: false,
     label: 'Mileage',
   },
   {
-    id: 'Price',
+    id: 'price',
     numeric: true,
     disablePadding: false,
     label: 'Price',
   },
   {
-    id: 'Color',
+    id: 'color',
     numeric: false,
     disablePadding: false,
     label: 'Color',
   },
   {
-    id: 'Fuel',
+    id: 'fuel_type',
     numeric: false,
     disablePadding: false,
     label: 'Fuel',
   },
   {
-    id: 'Available',
+    id: 'availability',
     numeric: false,
     disablePadding: false,
     label: 'Available',
@@ -119,21 +122,10 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align="left"
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -165,64 +157,9 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Nutrition
-        </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-}
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('Price');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -277,7 +214,6 @@ export default function EnhancedTable() {
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -291,9 +227,10 @@ export default function EnhancedTable() {
   );
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+    <>
+    <NavBar />
+    <Box sx={{ width: '100%', alignItems:'center', justifyContent:'center' }}>
+      <Paper sx={{ width: '80%', mb: 2, mt: 5 }}>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -324,31 +261,14 @@ export default function EnhancedTable() {
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer' }}
                   >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          'aria-labelledby': labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.make}</TableCell>
-                    <TableCell align="right">{row.model}</TableCell>
-                    <TableCell align="right">{row.year}</TableCell>
-                    <TableCell align="right">{row.mileage}</TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
-                    <TableCell align="right">{row.color}</TableCell>
-                    <TableCell align="right">{row.fuel}</TableCell>
-                    <TableCell align="right">{row.availability ? 'Available' : 'Not Available'}</TableCell>
+                    <TableCell>{row.make}</TableCell>
+                    <TableCell>{row.model}</TableCell>
+                    <TableCell>{row.year}</TableCell>
+                    <TableCell>{row.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                    <TableCell>${row.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
+                    <TableCell>{row.color}</TableCell>
+                    <TableCell>{row.fuel_type}</TableCell>
+                    <TableCell>{row.availability ? 'Available' : 'Not Available'}</TableCell>
                   </TableRow>
                 );
               })}
@@ -379,5 +299,6 @@ export default function EnhancedTable() {
         label="Dense padding"
       />
     </Box>
+    </>
   );
 }
