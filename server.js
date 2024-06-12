@@ -86,6 +86,9 @@ app.post('/register', upload.single('avatar'), async (req, res) => {
         res.status(201).send('User added successfully');
     } catch (error) {
         console.error('Error adding user:', error);
+    };
+});
+
 // Get user favorite by user id and car id
 app.get('/favorite', async (req, res) => {
     const { userId, carId } = req.query;

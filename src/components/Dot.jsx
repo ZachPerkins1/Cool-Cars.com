@@ -1,3 +1,5 @@
+import React from 'react';
+
 function Dot({ color }) {
     return (
         <div style={{
