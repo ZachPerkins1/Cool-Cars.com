@@ -10,7 +10,6 @@ import InventoryPage from './InventoryPage.jsx';
 import AboutUs from './AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
 import AdminPage from './AdminPage.jsx';
-import EnhancedTable from './exTable.jsx';
 import './index.css'
 import LeaveReview from './LeaveReview.jsx';
 
@@ -42,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path: "adminpage",
-    element: <EnhancedTable />,
+    element: <AdminPage />,
     errorElement: <ErrorPage />,
   },
 ]);
