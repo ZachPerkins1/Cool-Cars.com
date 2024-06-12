@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, Paper } from '@mui/material';
 import axios from 'axios';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 
 export default function AddCar () {
     const [username, setUsername] = useState('');
@@ -101,7 +102,12 @@ export default function AddCar () {
                     </Button>
                 </form>
             </Container>
-        
+        <Footer sx={{marginTop: 'calc(10% + 60px)',
+    width: '100%',
+    position: 'fixed',
+    bottom: 0,
+    width: '100%'
+    }} />
         </>
     );
 };

@@ -15,6 +15,7 @@ import { visuallyHidden } from '@mui/utils';
 import axios from 'axios';
 import NavBar from './components/NavBar.jsx';
 import { styled } from '@mui/material/styles';
+import Footer from './components/Footer.jsx';
 
 const getCars = async () => {
   const { data } = await axios.get('http://localhost:3000/cars');
@@ -313,6 +314,7 @@ export default function AdminPage() {
           />
         </Paper>
       </Box>
+      <Footer />
     </>
   );
 }
