@@ -8,11 +8,15 @@ CREATE TABLE Bodies(
     "id" SERIAL PRIMARY KEY,
     "body_style" TEXT NOT NULL
 );
-CREATE TABLE Users(
+CREATE TABLE users (
     "id" SERIAL PRIMARY KEY,
-    "first_name" TEXT NOT NULL,
-    "last_name" TEXT NOT NULL,
-    "role" TEXT NOT NULL
+    "first_name" VARCHAR(255) NOT NULL,
+    "last_name" VARCHAR(255) NOT NULL,
+    "email" VARCHAR(255) UNIQUE NOT NULL,
+    "username" VARCHAR(255) UNIQUE NOT NULL,
+    "password" VARCHAR(255) NOT NULL,
+    "role" VARCHAR(50) NOT NULL CHECK (role IN ('admin', 'user')),  -- Assuming roles are either 'admin' or 'user'
+    "avatar" VARCHAR(255)
 );
 CREATE TABLE FuelType(
     "id" SERIAL PRIMARY KEY,
