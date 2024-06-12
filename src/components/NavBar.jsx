@@ -2,10 +2,25 @@
 import { AppBar, Button, Box, Toolbar, Typography } from '@mui/material/';
 import ToysTwoToneIcon from '@mui/icons-material/ToysTwoTone';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 
 function NavBar() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loggedInUser = sessionStorage.getItem('user');
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    setUser(null);
+  };
+
   return (
     <AppBar position="static" style={{ width: '100vw', margin: 0 }}>
       <Toolbar>
@@ -24,12 +39,25 @@ function NavBar() {
         <Box flexGrow={1}>
           <AboutUsLink />
         </Box>
-        <Box flexGrow={1}>
-          <RegisterLink />
-        </Box>
-        <Box>
-          <AccountCircleSharpIcon fontSize='large' />
-        </Box>
+        {user ? (
+          <>
+            <Typography variant="h6" color="white">
+              {`Welcome, ${user.firstName}`}
+            </Typography>
+            <Box ml={2}>
+              <Button variant="contained" onClick={handleLogout}>Logout</Button>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Box flexGrow={1}>
+              <RegisterLink />
+            </Box>
+            <Box>
+              <LoginLink />
+            </Box>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
@@ -73,6 +101,14 @@ function RegisterLink() {
   return (
     <Link to={`/register`}>
       <Button variant="contained">Register</Button>
+    </Link>
+  );
+}
+
+function LoginLink() {
+  return (
+    <Link to={`/login`}>
+      <AccountCircleSharpIcon fontSize='large' />
     </Link>
   );
 }

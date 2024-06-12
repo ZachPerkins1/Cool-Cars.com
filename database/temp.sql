@@ -1,1 +1,1 @@
-SELECT nextval('Users_Id_seq');
+SELECT * FROM users;
