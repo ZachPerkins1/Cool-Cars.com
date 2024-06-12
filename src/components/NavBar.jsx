@@ -26,9 +26,9 @@ function NavBar() {
   return (
     <AppBar position="static" style={{ width: '100vw', margin: 0 }}>
       <Toolbar>
-        <Box mr={2}>
+        {/* <Box mr={2}>
           <ToysTwoToneIcon fontSize='large' />
-        </Box>
+        </Box> */}
         <Box mr={4}>
           <HomeLink />
         </Box>
@@ -73,17 +73,30 @@ function NavBar() {
 function HomeLink() {
   return (
     <Link to={`/`}>
-      <Typography variant="h5" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff', fontStyle: 'italic' }}>
-        CoolCars.com
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff', fontStyle: 'italic' }}>
+        Home
       </Typography>
     </Link>
-  )
+  );
 }
 
 function InventoryLink() {
   return (
-    <Link to={`/inventory`}>
-      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Inventory</Button>
+    <Link to={`/inventory`} sx={{ textDecoration: 'none' }}>
+      <Typography variant="h7" sx={{ 
+          fontFamily: 'Figtree, Roboto, sans-serif', 
+          fontStyle: 'italic',
+          color: '#fff',
+          '&:hover': {
+            textDecoration: 'underline',
+            textDecorationThickness: '2px',
+            textDecorationColor: '#fff',
+            transition: 'textDecoration 0.3s',
+          },
+        }}
+      >
+        Inventory
+      </Typography>
     </Link>
   );
 }
@@ -91,7 +104,9 @@ function InventoryLink() {
 function AboutUsLink() {
   return (
     <Link to={`/aboutUs`}>
-      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>About Us</Button>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+        About Us
+      </Typography>
     </Link>
   );
 }
@@ -99,7 +114,9 @@ function AboutUsLink() {
 function WishlistLink() {
   return (
     <Link to={`/wishlist`}>
-      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Wishlist</Button>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+        Wishlist
+      </Typography>
     </Link>
   );
 }
@@ -107,15 +124,19 @@ function WishlistLink() {
 function RegisterLink() {
   return (
     <Link to={`/register`}>
-      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Register</Button>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+        Register
+      </Typography>
     </Link>
   );
 }
 
 function LoginLink() {
   return (
-    <Link to={`/login`}>
-      <AccountCircleSharpIcon fontSize='large' />
+    <Link to={`/login`} >
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+        <AccountCircleSharpIcon fontSize='large'/>
+      </Typography>
     </Link>
   );
 }
@@ -123,10 +144,11 @@ function LoginLink() {
 function AdminPageLink() {
   return (
     <Link to={`/adminPage`}>
-      <Button variant="contained">Admin Page</Button>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+        Admin Page
+      </Typography>
     </Link>
   );
 }
-
 
 export default NavBar;
