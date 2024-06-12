@@ -1,16 +1,24 @@
-import {Card, CardMedia, Typography, CardContent} from '@mui/material';
-import { useState, useEffect } from 'react';
+import {Box, Card, CardMedia, Typography, CardContent, IconButton} from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Dot from './Dot';
+import { FavoritesContext } from '../contexts/FavoritesContext';
 
 const getColors = async () => {
     const { data } = await axios.get('http://localhost:3000/colors');
     return data;
 }
 
-function CarCard({car}) {
+function CarCard({car, showFavoriteIcon = true}) {
     const [colorMap, setColorMap] = useState({})
+    const { favorites, setFavorites } = useContext(FavoritesContext);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const userId = 1; // TODO: Update this to use the logged in user's ID
+    const carId = car.id;
 
+    
     useEffect(() => {
         const result = getColors().then((data) => {
             let colorObj = {}
@@ -18,9 +26,34 @@ function CarCard({car}) {
                 colorObj[color.id] = color.name
             })
             setColorMap(colorObj)
-        }
-        )
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+        if (favorites.some(favorite => favorite.car_id === carId)) {
+            setIsFavorite(true);
+        };
     }, [])
+    
+    const handleFavoriteClick = async () => {
+        try {
+            if (isFavorite) {
+                await axios.delete('http://localhost:3000/favorites', { data: { userId, carId } });
+                setFavorites(favorites.filter(favorite => favorite.car_id !== carId));
+                setIsFavorite(false);
+            } else {
+                const alreadyFavorite = favorites.some(favorite => favorite.car_id === carId);
+                if (!alreadyFavorite) {
+                    const { data } = await axios.post('http://localhost:3000/favorites', { userId, carId });
+                    setFavorites([...favorites, car]);
+                    setIsFavorite(true);
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     return (
         <Card sx={{ maxWidth: 345 }}>
@@ -31,8 +64,13 @@ function CarCard({car}) {
                 alt="Paella dish"
             />
             <CardContent>
-                <Typography style={{display:'inline'}}>{car.name}</Typography>
-                <Dot color={colorMap[car.color_id]} />
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                    <Typography style={{display:'inline'}}>{car.name}</Typography>
+                    <Dot color={colorMap[car.color_id]} />
+                    <IconButton aria-label="add to cart" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none'}}>
+                        {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    </IconButton>
+                </Box>
                 <Typography>${car.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                 <Typography>Miles: {car.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                 <Typography variant="body2" color="text.secondary">
