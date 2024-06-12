@@ -37,6 +37,7 @@ function CarCard({car, showFavoriteIcon = true}) {
     }, [])
     
     const handleFavoriteClick = async () => {
+        
         try {
             if (isFavorite) {
                 await axios.delete('http://localhost:3000/favorites', { data: { userId, carId } });
@@ -45,7 +46,7 @@ function CarCard({car, showFavoriteIcon = true}) {
             } else {
                 const alreadyFavorite = favorites.some(favorite => favorite.car_id === carId);
                 if (!alreadyFavorite) {
-                    const { data } = await axios.post('http://localhost:3000/favorites', { userId, carId });
+                    await axios.post('http://localhost:3000/favorites', { userId, carId });
                     setFavorites([...favorites, car]);
                     setIsFavorite(true);
                 }

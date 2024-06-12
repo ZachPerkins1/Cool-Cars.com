@@ -103,10 +103,7 @@ app.post('/favorites', async (req, res) => {
     console.log('req.body:', req.body);
     const { userId, carId } = req.body;
     try {
-        await pool.query(
-            'INSERT INTO userfavorites (user_id, car_id) VALUES ($1, $2)',
-            [userId, carId]
-        );
+        await pool.query('INSERT INTO userfavorites (user_id, car_id) VALUES ($1, $2)', [userId, carId]);
         res.status(201).send('Favorite added successfully');
     } catch (error) {
         console.error('Error adding favorite:', error);
