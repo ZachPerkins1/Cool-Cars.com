@@ -10,14 +10,17 @@ function NavBar() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const loggedInUser = sessionStorage.getItem('user');
+    const loggedInUser = sessionStorage.getItem('userData');
+    console.log("Logged in user from session storage:", loggedInUser);
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
+    } else {
+      setUser(null); // Set user to null if there's no user in sessionStorage
     }
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('userData');
     setUser(null);
   };
 

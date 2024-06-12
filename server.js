@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import multer from 'multer';
 import path from 'path';
 import cors from 'cors';
@@ -23,6 +24,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'dist')));
 //ONLY USING CORS FOR DEV PURPOSES
 app.use(cors())
+
+app.use(session({
+    secret: 'your-secret-key', // Add a secret key to sign the session ID cookie
+    resave: false,
+    saveUninitialized: true,
+}));
 
 // Set up multer for handling file uploads
 const storage = multer.diskStorage({
@@ -80,8 +87,15 @@ app.get('/reviews', async (req, res) => {
 
 //route to make a new reivew
 app.post('/reviews', upload.single('avatar'), async (req, res) => {
-    const { name, rating, review } = req.body;
-    const avatar = req.file ? `/uploads/${req.file.filename}` : null;
+    const { review, rating } = req.body;
+    const user = req.session.userData;
+
+    if (!user) {
+        return res.status(401).send('User not logged in');
+    }
+
+    const name = user.username;
+    const avatar = user.avatar;
 
     try {
         await pool.query(
@@ -108,6 +122,11 @@ app.post('/register', upload.single('avatar'), async (req, res) => {
     const avatar = req.file ? `/uploads/${req.file.filename}` : null;
 
     try {
+        const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        if (result.rows.length > 0) {
+            return res.status(400).send('Username already exists');
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         await pool.query(
             'INSERT INTO users (first_name, last_name, email, username, password, role, avatar) VALUES ($1, $2, $3, $4, $5, $6, $7)',
@@ -137,13 +156,24 @@ app.post('/login', async (req, res) => {
             return res.status(401).send('Invalid username or password');
         }
 
+        // Store user data in the session
+        req.session.userData = {
+            id: user.id,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            email: user.email,
+            username: user.username,
+            avatar: user.avatar,
+            role: user.role
+        };
+
         // Send user data to the client
-        res.json({ id: user.id, firstName: user.first_name, lastName: user.last_name, email: user.email, username: user.username, avatar: user.avatar, role: user.role });
+        res.json(req.session.userData);
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).send('Server error');
     }
-    
+
 });
 
 // Get user favorite by user id and car id
