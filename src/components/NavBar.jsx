@@ -50,6 +50,11 @@ function NavBar() {
             <Box ml={2}>
               <Button variant="contained" onClick={handleLogout}>Logout</Button>
             </Box>
+            {user.role === 'admin' && (
+              <Box ml={2}>
+                <AdminPageLink />
+              </Box>
+            )}
           </>
         ) : (
           <>
@@ -112,6 +117,14 @@ function LoginLink() {
   return (
     <Link to={`/login`}>
       <AccountCircleSharpIcon fontSize='large' />
+    </Link>
+  );
+}
+
+function AdminPageLink() {
+  return (
+    <Link to={`/adminPage`}>
+      <Button variant="contained">Admin Page</Button>
     </Link>
   );
 }
