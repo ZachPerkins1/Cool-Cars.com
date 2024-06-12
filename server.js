@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
+
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -38,6 +41,11 @@ app.get('/', (req, res) => {
 //ROUTE TO GET ALL CARS
 app.get('/cars', async (req, res) => {
     const result = await pool.query('SELECT * FROM cars');
+    res.json(result.rows)
+});
+
+app.get('/colors', async (req, res) => {
+    const result = await pool.query('SELECT * FROM colors');
     res.json(result.rows)
 });
 
@@ -78,6 +86,61 @@ app.post('/register', upload.single('avatar'), async (req, res) => {
         res.status(201).send('User added successfully');
     } catch (error) {
         console.error('Error adding user:', error);
+// Get user favorite by user id and car id
+app.get('/favorite', async (req, res) => {
+    const { userId, carId } = req.query;
+    console.log('userId:', userId, 'carId:', carId);
+    try {
+        const result = await pool.query('SELECT * FROM userfavorites WHERE user_id = $1 AND car_id = $2', [userId, carId]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error getting favorite:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+// GET User Favorites
+app.get('/favorites', async (req, res) => {
+    const userId = req.query.userId;
+    console.log('query:', req.query, 'userId:', userId);
+    try {
+        const result = await pool.query('SELECT * FROM cars JOIN userfavorites ON cars.id = userfavorites.car_id WHERE user_id = $1', [userId]); 
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error getting favorites:', error);
+        res.status(500).send('Server error');}
+});
+
+
+// POST User Favorited Car
+app.post('/favorites', async (req, res) => {
+    console.log('req.body:', req.body);
+    const { userId, carId } = req.body;
+    try {
+        await pool.query(
+            'INSERT INTO userfavorites (user_id, car_id) VALUES ($1, $2)',
+            [userId, carId]
+        );
+        res.status(201).send('Favorite added successfully');
+    } catch (error) {
+        console.error('Error adding favorite:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+// DELETE User Favorited Car
+app.delete('/favorites', async (req, res) => {
+    const { userId, carId } = req.body;
+    console.log('userId:', userId, 'carId:', carId);
+    try {
+        await pool.query(
+            'DELETE FROM userfavorites WHERE user_id = $1 AND car_id = $2',
+            [userId, carId]
+        );
+        res.status(200).send('Favorite deleted successfully');
+    } catch (error) {
+        console.error('Error deleting favorite:', error);
+
         res.status(500).send('Server error');
     }
 });

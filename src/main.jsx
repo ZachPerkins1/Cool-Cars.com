@@ -12,6 +12,7 @@ import Wishlist from './Wishlist.jsx';
 import './index.css'
 import LeaveReview from './LeaveReview.jsx';
 import Register from './Register.jsx';
+import { FavoritesProvider } from './contexts/FavoritesContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,6 @@ const router = createBrowserRouter([
     element: <AboutUs />,
     errorElement: <ErrorPage />,
   },
-
   {
     path: "wishlist",
     element: <Wishlist />,
@@ -47,11 +47,12 @@ const router = createBrowserRouter([
     element: <Register />,
     errorElement: <ErrorPage />,
   }
-
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <FavoritesProvider>
+      <RouterProvider router={router} />
+    </FavoritesProvider>
   </React.StrictMode>,
 )

@@ -1,0 +1,30 @@
+.carouselContainerLanding {
+    display: flex;
+    height: auto;
+    padding: 0px;
+    margin: auto;
+    border: none;
+    border-radius: 0px;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.carouselItemContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+  
+.carouselImageBoxLanding {
+    border-radius: 0px;
+    width: 100%;
+    margin: auto;
+}  
+
+.carouselImageLanding {
+    max-height: 400px;
+    max-width: 550px;
+    object-fit: cover;
+    border-radius: 0px;
+}
