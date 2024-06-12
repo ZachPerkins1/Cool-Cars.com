@@ -16,7 +16,7 @@ function InventoryPage() {
             <CarCard car={car}></CarCard>
         </Grid>
     );
-    console.log(cars)
+
     useEffect(() => {
         const result = getCars().then((data) => setCars(data))
 

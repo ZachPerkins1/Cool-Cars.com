@@ -48,12 +48,34 @@ app.get('/', (req, res) => {
 
 //ROUTE TO GET ALL CARS
 app.get('/cars', async (req, res) => {
-    const result = await pool.query('SELECT * FROM cars');
+    const result = await pool.query(`
+    SELECT 
+	Cars.id, name, mileage, arrival_date, year,
+	price, availability, date_sold, 
+	image_id, review_id, color, make, 
+	model, body_style, fuel_type
+	FROM Cars 
+	JOIN Colors ON Cars.color_id=Colors.id
+	JOIN Makes ON Cars.make_id=Makes.id
+	JOIN Models ON Cars.model_id=Models.id
+	JOIN Bodies ON Cars.body_id=Bodies.id
+	JOIN Fueltype ON Cars.fuel_id=Fueltype.id;
+    `);
     res.json(result.rows)
 });
 
 app.get('/colors', async (req, res) => {
     const result = await pool.query('SELECT * FROM colors');
+    res.json(result.rows)
+});
+
+app.get('/models', async (req, res) => {
+    const result = await pool.query('SELECT * FROM models');
+    res.json(result.rows)
+});
+
+app.get('/fuels', async (req, res) => {
+    const result = await pool.query('SELECT * FROM fueltype');
     res.json(result.rows)
 });
 
@@ -87,6 +109,12 @@ app.post('/reviews', upload.single('avatar'), async (req, res) => {
     }
 });
 
+
+app.patch('/availability/:id', async (req, res) => {
+    let id = (req.params.id)
+    const result = await pool.query(`UPDATE Cars SET Availability = NOT Availability WHERE id = ${id}`);
+    res.json(result)
+});
 
 //make a new user
 app.post('/register', upload.single('avatar'), async (req, res) => {
@@ -145,6 +173,7 @@ app.post('/login', async (req, res) => {
         console.error('Error during login:', error);
         res.status(500).send('Server error');
     }
+
 });
 
 // Get user favorite by user id and car id
@@ -205,6 +234,7 @@ app.delete('/favorites', async (req, res) => {
 
         res.status(500).send('Server error');
     }
+
 });
 
 app.listen(PORT, () => {

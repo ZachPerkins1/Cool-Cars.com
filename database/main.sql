@@ -4,27 +4,24 @@ CREATE TABLE Images(
     "car_id" BIGINT NOT NULL,
     "default_image" BOOLEAN NOT NULL
 );
-
 CREATE TABLE Bodies(
     "id" SERIAL PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "body_style" TEXT NOT NULL
 );
-
 CREATE TABLE Users(
     "id" SERIAL PRIMARY KEY,
     "first_name" TEXT NOT NULL,
     "last_name" TEXT NOT NULL,
     "role" TEXT NOT NULL
 );
-
 CREATE TABLE FuelType(
     "id" SERIAL PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "fuel_type" TEXT NOT NULL
 );
-
 CREATE TABLE Cars(
     "id" SERIAL PRIMARY KEY,
     "name" TEXT NOT NULL,
+    "year" INT NOT NULL,
     "make_id" BIGINT NOT NULL,
     "model_id" BIGINT NOT NULL,
     "color_id" BIGINT NOT NULL,
@@ -38,29 +35,24 @@ CREATE TABLE Cars(
     "date_sold" DATE NULL,
     "image_id" BIGINT NULL
 );
-
 CREATE TABLE Makes(
     "id" SERIAL PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "make" TEXT NOT NULL
 );
-
 CREATE TABLE Colors(
     "id" SERIAL PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "color" TEXT NOT NULL
 );
-
 CREATE TABLE Promotions(
     "id" SERIAL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "start_date" DATE NULL,
     "end_date" DATE NULL
 );
-
 CREATE TABLE Models(
     "id" SERIAL PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "model" TEXT NOT NULL
 );
-
 CREATE TABLE Reviews(
     "id" SERIAL PRIMARY KEY,
     "name" TEXT NOT NULL,
@@ -75,7 +67,6 @@ CREATE TABLE UserFavorites(
     "user_id" INTEGER NOT NULL,
     "car_id" INTEGER NOT NULL
 );
-
 ALTER TABLE Cars
 ADD COLUMN review_id INTEGER;
 
@@ -90,3 +81,4 @@ ALTER TABLE Cars ADD CONSTRAINT cars_review_id_foreign FOREIGN KEY(review_id) RE
 
 ALTER TABLE UserFavorites ADD CONSTRAINT user_favorites_user_id_foreign FOREIGN KEY(user_id) REFERENCES Users(id);
 ALTER TABLE UserFavorites ADD CONSTRAINT user_favorites_car_id_foreign FOREIGN KEY(car_id) REFERENCES Cars(id);
+
