@@ -7,25 +7,28 @@ import { Link } from 'react-router-dom'
 
 function NavBar() {
   return (
-    <AppBar position="static" style={{ width: '100vw', margin: 0}}>
+    <AppBar position="static" style={{ width: '100vw', margin: 0 }}>
       <Toolbar>
         <Box mr={2}>
-            <ToysTwoToneIcon fontSize='large'/>
+          <ToysTwoToneIcon fontSize='large' />
         </Box>
         <Box mr={4}>
-            <HomeLink />
+          <HomeLink />
         </Box>
         <Box mr={2}>
-            <InventoryLink />
+          <InventoryLink />
         </Box>
         <Box mr={2}>
-            <WishlistLink />
+          <WishlistLink />
         </Box>
         <Box flexGrow={1}>
-            <AboutUsLink />
+          <AboutUsLink />
+        </Box>
+        <Box flexGrow={1}>
+          <RegisterLink />
         </Box>
         <Box>
-            <AccountCircleSharpIcon fontSize='large'/>
+          <AccountCircleSharpIcon fontSize='large' />
         </Box>
       </Toolbar>
     </AppBar>
@@ -33,13 +36,13 @@ function NavBar() {
 }
 
 function HomeLink() {
-return (
+  return (
     <Link to={`/`}>
-        <Typography variant="h6" color={'white'}>
-            Cool Cars
-        </Typography>
+      <Typography variant="h6" color={'white'}>
+        Cool Cars
+      </Typography>
     </Link>
-)
+  )
 }
 
 function InventoryLink() {
@@ -59,11 +62,19 @@ function AboutUsLink() {
 }
 
 function WishlistLink() {
-    return (
-      <Link to={`/wishlist`}>
-        <Button variant="contained">Wishlist</Button>
-      </Link>
-    );
+  return (
+    <Link to={`/wishlist`}>
+      <Button variant="contained">Wishlist</Button>
+    </Link>
+  );
+}
+
+function RegisterLink() {
+  return (
+    <Link to={`/register`}>
+      <Button variant="contained">Register</Button>
+    </Link>
+  );
 }
 
 

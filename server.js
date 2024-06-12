@@ -64,6 +64,24 @@ app.post('/reviews', upload.single('avatar'), async (req, res) => {
     }
 });
 
+
+//make a new user
+app.post('/register', upload.single('avatar'), async (req, res) => {
+    const { firstName, lastName, email, username, password, role } = req.body;
+    const avatar = req.file ? `/uploads/${req.file.filename}` : null;
+
+    try {
+        await pool.query(
+            'INSERT INTO users (first_name, last_name, email, username, password, role, avatar) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+            [firstName, lastName, email, username, password, role, avatar]
+        );
+        res.status(201).send('User added successfully');
+    } catch (error) {
+        console.error('Error adding user:', error);
+        res.status(500).send('Server error');
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
