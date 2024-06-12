@@ -11,6 +11,7 @@ import AboutUs from './AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
 import './index.css'
 import LeaveReview from './LeaveReview.jsx';
+import Register from './Register.jsx';
 import { FavoritesProvider } from './contexts/FavoritesContext.jsx';
 
 const router = createBrowserRouter([
@@ -38,6 +39,12 @@ const router = createBrowserRouter([
   {
     path: "leaveReview",
     element: <LeaveReview />,
+    errorElement: <ErrorPage />,
+  },
+
+  {
+    path: "register",
+    element: <Register />,
     errorElement: <ErrorPage />,
   }
 ]);
