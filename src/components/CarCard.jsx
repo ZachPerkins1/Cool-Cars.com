@@ -1,3 +1,4 @@
+import React from 'react';
 import {Box, Card, CardMedia, Typography, CardContent, IconButton} from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -67,7 +68,7 @@ function CarCard({car, showFavoriteIcon = true}) {
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                     <Typography style={{display:'inline'}}>{car.name}</Typography>
                     <Dot color={colorMap[car.color_id]} />
-                    <IconButton aria-label="add to cart" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none'}}>
+                    <IconButton aria-label="add to favorites" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none'}}>
                         {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                 </Box>
