@@ -1,4 +1,4 @@
-import { Container, Typography, Card, CardContent, Avatar, Grid, Box, Rating, Button } from '@mui/material';
+import { Container, Typography, Card, CardContent, Avatar, Grid, Box, Rating, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
@@ -24,6 +24,7 @@ import yellowMiata from './assets/yellow_miata.png'
 const AboutUs = () => {
     const [expandedCard, setExpandedCard] = useState(null);
     const [reviews, setReviews] = useState([]);
+    const [filter, setFilter] = useState('newest');
 
 
     const handleCardClick = (personName) => {
@@ -35,6 +36,25 @@ const AboutUs = () => {
     };
 
     const isCardExpanded = (personName) => expandedCard === personName;
+
+    const handleFilterChange = (event) => {
+        setFilter(event.target.value);
+    };
+
+    const getFilteredReviews = () => {
+        switch (filter) {
+            case 'mostPositive':
+                return [...reviews].sort((a, b) => b.rating - a.rating);
+            case 'mostCritical':
+                return [...reviews].sort((a, b) => a.rating - b.rating);
+            case 'newest':
+                return [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date)); // Assuming 'date' is a field in your reviews
+            default:
+                return reviews;
+        }
+    };
+
+    const filteredReviews = getFilteredReviews();
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -158,8 +178,16 @@ const AboutUs = () => {
                     <Typography variant="h4" align="center" gutterBottom>
                         Customer Reviews
                     </Typography>
+                    <FormControl fullWidth variant="outlined" style={{ marginBottom: '16px' }}>
+                        <InputLabel>Filter Reviews</InputLabel>
+                        <Select value={filter} onChange={handleFilterChange} label="Filter Reviews">
+                            <MenuItem value="newest">Newest</MenuItem>
+                            <MenuItem value="mostPositive">Most Positive</MenuItem>
+                            <MenuItem value="mostCritical">Most Critical</MenuItem>
+                        </Select>
+                    </FormControl>
                     <Grid container spacing={4}>
-                        {reviews.map((review) => (
+                        {filteredReviews.map((review) => (
                             <Grid item xs={12} sm={6} md={4} key={review.id}>
                                 <Card className="reviewCard">
                                     <CardContent>

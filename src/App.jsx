@@ -1,30 +1,35 @@
-import { useState } from 'react'
-import './App.css'
-import axios from 'axios'
-import Landing from './Landing.jsx'
+import { useState, useEffect } from 'react';
+import { Outlet, Link } from 'react-router-dom';
+import NavBar from './components/NavBar.jsx';
+import './App.css';
 
 
-function App() {
-  const [cars, setCars] = useState('')
-  const getCars = function () {
-    axios.get('http://localhost:3000/cars', {
-      params: {}
-    })
-      .then(function (response) {
-        setCars(JSON.stringify(response.data[0]))
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(function () {
-        console.log('done')
-      });
-  }
+const App = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loggedInUser = sessionStorage.getItem('user');
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+  }, []);
+
+  const handleLogin = (userData) => {
+    sessionStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    setUser(null);
+  };
+
   return (
-    <>
-     <Landing />
-    </>
-  )
-}
+    <div>
+      <NavBar user={user} onLogout={handleLogout} />
+      <Outlet context={{ user, handleLogin }} />
+    </div>
+  );
+};
 
 export default App

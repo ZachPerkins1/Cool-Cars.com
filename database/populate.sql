@@ -1,109 +1,110 @@
-INSERT INTO Makes (id, make) VALUES
-(1, 'Toyota'),
-(2, 'Honda'),
-(3, 'Ford'),
-(4, 'Chevrolet'),
-(5, 'Nissan'),
-(6, 'BMW'),
-(7, 'Audi'),
-(8, 'Mercedes-Benz'),
-(9, 'Volkswagen'),
-(10, 'Hyundai'),
-(11, 'Kia'),
-(12, 'Subaru'),
-(13, 'Mazda');
+
+INSERT INTO Makes (name) VALUES
+('Toyota'),
+('Honda'),
+('Ford'),
+('Chevrolet'),
+('Nissan'),
+('BMW'),
+('Audi'),
+('Mercedes-Benz'),
+('Volkswagen'),
+('Hyundai'),
+('Kia'),
+('Subaru'),
+('Mazda');
 
 -- Insert dummy data into the Models table
-INSERT INTO Models (id, model) VALUES
-(1, 'Corolla'),
-(2, 'Civic'),
-(3, 'Mustang'),
-(4, 'Malibu'),
-(5, 'Altima'),
-(6, '3 Series'),
-(7, 'A4'),
-(8, 'C-Class'),
-(9, 'Golf'),
-(10, 'Elantra'),
-(11, 'Sorento'),
-(12, 'Outback'),
-(13, 'Mazda3');
+INSERT INTO Models (name) VALUES
+('Corolla'),
+('Civic'),
+('Mustang'),
+('Malibu'),
+('Altima'),
+('3 Series'),
+('A4'),
+('C-Class'),
+('Golf'),
+('Elantra'),
+('Sorento'),
+('Outback'),
+('Mazda3');
 
 -- Insert dummy data into the Colors table
-INSERT INTO Colors (id, color) VALUES
-(1, 'Red'),
-(2, 'Blue'),
-(3, 'Green'),
-(4, 'Black'),
-(5, 'White'),
-(6, 'Silver'),
-(7, 'Gray'),
-(8, 'Yellow'),
-(9, 'Orange'),
-(10, 'Purple'),
-(11, 'Brown'),
-(12, 'Pink');
+INSERT INTO Colors (name) VALUES
+('Red'),
+('Blue'),
+('Green'),
+('Black'),
+('White'),
+('Silver'),
+('Gray'),
+('Yellow'),
+('Orange'),
+('Purple'),
+('Brown'),
+('Pink');
 
 -- Insert dummy data into the Bodies table
-INSERT INTO Bodies (id, body_style) VALUES
-(1, 'Sedan'),
-(2, 'SUV'),
-(3, 'Coupe'),
-(4, 'Hatchback'),
-(5, 'Convertible'),
-(6, 'Pickup Truck'),
-(7, 'Minivan'),
-(8, 'Wagon'),
-(9, 'Coupe-SUV'),
-(10, 'Roadster'),
-(11, 'Crossover'),
-(12, 'Luxury Sedan');
+INSERT INTO Bodies (name) VALUES
+('Sedan'),
+('SUV'),
+('Coupe'),
+('Hatchback'),
+('Convertible'),
+('Pickup Truck'),
+('Minivan'),
+('Wagon'),
+('Coupe-SUV'),
+('Roadster'),
+('Crossover'),
+('Luxury Sedan');
 
 -- Insert dummy data into the FuelType table
-INSERT INTO FuelType (id, fuel_type) VALUES
-(1, 'Petrol'),
-(2, 'Diesel'),
-(3, 'Electric'),
-(4, 'Hybrid'),
-(5, 'Hydrogen'),
-(6, 'Natural Gas'),
-(7, 'Bio-diesel'),
-(8, 'Ethanol'),
-(9, 'Flex Fuel'),
-(10, 'LPG'),
-(11, 'Solar'),
-(12, 'Electric-Petrol');
+INSERT INTO FuelType (name) VALUES
+('Petrol'),
+('Diesel'),
+('Electric'),
+('Hybrid'),
+('Hydrogen'),
+('Natural Gas'),
+('Bio-diesel'),
+('Ethanol'),
+('Flex Fuel'),
+('LPG'),
+('Solar'),
+('Electric-Petrol');
 
 -- Insert dummy data into the Promotions table
-INSERT INTO Promotions (id, name, start_date, end_date) VALUES
-(1, 'Summer Sale', '2024-06-01', '2024-06-30'),
-(2, 'Winter Discount', '2024-12-01', '2024-12-31'),
-(3, 'Spring Sale', '2024-03-01', '2024-03-31'),
-(4, 'Fall Discount', '2024-09-01', '2024-09-30'),
-(5, 'Black Friday Sale', '2024-11-25', '2024-11-30'),
-(6, 'New Year Offer', '2024-01-01', '2024-01-07'),
-(7, 'Valentines Day Special', '2024-02-10', '2024-02-14'),
-(8, 'Memorial Day Sale', '2024-05-25', '2024-05-28'),
-(9, 'Labor Day Sale', '2024-09-02', '2024-09-05'),
-(10, 'Independence Day Special', '2024-07-04', '2024-07-07'),
-(11, 'Halloween Offer', '2024-10-29', '2024-10-31'),
-(12, 'Easter Sale', '2024-04-18', '2024-04-21');
+INSERT INTO Promotions (name, start_date, end_date) VALUES
+('Summer Sale', '2024-06-01', '2024-06-30'),
+('Winter Discount', '2024-12-01', '2024-12-31'),
+('Spring Sale', '2024-03-01', '2024-03-31'),
+('Fall Discount', '2024-09-01', '2024-09-30'),
+('Black Friday Sale', '2024-11-25', '2024-11-30'),
+('New Year Offer', '2024-01-01', '2024-01-07'),
+('Valentines Day Special', '2024-02-10', '2024-02-14'),
+('Memorial Day Sale', '2024-05-25', '2024-05-28'),
+('Labor Day Sale', '2024-09-02', '2024-09-05'),
+('Independence Day Special', '2024-07-04', '2024-07-07'),
+('Halloween Offer', '2024-10-29', '2024-10-31'),
+('Easter Sale', '2024-04-18', '2024-04-21');
 
 -- Insert dummy data into the Images table
-INSERT INTO Images (id, image_link, car_id, default_image) VALUES
-(1, 'http://example.com/car1.jpg', 1, TRUE),
-(2, 'http://example.com/car2.jpg', 2, TRUE),
-(3, 'http://example.com/car3.jpg', 3, TRUE),
-(4, 'http://example.com/car4.jpg', 4, TRUE),
-(5, 'http://example.com/car5.jpg', 5, TRUE),
-(6, 'http://example.com/car6.jpg', 6, TRUE),
-(7, 'http://example.com/car7.jpg', 7, TRUE),
-(8, 'http://example.com/car8.jpg', 8, TRUE),
-(9, 'http://example.com/car9.jpg', 9, TRUE),
-(10, 'http://example.com/car10.jpg', 10, TRUE),
-(11, 'http://example.com/car11.jpg', 11, TRUE),
-(12, 'http://example.com/car12.jpg', 12, TRUE),
-(13, 'http://example.com/car13.jpg', 13, TRUE);
+INSERT INTO Images (image_link, car_id, default_image) VALUES
+('http://example.com/car1.jpg', 1, TRUE),
+('http://example.com/car2.jpg', 2, TRUE),
+('http://example.com/car3.jpg', 3, TRUE),
+('http://example.com/car4.jpg', 4, TRUE),
+('http://example.com/car5.jpg', 5, TRUE),
+('http://example.com/car6.jpg', 6, TRUE),
+('http://example.com/car7.jpg', 7, TRUE),
+('http://example.com/car8.jpg', 8, TRUE),
+('http://example.com/car9.jpg', 9, TRUE),
+('http://example.com/car10.jpg', 10, TRUE),
+('http://example.com/car11.jpg', 11, TRUE),
+('http://example.com/car12.jpg', 12, TRUE),
+('http://example.com/car13.jpg', 13, TRUE);
 
 -- Insert dummy data into the Cars table
 INSERT INTO Cars (id, name, year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id) VALUES
@@ -121,30 +122,21 @@ INSERT INTO Cars (id, name, year, make_id, model_id, color_id, body_id, mileage,
 (12, 'Subaru Outback 2020', 2020, 12, 12, 12, 6, 20000, 1, 11, '2024-12-30', 28000, TRUE, NULL, 12),
 (13, 'Mazda Mazda3 2019', 2019, 13, 13, 5, 3, 23000, 1, 12, '2024-01-05', 19000, TRUE, NULL, 13);
 
-
-
 -- Insert dummy data into the Users table
-INSERT INTO Users (id, first_name, last_name, role) VALUES
-(1, 'John', 'Doe', 'admin'),
-(2, 'Jane', 'Smith', 'sales'),
-(3, 'Bob', 'Johnson', 'customer'),
-(4, 'Alice', 'Williams', 'admin'),
-(5, 'David', 'Brown', 'sales'),
-(6, 'Emma', 'Davis', 'customer'),
-(7, 'Frank', 'Miller', 'admin'),
-(8, 'Grace', 'Wilson', 'sales'),
-(9, 'Henry', 'Moore', 'customer'),
-(10, 'Ivy', 'Taylor', 'admin'),
-(11, 'Jack', 'Anderson', 'sales'),
-(12, 'Karen', 'Thomas', 'customer'),
-(13, 'Leo', 'Jackson', 'admin');
-
-INSERT INTO Reviews (name, review, rating, avatar) VALUES
-('Brad Pitt', 'Excellent service and a great selection of cars. Highly recommend!', 5, './images/brad.jpeg'),
-('Margot Robbie', 'The staff was very friendly and helped me find the perfect car.', 4.5, './images/margot.jpeg'),
-('Matthew Mcconaughey', 'Good experience overall, but the process took longer than expected.', 4, './images/matthew.jpeg'),
-('Leonardo Decaprio', 'Great prices and fantastic customer service. Will come back again!', 5, './images/leo.webp'),
-('Scarlet Johanson', 'Great selection of cars, quick and easy process!.', 5, './images/scarlet.jpeg');
+INSERT INTO Users (first_name, last_name, role, email, username, password, avatar) VALUES
+('Juan', 'Pinol', 'admin', 'juan.pinol@cvent.com', 'juan', '123', ),
+('Jane', 'Smith', 'user'),
+('Bob', 'Johnson', 'user'),
+('Shaan', 'Malhotra', 'admin', 'shaan.malhotra@cvent.com'),
+('David', 'Brown', 'user'),
+('Emma', 'Davis', 'user'),
+('Noah', 'Beito', 'admin', 'noah.beito@cvent.com'),
+('Grace', 'Wilson', 'user'),
+('Henry', 'Moore', 'user'),
+('Ivy', 'Taylor', 'admin'),
+('Jack', 'Anderson', 'user'),
+('Karen', 'Thomas', 'user'),
+('Leo', 'Jackson', 'user');
 
 SELECT * FROM Makes;
 SELECT * FROM Models;

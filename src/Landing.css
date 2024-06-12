@@ -31,4 +31,5 @@
 
 .vehicle-item:hover .vehicle-info {
     opacity: 1;
+    color: white;
 }
