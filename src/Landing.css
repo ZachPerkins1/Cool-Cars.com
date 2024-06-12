@@ -1,3 +1,8 @@
+#landing-root {
+    background-color: #bbdefb;
+    font-family: 'Figtree';
+}
+
 .vehicle-item {
     position: relative;
     overflow: hidden;

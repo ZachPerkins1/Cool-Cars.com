@@ -38,8 +38,8 @@ function NavBar() {
 function HomeLink() {
   return (
     <Link to={`/`}>
-      <Typography variant="h6" color={'white'}>
-        Cool Cars
+      <Typography variant="h6" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+        CoolCars.com
       </Typography>
     </Link>
   )
@@ -48,7 +48,7 @@ function HomeLink() {
 function InventoryLink() {
   return (
     <Link to={`/inventory`}>
-      <Button variant="contained">Inventory</Button>
+      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Inventory</Button>
     </Link>
   );
 }
@@ -56,7 +56,7 @@ function InventoryLink() {
 function AboutUsLink() {
   return (
     <Link to={`/aboutUs`}>
-      <Button variant="contained">About Us</Button>
+      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>About Us</Button>
     </Link>
   );
 }
@@ -64,7 +64,7 @@ function AboutUsLink() {
 function WishlistLink() {
   return (
     <Link to={`/wishlist`}>
-      <Button variant="contained">Wishlist</Button>
+      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Wishlist</Button>
     </Link>
   );
 }
@@ -72,7 +72,7 @@ function WishlistLink() {
 function RegisterLink() {
   return (
     <Link to={`/register`}>
-      <Button variant="contained">Register</Button>
+      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Register</Button>
     </Link>
   );
 }
