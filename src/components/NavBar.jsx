@@ -1,4 +1,3 @@
-
 import { AppBar, Button, Box, Toolbar, Typography } from '@mui/material/';
 import ToysTwoToneIcon from '@mui/icons-material/ToysTwoTone';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
@@ -38,7 +37,7 @@ function NavBar() {
 function HomeLink() {
   return (
     <Link to={`/`}>
-      <Typography variant="h6" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+      <Typography variant="h5" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff', fontStyle: 'italic' }}>
         CoolCars.com
       </Typography>
     </Link>

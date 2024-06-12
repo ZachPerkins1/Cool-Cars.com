@@ -1,11 +1,9 @@
 import Navbar from './components/NavBar';
-import Carousel from './components/Carousel';
 import SalesBanner from './components/SalesBanner';
 import './Landing.css';
 import { Container, ImageList, ImageListItem , Button, Box, Typography, ThemeProvider } from '@mui/material';
 import Footer from './components/Footer';
 
-import banner1 from './assets/car_banner.png';
 import banner2 from './assets/car_banner2.png';
 import img1 from './assets/pexels-robert-hess-216886-4824774.jpg';
 import img2 from './assets/pexels-tnarg-8717323.jpg';
