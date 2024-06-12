@@ -9,6 +9,7 @@ import ErrorPage from './ErrorPage.jsx';
 import InventoryPage from './InventoryPage.jsx';
 import AboutUs from './AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
+import Landing from './Landing.jsx';
 import './index.css'
 import LeaveReview from './LeaveReview.jsx';
 import Register from './Register.jsx';
@@ -17,7 +18,7 @@ import { FavoritesProvider } from './contexts/FavoritesContext.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Landing />,
     errorElement: <ErrorPage />,
   },
   {
