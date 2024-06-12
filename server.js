@@ -100,6 +100,7 @@ app.patch('/availability/:id', async (req, res) => {
     let id = (req.params.id)
     const result = await pool.query(`UPDATE Cars SET Availability = NOT Availability WHERE id = ${id}`);
     res.json(result)
+});
 
 //make a new user
 app.post('/register', upload.single('avatar'), async (req, res) => {
@@ -142,7 +143,7 @@ app.post('/login', async (req, res) => {
         console.error('Error during login:', error);
         res.status(500).send('Server error');
     }
-    };
+    
 });
 
 // Get user favorite by user id and car id

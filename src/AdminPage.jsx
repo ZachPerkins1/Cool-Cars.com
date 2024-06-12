@@ -286,7 +286,7 @@ export default function AdminPage() {
                       <TableCell>${row.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</TableCell>
                       <TableCell>{row.color}</TableCell>
                       <TableCell>{row.fuel_type}</TableCell>
-                      <TableCell id={row.id} onClick={handleAvailableClick}>{row.availability ? 'Available' : 'Not Available'}</TableCell>
+                      <TableCell id={row.id} onClick={(e) => handleAvailableClick(e)}>{row.availability ? 'Available' : 'Not Available'}</TableCell>
                     </TableRow>
                   );
                 })}
