@@ -3,19 +3,25 @@ import { Container, TextField, Button, Typography, Rating, Box } from '@mui/mate
 import axios from 'axios';
 
 const LeaveReview = () => {
-    const [name, setName] = useState('');
     const [review, setReview] = useState('');
     const [rating, setRating] = useState(0);
-    const [avatar, setAvatar] = useState(null);
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const user = JSON.parse(sessionStorage.getItem('user'));
+
+        if (!user) {
+            setError('User not logged in');
+            return;
+        }
+
         const formData = new FormData();
-        formData.append('name', name);
+        formData.append('name', user.username);
         formData.append('review', review);
         formData.append('rating', rating);
-        formData.append('avatar', avatar);
+        formData.append('avatar', user.avatar);
 
         try {
             await axios.post('/reviews', formData, {
@@ -24,10 +30,8 @@ const LeaveReview = () => {
                 }
             });
             alert('Review submitted successfully!');
-            setName('');
             setReview('');
             setRating(0);
-            setAvatar(null);
         } catch (error) {
             console.error('Error submitting review:', error);
             alert('Failed to submit review.');
@@ -40,15 +44,6 @@ const LeaveReview = () => {
                 Leave a Review
             </Typography>
             <form onSubmit={handleSubmit}>
-                <TextField
-                    fullWidth
-                    label="Name"
-                    variant="outlined"
-                    margin="normal"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
                 <TextField
                     fullWidth
                     label="Review"
@@ -69,13 +64,7 @@ const LeaveReview = () => {
                         required
                     />
                 </Box>
-                <Box mb={3}>
-                    <input
-                        accept="image/*"
-                        type="file"
-                        onChange={(e) => setAvatar(e.target.files[0])}
-                    />
-                </Box>
+                {error && <Typography color="error">{error}</Typography>}
                 <Button type="submit" variant="contained" color="primary" fullWidth>
                     Submit Review
                 </Button>

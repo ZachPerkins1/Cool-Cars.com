@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import cors from 'cors';
+import bcrypt from 'bcrypt';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import pool from './database/database.js';
@@ -79,13 +80,43 @@ app.post('/register', upload.single('avatar'), async (req, res) => {
     const avatar = req.file ? `/uploads/${req.file.filename}` : null;
 
     try {
+        const hashedPassword = await bcrypt.hash(password, 10);
         await pool.query(
             'INSERT INTO users (first_name, last_name, email, username, password, role, avatar) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-            [firstName, lastName, email, username, password, role, avatar]
+            [firstName, lastName, email, username, hashedPassword, role, avatar]
         );
         res.status(201).send('User added successfully');
     } catch (error) {
         console.error('Error adding user:', error);
+    }
+});
+
+//Route to login
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+
+        if (result.rows.length === 0) {
+            return res.status(401).send('Invalid username or password');
+        }
+
+        const user = result.rows[0];
+        const isValidPassword = await bcrypt.compare(password, user.password);
+
+        if (!isValidPassword) {
+            return res.status(401).send('Invalid username or password');
+        }
+
+        // Send user data to the client
+        res.json({ id: user.id, firstName: user.first_name, lastName: user.last_name, email: user.email, username: user.username, avatar: user.avatar, role: user.role });
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).send('Server error');
+    }
+});
+
 // Get user favorite by user id and car id
 app.get('/favorite', async (req, res) => {
     const { userId, carId } = req.query;
@@ -104,11 +135,12 @@ app.get('/favorites', async (req, res) => {
     const userId = req.query.userId;
     console.log('query:', req.query, 'userId:', userId);
     try {
-        const result = await pool.query('SELECT * FROM cars JOIN userfavorites ON cars.id = userfavorites.car_id WHERE user_id = $1', [userId]); 
+        const result = await pool.query('SELECT * FROM cars JOIN userfavorites ON cars.id = userfavorites.car_id WHERE user_id = $1', [userId]);
         res.json(result.rows);
     } catch (error) {
         console.error('Error getting favorites:', error);
-        res.status(500).send('Server error');}
+        res.status(500).send('Server error');
+    }
 });
 
 

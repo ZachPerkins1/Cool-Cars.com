@@ -13,6 +13,7 @@ import './index.css'
 import LeaveReview from './LeaveReview.jsx';
 import Register from './Register.jsx';
 import { FavoritesProvider } from './contexts/FavoritesContext.jsx';
+import Login from './Login.jsx';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "login",
+    element: <Login />,
     errorElement: <ErrorPage />,
   }
 ]);

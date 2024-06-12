@@ -123,20 +123,20 @@ INSERT INTO Cars (name, make_id, model_id, color_id, body_id, mileage, fuel_id, 
 
 
 -- Insert dummy data into the Users table
-INSERT INTO Users (first_name, last_name, role) VALUES
-('John', 'Doe', 'admin'),
-('Jane', 'Smith', 'sales'),
-('Bob', 'Johnson', 'customer'),
-('Alice', 'Williams', 'admin'),
-('David', 'Brown', 'sales'),
-('Emma', 'Davis', 'customer'),
-('Frank', 'Miller', 'admin'),
-('Grace', 'Wilson', 'sales'),
-('Henry', 'Moore', 'customer'),
+INSERT INTO Users (first_name, last_name, role, email, username, password, avatar) VALUES
+('Juan', 'Pinol', 'admin', 'juan.pinol@cvent.com', 'juan', '123', ),
+('Jane', 'Smith', 'user'),
+('Bob', 'Johnson', 'user'),
+('Shaan', 'Malhotra', 'admin', 'shaan.malhotra@cvent.com'),
+('David', 'Brown', 'user'),
+('Emma', 'Davis', 'user'),
+('Noah', 'Beito', 'admin', 'noah.beito@cvent.com'),
+('Grace', 'Wilson', 'user'),
+('Henry', 'Moore', 'user'),
 ('Ivy', 'Taylor', 'admin'),
-('Jack', 'Anderson', 'sales'),
-('Karen', 'Thomas', 'customer'),
-('Leo', 'Jackson', 'admin');
+('Jack', 'Anderson', 'user'),
+('Karen', 'Thomas', 'user'),
+('Leo', 'Jackson', 'user');
 
 SELECT * FROM Makes;
 SELECT * FROM Models;
