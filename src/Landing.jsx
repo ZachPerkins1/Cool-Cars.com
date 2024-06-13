@@ -1,20 +1,17 @@
+import { Container, ImageList, ImageListItem , Button, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import SalesBanner from './components/SalesBanner';
-import './Landing.css';
-import { Container, ImageList, ImageListItem , Button, Box, Typography, ThemeProvider } from '@mui/material';
 import Footer from './components/Footer';
+import './Landing.css';
 
 import banner2 from './assets/car_banner2.png';
-import img1 from './assets/pexels-robert-hess-216886-4824774.jpg';
-import img2 from './assets/pexels-tnarg-8717323.jpg';
-import img3 from './assets/pexels-wearelivingart-7862143.jpg';
 import sedan from './assets/sedan.png';
 import suv from './assets/suv.png';
 import pickupTruck from './assets/pickup_truck.png';
 import van from './assets/van.png';
 import convertible from './assets/convertible.png';
 import miata from './assets/2018_mazda_mx_5_miata_sideview-removebg-preview.png';
-
 
 
 function LandingPage() {
@@ -47,6 +44,12 @@ function LandingPage() {
     
     const salesBannerMessage = "Summer Sale begins June 12th! Buy one car, get one free for a limited time only! Get em while the gettin's good!";
 
+    const navigate = useNavigate();
+
+    const handleViewInventory = () => {
+        navigate('/inventory');
+    }
+    
     return (
         <div id="landing-root">
             <Navbar />
@@ -102,7 +105,7 @@ function LandingPage() {
                     Car buying made easy
                 </Typography>
                 <Box sx={{ mt: 4 }}>
-                    <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', bgcolor: '#bbdefb', color: '#333', ml: 2 }}>Click here to view all inventory</Button>
+                    <Button variant="contained" onClick={() => handleViewInventory()} sx={{ fontFamily: 'Figtree, Roboto, sans-serif', bgcolor: '#bbdefb', color: '#333', ml: 2 }}>Click here to view all inventory</Button>
                 </Box>
             </Box>
             <Container maxWidth='xl'>
