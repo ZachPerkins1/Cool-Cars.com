@@ -1,6 +1,5 @@
 import { Container, Box, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import NavBar from '../components/NavBar.jsx';
 import HeaderSection from './HeaderSection.jsx';

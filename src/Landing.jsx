@@ -18,8 +18,6 @@ import miata from './assets/2018_mazda_mx_5_miata_sideview-removebg-preview.png'
 
 
 function LandingPage() {
-    const images = [img1, img2, img3];
-
     const vehicleTypes = [
         {
             img: sedan,
@@ -98,7 +96,7 @@ function LandingPage() {
                         fontWeight: 'bold',
                         fontStyle: 'italic',
                         fontSize: '5rem',
-                        textAlign: 'center',
+                        textAlign: 'left',
                     }}
                 >
                     Car buying made easy
