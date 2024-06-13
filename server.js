@@ -69,6 +69,11 @@ app.get('/colors', async (req, res) => {
     res.json(result.rows)
 });
 
+app.get('/makes', async (req, res) => {
+    const result = await pool.query('SELECT * FROM makes');
+    res.json(result.rows)
+});
+
 app.get('/models', async (req, res) => {
     const result = await pool.query('SELECT * FROM models');
     res.json(result.rows)

@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box, Paper } from '@mui/material';
 import axios from 'axios';
+import dayjs from 'dayjs';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs/index.js'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { YearCalendar } from '@mui/x-date-pickers/YearCalendar';
 
-export default function AddCar () {
+const handleChange = (event) => {
+    setAge(event.target.value);
+};
+
+export default function AddCar() {
+    const [age, setAge] = React.useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -31,26 +46,93 @@ export default function AddCar () {
                 <Typography variant="h4" align="center" gutterBottom>
                     Add a Car:
                 </Typography>
+
+                <div>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            value={age}
+                            label="Age"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                        <FormHelperText>With label + helper text</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <Select
+                            value={age}
+                            onChange={handleChange}
+                            displayEmpty
+                            inputProps={{ 'aria-label': 'Without label' }}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                        <FormHelperText>Without label</FormHelperText>
+                    </FormControl>
+                </div>
+
+                <div>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            value={age}
+                            label="Age"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                        <FormHelperText>With label + helper text</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <Select
+                            value={age}
+                            onChange={handleChange}
+                            displayEmpty
+                            inputProps={{ 'aria-label': 'Without label' }}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                        <FormHelperText>Without label</FormHelperText>
+                    </FormControl>
+                </div>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
+                        <DemoItem label="YearCalendar">
+                            <YearCalendar defaultValue={dayjs('2024')} />
+                        </DemoItem>
+                    </DemoContainer>
+                </LocalizationProvider>
+
                 <form onSubmit={handleSubmit}>
                     <Box sx={{ display: 'flex', gap: '1rem' }}>
-                        <TextField
-                            fullWidth
-                            label="Make"
-                            variant="outlined"
-                            margin="normal"
-                            value='Make'
-                            onChange={(e) => setFirstName(e.target.value)}
-                            required
-                        />
-                        <TextField
-                            fullWidth
-                            label="Model"
-                            variant="outlined"
-                            margin="normal"
-                            value='Model'
-                            onChange={(e) => setLastName(e.target.value)}
-                            required
-                        />
+
+
                     </Box>
                     <TextField
                         fullWidth
@@ -61,35 +143,8 @@ export default function AddCar () {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                    <TextField
-                        fullWidth
-                        label="Username"
-                        variant="outlined"
-                        margin="normal"
-                        value='Car Year'
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        label="Password"
-                        variant="outlined"
-                        margin="normal"
-                        type="password"
-                        value='Car VIN'
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        label="Confirm Password"
-                        variant="outlined"
-                        margin="normal"
-                        type="password"
-                        value='Car Color'
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
+
+
                     <input
                         type="file"
                         accept="image/*"
@@ -102,12 +157,15 @@ export default function AddCar () {
                     </Button>
                 </form>
             </Container>
-        <Footer sx={{marginTop: 'calc(10% + 60px)',
-    width: '100%',
-    position: 'fixed',
-    bottom: 0,
-    width: '100%'
-    }} />
+
+
+
+            <Footer sx={{
+                marginTop: 'calc(10% + 60px)',
+                width: '100%',
+                position: 'fixed',
+                bottom: 0,
+            }} />
         </>
     );
 };
