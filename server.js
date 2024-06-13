@@ -90,6 +90,45 @@ app.get('/reviews', async (req, res) => {
     res.json(result.rows)
 });
 
+app.post('/cars', async (req, res) => {
+    const {
+        name,
+        year,
+        make_id,
+        model_id,
+        color_id,
+        body_id,
+        mileage,
+        fuel_id,
+        promo_id,
+        arrival_date,
+        price,
+        availability,
+        date_sold,
+        image_id,
+    } = req.body;
+
+    try {
+        const query = `
+            INSERT INTO Cars (
+                name, year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id
+            ) VALUES (
+                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
+            ) RETURNING *;
+        `;
+        const values = [
+            name, year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id
+        ];
+
+        const result = await pool.query(query, values);
+
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 //route to make a new reivew
 app.post('/reviews', upload.single('avatar'), async (req, res) => {
     const { review, rating } = req.body;

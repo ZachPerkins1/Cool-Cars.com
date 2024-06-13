@@ -10,10 +10,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import CurrencyTextField from '@lupus-ai/mui-currency-textfield'
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs/index.js'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { YearCalendar } from '@mui/x-date-pickers/YearCalendar';
+import NumberInputIntroduction from './components/numberInput';
+
 
 const handleChange = (event) => {
     setAge(event.target.value);
@@ -24,6 +27,7 @@ export default function AddCar() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [value, setValue] = React.useState();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -85,6 +89,7 @@ export default function AddCar() {
                 </div>
 
                 <div>
+                    <NumberInputIntroduction />
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
                         <Select
@@ -120,20 +125,32 @@ export default function AddCar() {
                         <FormHelperText>Without label</FormHelperText>
                     </FormControl>
                 </div>
-
+                <CurrencyTextField
+                    label="Amount"
+                    variant="standard"
+                    value={value}
+                    currencySymbol="$"
+                    minimumValue="0"
+                    outputFormat="string"
+                    decimalCharacter="."
+                    digitGroupSeparator=","
+                    onChange={(event, value) => setValue(value)}
+                />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
-                        <DemoItem label="YearCalendar">
-                            <YearCalendar defaultValue={dayjs('2024')} />
+                        <DemoItem label="What model year is the car?">
+                            <YearCalendar
+                                defaultValue={dayjs('2024')}
+                                minDate={dayjs('1990-01-25')}
+                                maxDate={dayjs('2024-01-25')}
+                            />
                         </DemoItem>
                     </DemoContainer>
                 </LocalizationProvider>
 
                 <form onSubmit={handleSubmit}>
-                    <Box sx={{ display: 'flex', gap: '1rem' }}>
-
-
-                    </Box>
+                    {/* <Box sx={{ display: 'flex', gap: '1rem' }}>
+                    </Box> */}
                     <TextField
                         fullWidth
                         label="VIN Number"
