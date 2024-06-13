@@ -1,6 +1,5 @@
 import { Container, Box, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import NavBar from '../components/NavBar.jsx';
 import HeaderSection from './HeaderSection.jsx';
@@ -9,10 +8,13 @@ import ImageCarousel from '../components/ImageCarousel.jsx';
 import CustomerReviews from './CustomerReviews.jsx';
 import './AboutUs.css';
 
+
+
 const AboutUs = () => {
     const [expandedCard, setExpandedCard] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [filter, setFilter] = useState('newest');
+    // const classes = useStyles();
 
     const handleCardClick = (personName) => {
         setExpandedCard((prev) => (prev === personName ? null : personName));
@@ -54,11 +56,8 @@ const AboutUs = () => {
 
     return (
         <>
-            <Helmet>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-            </Helmet>
             <NavBar />
-            <Container maxWidth="lg" style={{ marginTop: '2rem' }}>
+            <Container maxWidth="lg" style={{ marginTop: '2rem' }} >
                 <HeaderSection />
                 <MeetTheTeam expandedCard={expandedCard} handleCardClick={handleCardClick} />
                 <Box marginBottom={10}>
@@ -74,3 +73,4 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
+

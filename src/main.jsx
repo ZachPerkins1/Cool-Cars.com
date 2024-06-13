@@ -11,7 +11,7 @@ import AboutUs from './AboutUs/AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
 import AdminPage from './AdminPage.jsx';
 import Landing from './Landing.jsx';
-import './index.css'
+// import './index.css';
 import LeaveReview from './LeaveReview.jsx';
 import Register from './Register.jsx';
 import { FavoritesProvider } from './contexts/FavoritesContext.jsx';
