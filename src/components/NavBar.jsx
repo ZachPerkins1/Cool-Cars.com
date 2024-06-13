@@ -1,34 +1,36 @@
 import { AppBar, Button, Box, Toolbar, Typography } from '@mui/material/';
-import ToysTwoToneIcon from '@mui/icons-material/ToysTwoTone';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import DropdownMenu from './DropdownMenu';
+import './NavBar.css';
 
 
 function NavBar() {
   const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const loggedInUser = sessionStorage.getItem('userData');
     console.log("Logged in user from session storage:", loggedInUser);
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
+      setIsLoggedIn(true);
     } else {
       setUser(null); // Set user to null if there's no user in sessionStorage
+      setIsLoggedIn(false);
     }
   }, []);
 
   const handleLogout = () => {
     sessionStorage.removeItem('userData');
     setUser(null);
+    setIsLoggedIn(false);
   };
 
   return (
     <AppBar position="static" style={{ width: '100vw', margin: 0 }}>
       <Toolbar>
-        <Box mr={2}>
-          <ToysTwoToneIcon fontSize='large' />
-        </Box>
         <Box mr={4}>
           <HomeLink />
         </Box>
@@ -46,22 +48,14 @@ function NavBar() {
             <Typography variant="h6" color="white">
               {`Welcome, ${user.firstName}`}
             </Typography>
-            <Box ml={2}>
-              <Button variant="contained" onClick={handleLogout}>Logout</Button>
+            <Box>
+              <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user}/>
             </Box>
-            {user.role === 'admin' && (
-              <Box ml={2}>
-                <AdminPageLink />
-              </Box>
-            )}
           </>
         ) : (
           <>
-            <Box flexGrow={1}>
-              <RegisterLink />
-            </Box>
             <Box>
-              <LoginLink />
+              <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user}/>
             </Box>
           </>
         )}
@@ -72,61 +66,42 @@ function NavBar() {
 
 function HomeLink() {
   return (
-    <Link to={`/`}>
-      <Typography variant="h5" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff', fontStyle: 'italic' }}>
-        CoolCars.com
+    <Link to={`/`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
+        Home
       </Typography>
     </Link>
-  )
+  );
 }
 
 function InventoryLink() {
   return (
-    <Link to={`/inventory`}>
-      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Inventory</Button>
+    <Link to={`/inventory`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
+        Inventory
+      </Typography>
     </Link>
   );
 }
 
 function AboutUsLink() {
   return (
-    <Link to={`/aboutUs`}>
-      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>About Us</Button>
+    <Link to={`/aboutUs`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
+        About Us
+      </Typography>
     </Link>
   );
 }
 
 function WishlistLink() {
   return (
-    <Link to={`/wishlist`}>
-      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Wishlist</Button>
+    <Link to={`/wishlist`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
+        Wishlist
+      </Typography>
     </Link>
   );
 }
-
-function RegisterLink() {
-  return (
-    <Link to={`/register`}>
-      <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>Register</Button>
-    </Link>
-  );
-}
-
-function LoginLink() {
-  return (
-    <Link to={`/login`}>
-      <AccountCircleSharpIcon fontSize='large' />
-    </Link>
-  );
-}
-
-function AdminPageLink() {
-  return (
-    <Link to={`/adminPage`}>
-      <Button variant="contained">Admin Page</Button>
-    </Link>
-  );
-}
-
 
 export default NavBar;
