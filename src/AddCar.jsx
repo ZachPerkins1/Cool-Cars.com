@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Box, Paper } from '@mui/material';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -10,24 +10,84 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import CurrencyTextField from '@lupus-ai/mui-currency-textfield'
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs/index.js'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { YearCalendar } from '@mui/x-date-pickers/YearCalendar';
-import NumberInputIntroduction from './components/numberInput';
+import InputAdornment from "@material-ui/core/InputAdornment";
 
+const getModels = async () => {
+    const { data } = await axios.get('http://localhost:3000/models');
+    return data;
+}
 
-const handleChange = (event) => {
-    setAge(event.target.value);
-};
+const getMakes = async () => {
+    const { data } = await axios.get('http://localhost:3000/makes');
+    return data;
+}
+
+const getColors = async () => {
+    const { data } = await axios.get('http://localhost:3000/colors');
+    return data;
+}
+
+const getFuelTypes = async () => {
+    const { data } = await axios.get('http://localhost:3000/fuels');
+    return data;
+}
+
+const getBodyStyles = async () => {
+    const { data } = await axios.get('http://localhost:3000/bodies');
+    return data;
+}
+
 
 export default function AddCar() {
-    const [age, setAge] = React.useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [make, setMake] = useState('')
+    const [makes, setMakes] = useState([])
+
+    const [model, setModel] = useState('')
+    const [models, setModels] = useState([])
+
+    const [color, setColor] = useState('')
+    const [colors, setColors] = useState([])
+
+    const [fuelType, setFuelType] = useState('')
+    const [fuelTypes, setFuelTypes] = useState([])
+
+    const [bodyStyle, setBodyStyle] = useState('')
+    const [bodyStyles, setBodyStyles] = useState([]);
+
+    const [miles, setMiles] = useState(0)
+    const [price, setPrice] = useState(0)
+
+    const handleMakeChange = (event) => {
+        setMake(event.target.value);
+    };
+
+    const handleModelChange = (event) => {
+        setModel(event.target.value);
+    };
+
+    const handleColorChange = (event) => {
+        setColor(event.target.value);
+    }
+
+    const handleBodyChange = (event) => {
+        setBodyStyle(event.target.value);
+    };
+
+    const handleYearChange = (event) => {
+        setMake(event.target.value);
+    };
+
+    const handleFuelChange = (event) => {
+        console.log('fuel')
+        setFuelType(event.target.value);
+    };
+
+
     const [error, setError] = useState('');
-    const [value, setValue] = React.useState();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -43,6 +103,15 @@ export default function AddCar() {
         }
     };
 
+    useEffect(() => {
+        getMakes().then((data) => setMakes(data))
+        getModels().then((data) => setModels(data))
+        getColors().then((data) => setColors(data))
+        getFuelTypes().then((data) => setFuelTypes(data))
+        getBodyStyles().then((data) => setBodyStyles(data))
+        console.log('loaded')
+    }, [])
+
     return (
         <>
             <NavBar />
@@ -53,89 +122,87 @@ export default function AddCar() {
 
                 <div>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+                        <InputLabel id="demo-simple-select-helper-label">Make</InputLabel>
                         <Select
                             labelId="demo-simple-select-helper-label"
                             id="demo-simple-select-helper"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
+                            value={make}
+                            label="Make"
+                            onChange={handleMakeChange}
                         >
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
+                            {makes.map((make) => <MenuItem id={make.id} value={make.make} key={make.id}>{make.make}</MenuItem>)}
                             <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
                         </Select>
-                        <FormHelperText>With label + helper text</FormHelperText>
+                        <FormHelperText>Choose a Make</FormHelperText>
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="demo-simple-select-helper-label">Model</InputLabel>
                         <Select
-                            value={age}
-                            onChange={handleChange}
-                            displayEmpty
-                            inputProps={{ 'aria-label': 'Without label' }}
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            value={model}
+                            label="Model"
+                            onChange={handleModelChange}
                         >
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {models.map((model) => <MenuItem id={model.id} value={model.model} key={model.id}>{model.model}</MenuItem>)}
+
                         </Select>
-                        <FormHelperText>Without label</FormHelperText>
+                        <FormHelperText>Choose a Model</FormHelperText>
                     </FormControl>
                 </div>
 
                 <div>
-                    <NumberInputIntroduction />
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+                        <InputLabel id="color-input">Color</InputLabel>
                         <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            value={age}
-                            label="Age"
-                            onChange={handleChange}
+                            labelId="color-input"
+                            id="color-input-select"
+                            value={color}
+                            label="Color"
+                            onChange={handleColorChange}
                         >
                             <MenuItem value="">
                                 <em>None</em>
                             </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {colors.map((color) => <MenuItem id={color.id} value={color.color} key={color.id}>{color.color}</MenuItem>)}
                         </Select>
-                        <FormHelperText>With label + helper text</FormHelperText>
+                        <FormHelperText>What Color is the vehicle?</FormHelperText>
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="body-style-input">Body Style</InputLabel>
                         <Select
-                            value={age}
-                            onChange={handleChange}
-                            displayEmpty
-                            inputProps={{ 'aria-label': 'Without label' }}
+                            labelId="body-style-input"
+                            id="body-style-input-select"
+                            value={bodyStyle}
+                            onChange={handleBodyChange}
                         >
                             <MenuItem value="">
-                                <em>None</em>
+                                <em>Body Style</em>
                             </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {bodyStyles.map((body) => <MenuItem id={body.id} value={body.body_style} key={body.id}>{body.body_style}</MenuItem>)}
                         </Select>
                         <FormHelperText>Without label</FormHelperText>
                     </FormControl>
                 </div>
-                <CurrencyTextField
-                    label="Amount"
-                    variant="standard"
-                    value={value}
-                    currencySymbol="$"
-                    minimumValue="0"
-                    outputFormat="string"
-                    decimalCharacter="."
-                    digitGroupSeparator=","
-                    onChange={(event, value) => setValue(value)}
-                />
+                <div>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <TextField inputProps={{ type: 'number' }} />
+                    </FormControl>
+                </div>
+                <div>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <TextField InputProps={{
+                            type: 'number',
+                            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                        }} />
+                    </FormControl>
+                </div>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
                         <DemoItem label="What model year is the car?">
@@ -157,7 +224,7 @@ export default function AddCar() {
                         variant="outlined"
                         margin="normal"
                         value='#################'
-                        onChange={(e) => setEmail(e.target.value)}
+                        // onChange={(e) => setEmail(e.target.value)}
                         required
                     />
 

@@ -65,22 +65,27 @@ app.get('/cars', async (req, res) => {
 });
 
 app.get('/colors', async (req, res) => {
-    const result = await pool.query('SELECT * FROM colors');
+    const result = await pool.query('SELECT * FROM colors;');
     res.json(result.rows)
 });
 
 app.get('/makes', async (req, res) => {
-    const result = await pool.query('SELECT * FROM makes');
+    const result = await pool.query('SELECT * FROM makes;');
     res.json(result.rows)
 });
 
 app.get('/models', async (req, res) => {
-    const result = await pool.query('SELECT * FROM models');
+    const result = await pool.query('SELECT * FROM models;');
     res.json(result.rows)
 });
 
 app.get('/fuels', async (req, res) => {
-    const result = await pool.query('SELECT * FROM fueltype');
+    const result = await pool.query('SELECT * FROM fueltype;');
+    res.json(result.rows)
+});
+
+app.get('/bodies', async (req, res) => {
+    const result = await pool.query('SELECT * FROM bodies;');
     res.json(result.rows)
 });
 
