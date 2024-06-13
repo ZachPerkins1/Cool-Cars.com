@@ -29,12 +29,7 @@ function InventoryPage() {
     useEffect(() => {
         if (!isLoading) {
             if (vehicleType) {
-                console.log('cars---', cars)
-                setFilteredCars(cars.filter((car) => {
-                    console.log('vehicleType: ', vehicleType, 'car.type: ', car.body_style);
-                    return car.body_style === vehicleType
-            }));
-                console.log('filteredCars: ', filteredCars);
+                setFilteredCars(cars.filter((car) => car.body_style === vehicleType));
             } else {
                 setFilteredCars(cars);
             }
