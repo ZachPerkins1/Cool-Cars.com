@@ -3,18 +3,23 @@ import ToysTwoToneIcon from '@mui/icons-material/ToysTwoTone';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import DropdownMenu from './DropdownMenu';
+import './NavBar.css';
 
 
 function NavBar() {
   const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const loggedInUser = sessionStorage.getItem('userData');
     console.log("Logged in user from session storage:", loggedInUser);
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
+      setIsLoggedIn(true);
     } else {
       setUser(null); // Set user to null if there's no user in sessionStorage
+      setIsLoggedIn(false);
     }
   }, []);
 
@@ -26,9 +31,6 @@ function NavBar() {
   return (
     <AppBar position="static" style={{ width: '100vw', margin: 0 }}>
       <Toolbar>
-        {/* <Box mr={2}>
-          <ToysTwoToneIcon fontSize='large' />
-        </Box> */}
         <Box mr={4}>
           <HomeLink />
         </Box>
@@ -46,22 +48,14 @@ function NavBar() {
             <Typography variant="h6" color="white">
               {`Welcome, ${user.firstName}`}
             </Typography>
-            <Box ml={2}>
-              <Button variant="contained" onClick={handleLogout}>Logout</Button>
+            <Box>
+              <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user} setUser={setUser}/>
             </Box>
-            {user.role === 'admin' && (
-              <Box ml={2}>
-                <AdminPageLink />
-              </Box>
-            )}
           </>
         ) : (
           <>
-            <Box flexGrow={1}>
-              <RegisterLink />
-            </Box>
             <Box>
-              <LoginLink />
+              <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user} setUser={setUser}/>
             </Box>
           </>
         )}
@@ -72,8 +66,8 @@ function NavBar() {
 
 function HomeLink() {
   return (
-    <Link to={`/`}>
-      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff', fontStyle: 'italic' }}>
+    <Link to={`/`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
         Home
       </Typography>
     </Link>
@@ -82,19 +76,8 @@ function HomeLink() {
 
 function InventoryLink() {
   return (
-    <Link to={`/inventory`} sx={{ textDecoration: 'none' }}>
-      <Typography variant="h7" sx={{ 
-          fontFamily: 'Figtree, Roboto, sans-serif', 
-          fontStyle: 'italic',
-          color: '#fff',
-          '&:hover': {
-            textDecoration: 'underline',
-            textDecorationThickness: '2px',
-            textDecorationColor: '#fff',
-            transition: 'textDecoration 0.3s',
-          },
-        }}
-      >
+    <Link to={`/inventory`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
         Inventory
       </Typography>
     </Link>
@@ -103,8 +86,8 @@ function InventoryLink() {
 
 function AboutUsLink() {
   return (
-    <Link to={`/aboutUs`}>
-      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+    <Link to={`/aboutUs`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
         About Us
       </Typography>
     </Link>
@@ -113,38 +96,28 @@ function AboutUsLink() {
 
 function WishlistLink() {
   return (
-    <Link to={`/wishlist`}>
-      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+    <Link to={`/wishlist`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
         Wishlist
       </Typography>
     </Link>
   );
 }
 
-function RegisterLink() {
-  return (
-    <Link to={`/register`}>
-      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
-        Register
-      </Typography>
-    </Link>
-  );
-}
-
-function LoginLink() {
-  return (
-    <Link to={`/login`} >
-      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
-        <AccountCircleSharpIcon fontSize='large'/>
-      </Typography>
-    </Link>
-  );
-}
+// function RegisterLink() {
+//   return (
+//     <Link to={`/register`} className='nav-link'>
+//       <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
+//         Register
+//       </Typography>
+//     </Link>
+//   );
+// }
 
 function AdminPageLink() {
   return (
-    <Link to={`/adminPage`}>
-      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#fff' }}>
+    <Link to={`/adminPage`} className='nav-link'>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
         Admin Page
       </Typography>
     </Link>
