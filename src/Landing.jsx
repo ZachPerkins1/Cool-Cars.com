@@ -1,13 +1,11 @@
+import { Container, ImageList, ImageListItem , Button, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './components/NavBar';
 import SalesBanner from './components/SalesBanner';
-import './Landing.css';
-import { Container, ImageList, ImageListItem , Button, Box, Typography, ThemeProvider } from '@mui/material';
 import Footer from './components/Footer';
+import './Landing.css';
 
 import banner2 from './assets/car_banner2.png';
-import img1 from './assets/pexels-robert-hess-216886-4824774.jpg';
-import img2 from './assets/pexels-tnarg-8717323.jpg';
-import img3 from './assets/pexels-wearelivingart-7862143.jpg';
 import sedan from './assets/sedan.png';
 import suv from './assets/suv.png';
 import pickupTruck from './assets/pickup_truck.png';
@@ -16,38 +14,51 @@ import convertible from './assets/convertible.png';
 import miata from './assets/2018_mazda_mx_5_miata_sideview-removebg-preview.png';
 
 
-
 function LandingPage() {
-    const images = [img1, img2, img3];
-
     const vehicleTypes = [
         {
             img: sedan,
-            title: 'Sedan'
+            title: 'Sedan',
+            type: 'Sedan'
         },
         {
             img: suv,
-            title: 'SUV'
+            title: 'SUV',
+            type: 'SUV'
         },
         {
             img: pickupTruck,
-            title: 'Pickup Truck'
+            title: 'Pickup Truck',
+            type: 'Pickup Truck'
         },
         {
             img: van,
-            title: 'Van'
+            title: 'Van',
+            type: 'Minivan'
         },
         {
             img: convertible,
-            title: 'Convertible'    
+            title: 'Convertible',
+            type: 'Convertible'    
         },
         {
             img: miata,
-            title: 'Miata'
+            title: 'Coupe',
+            type: 'Coupe'
         }
     ];
     
     const salesBannerMessage = "Summer Sale begins June 12th! Buy one car, get one free for a limited time only! Get em while the gettin's good!";
+
+    const navigate = useNavigate();
+
+    const handleViewInventory = () => {
+        navigate('/inventory');
+    }
+
+    const handleVehicleTypeClick = (vehicleType) => {
+        navigate(`/inventory?type=${vehicleType}`);
+    }
 
     return (
         <div id="landing-root">
@@ -98,13 +109,13 @@ function LandingPage() {
                         fontWeight: 'bold',
                         fontStyle: 'italic',
                         fontSize: '5rem',
-                        textAlign: 'center',
+                        textAlign: 'left',
                     }}
                 >
                     Car buying made easy
                 </Typography>
                 <Box sx={{ mt: 4 }}>
-                    <Button variant="contained" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', bgcolor: '#bbdefb', color: '#333', ml: 2 }}>Click here to view all inventory</Button>
+                    <Button variant="contained" onClick={() => handleViewInventory()} sx={{ fontFamily: 'Figtree, Roboto, sans-serif', bgcolor: '#bbdefb', color: '#333', ml: 2 }}>Click here to view all inventory</Button>
                 </Box>
             </Box>
             <Container maxWidth='xl'>
@@ -112,13 +123,13 @@ function LandingPage() {
                     <Box sx={{ width: '60%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mr: 8 }}>
                         <Typography variant="h4" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', mt: 4 }}>View by vehicle type</Typography>
                         <ImageList sx={{ width: '100%', maxHeight: 450 }} cols={3} rowHeight={200}>
-                            {vehicleTypes.map((item) => (
-                                <ImageListItem key={item.img} className="vehicle-item" onClick={() => console.log('Clicked')}>
+                            {vehicleTypes.map((vehicle) => (
+                                <ImageListItem key={vehicle.img} className="vehicle-item" onClick={() => handleVehicleTypeClick(vehicle.type)}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%'}}>
                                         <img
-                                            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                                            alt={item.title}
+                                            srcSet={`${vehicle.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                            src={`${vehicle.img}?w=164&h=164&fit=crop&auto=format`}
+                                            alt={vehicle.title}
                                             loading="lazy"
                                             style={{
                                                 objectFit: 'contain',
@@ -127,7 +138,7 @@ function LandingPage() {
                                         />
                                     </Box>
                                     <div className="vehicle-info">
-                                        <Typography variant="h6" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>{item.title}</Typography>
+                                        <Typography variant="h6" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>{vehicle.title}</Typography>
                                     </div>
                                 </ImageListItem>
                             ))}
