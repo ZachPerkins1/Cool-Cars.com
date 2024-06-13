@@ -54,9 +54,19 @@ export default function BasicMenu({ anchor, loginStatus, handleLogout, user, set
             <MenuItem key={'admin'} onClick={handleClose}>
                 <AdminPageLink />
             </MenuItem>,
-            <MenuItem key={'logout'} onClick={() => handleLogoutClick()}>Logout</MenuItem>
+            <MenuItem
+                key={'logout'} onClick={() => handleLogoutClick()}
+                sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}
+            >
+                Logout
+            </MenuItem>
         ] : [
-            <MenuItem key={'logout'} onClick={() => handleLogoutClick()}>Logout</MenuItem>
+            <MenuItem
+                key={'logout'} onClick={() => handleLogoutClick()}
+                sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}
+            >
+                Logout
+            </MenuItem>
         ]
     ) : [
         <MenuItem key={'login'} onClick={handleClose}>
