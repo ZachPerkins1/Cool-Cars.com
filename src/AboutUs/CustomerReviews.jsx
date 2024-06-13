@@ -5,7 +5,7 @@ import FilterReviews from './FilterReviews';
 
 const CustomerReviewsSection = ({ reviews, filter, handleFilterChange }) => (
     <Box>
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
             Customer Reviews
         </Typography>
         <FilterReviews filter={filter} handleFilterChange={handleFilterChange} />

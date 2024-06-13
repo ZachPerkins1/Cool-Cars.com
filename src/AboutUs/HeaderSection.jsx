@@ -7,7 +7,7 @@ const HeaderSection = () => (
             <img src={yellowMiata} alt="About Us" style={{ width: '100%' }} />
         </Grid>
         <Grid item xs={12} md={6}>
-            <Typography variant="h3" align="center" gutterBottom>
+            <Typography variant="h3" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
                 About Us
             </Typography>
             <Typography variant="body1" align="center" paragraph>

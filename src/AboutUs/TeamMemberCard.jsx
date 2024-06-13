@@ -1,6 +1,6 @@
 import { Card, CardContent, Avatar, Typography } from '@mui/material';
 
-const TeamMemberCard = ({ name, title, image, isExpanded, onClick }) => (
+const TeamMemberCard = ({ name, title, image, email, phone, isExpanded, onClick }) => (
     <Card className={isExpanded ? 'expandedCard' : 'card'} onClick={onClick}>
         <CardContent>
             <Avatar style={{ margin: '0 auto', width: 100, height: 100 }} alt={name} src={image} />
@@ -13,10 +13,10 @@ const TeamMemberCard = ({ name, title, image, isExpanded, onClick }) => (
             {isExpanded && (
                 <>
                     <Typography variant="body2" color="textSecondary" align="center">
-                        Email: {name.toLowerCase().split(' ').join('')}@example.com
+                        {email}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" align="center">
-                        Phone: +1234567890
+                        {phone}
                     </Typography>
                 </>
             )}

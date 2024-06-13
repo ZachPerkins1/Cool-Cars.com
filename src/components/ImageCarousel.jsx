@@ -7,6 +7,7 @@ import carSale from '../assets/car_sale.png';
 import carCheck from '../assets/car_check.png';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import '../AboutUs/AboutUs.css'
 
 
 const ImageCarousel = () => {
@@ -17,7 +18,8 @@ const ImageCarousel = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000,
+        autoplaySpeed: 2000,
+        adaptiveHeight: true,
     };
 
     const carouselItems = [
@@ -53,12 +55,14 @@ const ImageCarousel = () => {
                                 <img src={item.image} alt={`Carousel ${index + 1}`} className="carouselImage" />
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Typography variant="h4" gutterBottom>
-                                    {item.header}
-                                </Typography>
-                                <Typography variant="body1">
-                                    {item.text}
-                                </Typography>
+                                <Box className="carouselTextContainer">
+                                    <Typography variant="h4" gutterBottom>
+                                        {item.header}
+                                    </Typography>
+                                    <Typography variant="body1">
+                                        {item.text}
+                                    </Typography>
+                                </Box>
                             </Grid>
                         </Grid>
                     </Box>

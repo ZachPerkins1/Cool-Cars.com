@@ -62,7 +62,7 @@ const AboutUs = () => {
                 <HeaderSection />
                 <MeetTheTeam expandedCard={expandedCard} handleCardClick={handleCardClick} />
                 <Box marginBottom={10}>
-                    <Typography variant="h4" align="center" gutterBottom>
+                    <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
                         Explore Our Dealership
                     </Typography>
                     <ImageCarousel />
