@@ -1,26 +1,52 @@
 import React, { useState, useEffect } from 'react';
+import { Grid, TextField, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './components/NavBar';
-import { Grid, TextField, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import CarCard from './components/CarCard.jsx';
 
-const getCars = async () => {
+const getCars = async (vehicleType) => {
     const { data } = await axios.get('http://localhost:3000/cars');
     return data;
 }
 
 function InventoryPage() {
     const [cars, setCars] = useState([]);
-    const carCards = cars.map((car) =>
+    const [filteredCars, setFilteredCars] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const vehicleType = params.get('type');
+
+    useEffect(() => {
+        getCars().then((data) => {
+            setCars(data);
+            setFilteredCars(data);
+            setIsLoading(false);
+        });
+    }, []);
+
+    useEffect(() => {
+        if (!isLoading) {
+            if (vehicleType) {
+                console.log('cars---', cars)
+                setFilteredCars(cars.filter((car) => {
+                    console.log('vehicleType: ', vehicleType, 'car.type: ', car.body_style);
+                    return car.body_style === vehicleType
+            }));
+                console.log('filteredCars: ', filteredCars);
+            } else {
+                setFilteredCars(cars);
+            }
+        }
+    }, [vehicleType, cars]);
+
+    const carCards = filteredCars.map((car) =>
         <Grid item key={car.id}>
             <CarCard car={car}></CarCard>
         </Grid>
     );
 
-    useEffect(() => {
-        const result = getCars().then((data) => setCars(data))
-
-    }, [])
 
     return (
         <>

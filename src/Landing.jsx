@@ -18,27 +18,33 @@ function LandingPage() {
     const vehicleTypes = [
         {
             img: sedan,
-            title: 'Sedan'
+            title: 'Sedan',
+            type: 'Sedan'
         },
         {
             img: suv,
-            title: 'SUV'
+            title: 'SUV',
+            type: 'SUV'
         },
         {
             img: pickupTruck,
-            title: 'Pickup Truck'
+            title: 'Pickup Truck',
+            type: 'Pickup Truck'
         },
         {
             img: van,
-            title: 'Van'
+            title: 'Van',
+            type: 'Minivan'
         },
         {
             img: convertible,
-            title: 'Convertible'    
+            title: 'Convertible',
+            type: 'Convertible'    
         },
         {
             img: miata,
-            title: 'Miata'
+            title: 'Coupe',
+            type: 'Coupe'
         }
     ];
     
@@ -49,7 +55,11 @@ function LandingPage() {
     const handleViewInventory = () => {
         navigate('/inventory');
     }
-    
+
+    const handleVehicleTypeClick = (vehicleType) => {
+        navigate(`/inventory?type=${vehicleType}`);
+    }
+
     return (
         <div id="landing-root">
             <Navbar />
@@ -113,13 +123,13 @@ function LandingPage() {
                     <Box sx={{ width: '60%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mr: 8 }}>
                         <Typography variant="h4" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', mt: 4 }}>View by vehicle type</Typography>
                         <ImageList sx={{ width: '100%', maxHeight: 450 }} cols={3} rowHeight={200}>
-                            {vehicleTypes.map((item) => (
-                                <ImageListItem key={item.img} className="vehicle-item" onClick={() => console.log('Clicked')}>
+                            {vehicleTypes.map((vehicle) => (
+                                <ImageListItem key={vehicle.img} className="vehicle-item" onClick={() => handleVehicleTypeClick(vehicle.type)}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%'}}>
                                         <img
-                                            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                                            alt={item.title}
+                                            srcSet={`${vehicle.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                            src={`${vehicle.img}?w=164&h=164&fit=crop&auto=format`}
+                                            alt={vehicle.title}
                                             loading="lazy"
                                             style={{
                                                 objectFit: 'contain',
@@ -128,7 +138,7 @@ function LandingPage() {
                                         />
                                     </Box>
                                     <div className="vehicle-info">
-                                        <Typography variant="h6" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>{item.title}</Typography>
+                                        <Typography variant="h6" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>{vehicle.title}</Typography>
                                     </div>
                                 </ImageListItem>
                             ))}
