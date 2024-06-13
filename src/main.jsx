@@ -7,7 +7,7 @@ import {
 import App from './App.jsx'
 import ErrorPage from './ErrorPage.jsx';
 import InventoryPage from './InventoryPage.jsx';
-import AboutUs from './AboutUs.jsx';
+import AboutUs from './AboutUs/AboutUs.jsx';
 import Wishlist from './Wishlist.jsx';
 import AdminPage from './AdminPage.jsx';
 import Landing from './Landing.jsx';

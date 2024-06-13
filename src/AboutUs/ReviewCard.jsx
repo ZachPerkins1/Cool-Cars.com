@@ -1,4 +1,4 @@
-import { Card, CardContent, Avatar, Typography, Rating } from '@mui/material';
+import { Card, CardContent, Avatar, Typography, Rating, Box } from '@mui/material';
 
 const ReviewCard = ({ review }) => (
     <Card>
@@ -7,7 +7,9 @@ const ReviewCard = ({ review }) => (
             <Typography variant="h5" align="center" gutterBottom>
                 {review.name}
             </Typography>
-            <Rating value={review.rating} readOnly style={{ justifyContent: 'center', display: 'flex' }} />
+            <Box display="flex" justifyContent="center" marginBottom={2}>
+                <Rating value={review.rating} readOnly />
+            </Box>
             <Typography variant="body1" align="center">
                 {review.review}
             </Typography>
