@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Button, Menu, MenuItem, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function BasicMenu({ anchor, loginStatus, handleLogout, user, setUser }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(loginStatus);
+
+    useEffect(() => {
+        setIsLoggedIn(loginStatus)
+    }, [loginStatus])
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -17,7 +21,6 @@ export default function BasicMenu({ anchor, loginStatus, handleLogout, user, set
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
-    setIsLoggedIn(false);
     setAnchorEl(null);
     handleLogout();
     navigate('/');
@@ -46,12 +49,16 @@ export default function BasicMenu({ anchor, loginStatus, handleLogout, user, set
             'aria-labelledby': 'basic-button',
         }}
     >
-    {isLoggedIn ? [
-        <MenuItem key={'admin'} onClick={handleClose}>
-            <AdminPageLink />
-        </MenuItem>,
-        <MenuItem key={'logout'} onClick={() => handleLogoutClick()}>Logout</MenuItem>
-    ] : [
+    {isLoggedIn ? (
+        user && (user.role === 'admin') ? [
+            <MenuItem key={'admin'} onClick={handleClose}>
+                <AdminPageLink />
+            </MenuItem>,
+            <MenuItem key={'logout'} onClick={() => handleLogoutClick()}>Logout</MenuItem>
+        ] : [
+            <MenuItem key={'logout'} onClick={() => handleLogoutClick()}>Logout</MenuItem>
+        ]
+    ) : [
         <MenuItem key={'login'} onClick={handleClose}>
             <LoginLink />
         </MenuItem>,
