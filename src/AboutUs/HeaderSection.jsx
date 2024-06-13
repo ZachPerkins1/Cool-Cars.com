@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import yellowMiata from '../assets/yellow_miata.png';
 
+
 const HeaderSection = () => (
     <Grid container spacing={4} alignItems="center">
         <Grid item xs={12} md={6}>

@@ -102,3 +102,26 @@
     max-width: 100%;
     /* Ensure the text container doesn't exceed its parent's width */
 }
+
+
+/* media queries for responsiveness */
+/* @media (max-width: 960px) {
+   
+
+    .container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    
+
+    .container {
+        padding: 5px;
+    }
+
+    .header {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+} */

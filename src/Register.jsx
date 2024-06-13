@@ -171,5 +171,3 @@ const Register = () => {
 };
 
 export default Register;
-
-//remove hard coded ids from users
