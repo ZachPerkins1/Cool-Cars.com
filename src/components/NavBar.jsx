@@ -1,5 +1,4 @@
 import { AppBar, Button, Box, Toolbar, Typography } from '@mui/material/';
-import ToysTwoToneIcon from '@mui/icons-material/ToysTwoTone';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -50,13 +49,13 @@ function NavBar() {
               {`Welcome, ${user.firstName}`}
             </Typography>
             <Box>
-              <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user} setUser={setUser}/>
+              <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user}/>
             </Box>
           </>
         ) : (
           <>
             <Box>
-              <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user} setUser={setUser}/>
+              <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user}/>
             </Box>
           </>
         )}
@@ -100,26 +99,6 @@ function WishlistLink() {
     <Link to={`/wishlist`} className='nav-link'>
       <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
         Wishlist
-      </Typography>
-    </Link>
-  );
-}
-
-// function RegisterLink() {
-//   return (
-//     <Link to={`/register`} className='nav-link'>
-//       <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
-//         Register
-//       </Typography>
-//     </Link>
-//   );
-// }
-
-function AdminPageLink() {
-  return (
-    <Link to={`/adminPage`} className='nav-link'>
-      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>
-        Admin Page
       </Typography>
     </Link>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Button, Menu, MenuItem, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function BasicMenu({ anchor, loginStatus, handleLogout, user, setUser }) {
+export default function BasicMenu({ anchor, loginStatus, handleLogout, user }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(loginStatus);
 
@@ -90,25 +90,25 @@ function RegisterLink() {
         </Typography>
       </Link>
     );
-  }
+}
 
 
-  function LoginLink() {
+function LoginLink() {
     return (
-      <Link to={`/login`}>
+        <Link to={`/login`}>
         <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
-         Login
+            Login
         </Typography>
-      </Link>
+        </Link>
     );
-  }
+}
 
-  function AdminPageLink() {
+function AdminPageLink() {
     return (
-      <Link to={`/adminPage`}>
+        <Link to={`/adminPage`}>
         <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
-          Admin Page
+            Admin Page
         </Typography>
-      </Link>
+        </Link>
     );
-  }
+}
