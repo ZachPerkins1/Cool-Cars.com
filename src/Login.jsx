@@ -18,7 +18,6 @@ const Login = () => {
 
             // Store user data in session storage
             sessionStorage.setItem('userData', JSON.stringify(userData));
-            alert('login succesfull');
 
             // Redirect to home page
             navigate('/');
