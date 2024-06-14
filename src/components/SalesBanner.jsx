@@ -10,7 +10,7 @@ function SalesBanner({message}) {
           <p>SUMMER SALE ON NOW</p>
         </Box>
         <Box sx={{ width: '60%', overflow: 'hidden' }}>
-          <Typography className="ticker" sx={{ fontFamily: 'Figtree, Roboto, sans-serif' }}>{message}</Typography>
+          <Typography className="ticker" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', fontWeight: 100 }}>{message}</Typography>
         </Box>
       </Box>
     </>

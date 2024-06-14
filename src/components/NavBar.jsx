@@ -29,9 +29,9 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static" style={{ width: '100vw', margin: 0 }}>
+    <AppBar position="static" style={{ width: '100vw', margin: 0, msOverflowX: 'hidden' }}>
       <Toolbar>
-        <Box mr={4}>
+        <Box mr={4} ml={2}>
           <HomeLink />
         </Box>
         <Box mr={2}>
@@ -48,13 +48,13 @@ function NavBar() {
             <Typography variant="h6" color="white">
               {`Welcome, ${user.firstName}`}
             </Typography>
-            <Box>
+            <Box sx={{ mr: 2 }}>
               <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user}/>
             </Box>
           </>
         ) : (
           <>
-            <Box>
+            <Box sx={{ mr: 2 }}>
               <DropdownMenu anchor={<AccountCircleSharpIcon fontSize='large'/>} loginStatus={isLoggedIn} handleLogout={handleLogout} user={user}/>
             </Box>
           </>
