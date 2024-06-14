@@ -65,6 +65,8 @@ function CarCard({ car, userId, showFavoriteIcon = true }) {
             <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography style={{ display: 'inline' }}>{car.year + ' ' + car.make + ' ' + car.model + ' '}</Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                    <Typography style={{display:'inline'}}>{car.year + ' ' + car.make + ' ' + car.model + ' '}</Typography>
                     <Dot color={colorMap[car.color_id]} />
                     <IconButton aria-label="add to favorites" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none' }}>
                         {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}

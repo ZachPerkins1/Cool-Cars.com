@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import App from './App.jsx'
 import ErrorPage from './ErrorPage.jsx';
 import InventoryPage from './InventoryPage.jsx';
 import AboutUs from './AboutUs/AboutUs.jsx';
@@ -16,6 +15,7 @@ import LeaveReview from './LeaveReview.jsx';
 import Register from './Register.jsx';
 import { FavoritesProvider } from './contexts/FavoritesContext.jsx';
 import Login from './Login.jsx';
+import AddCar from './AddCar.jsx'
 
 const router = createBrowserRouter([
   {
@@ -56,6 +56,11 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "addcar",
+    element: <AddCar />,
     errorElement: <ErrorPage />,
   }
 ]);

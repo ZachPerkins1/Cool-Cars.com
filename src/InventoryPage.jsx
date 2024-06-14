@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './components/NavBar';
 import CarCard from './components/CarCard.jsx';
+import Footer from './components/Footer.jsx';
 
 const getCars = async (vehicleType) => {
     const { data } = await axios.get('http://localhost:3000/cars');
@@ -14,11 +15,17 @@ function InventoryPage() {
     const [cars, setCars] = useState([]);
     const [filteredCars, setFilteredCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [userId, setUserId] = useState(null);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const vehicleType = params.get('type');
 
     useEffect(() => {
+        const sessionUser = JSON.parse(sessionStorage.getItem('userData'));
+        if (sessionUser) {
+            setUserId(sessionUser.id);
+        }
+
         getCars().then((data) => {
             setCars(data);
             setFilteredCars(data);
@@ -34,11 +41,11 @@ function InventoryPage() {
                 setFilteredCars(cars);
             }
         }
-    }, [vehicleType, cars]);
+    }, [isLoading, vehicleType, cars]);
 
     const carCards = filteredCars.map((car) =>
         <Grid item key={car.id}>
-            <CarCard car={car}></CarCard>
+            <CarCard car={car} userId={userId}></CarCard>
         </Grid>
     );
 
@@ -68,6 +75,7 @@ function InventoryPage() {
                     </Grid>
                 </Grid>
             </Grid>
+            <Footer />
         </>
     )
 }

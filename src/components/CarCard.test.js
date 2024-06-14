@@ -16,20 +16,21 @@ function setup() {
     const car = { id: 1, name: 'Test Car', color_id: 1, price: '10000', mileage: '1000' };
     const favorites = [];
     const setFavorites = jest.fn();
+    const userId = 1;
 
     const { getByLabelText } = render(
         <FavoritesContext.Provider value={{ favorites, setFavorites }}>
-            <CarCard car={car} />
+            <CarCard car={car} userId={userId}/>
         </FavoritesContext.Provider>
     );
 
     const favoriteButton = getByLabelText('add to favorites');
 
-    return { favoriteButton, setFavorites, car };
+    return { favoriteButton, setFavorites, car, userId };
 }
 
 test('adds car to favorites on click', async () => {
-    const { favoriteButton, setFavorites, car } = setup();
+    const { favoriteButton, setFavorites, car, userId } = setup();
 
     // Click the favorite button to add the car to the favorites
     fireEvent.click(favoriteButton);
@@ -38,7 +39,7 @@ test('adds car to favorites on click', async () => {
     await waitFor(() => expect(setFavorites).toHaveBeenCalled());
 
     // Check if axios.post was called with the correct URL and data
-    expect(axios.post).toHaveBeenCalledWith('http://localhost:3000/favorites', { userId: 1, carId: car.id });
+    expect(axios.post).toHaveBeenCalledWith('http://localhost:3000/favorites', { userId: userId, carId: car.id });
 });
 
 test('removes car from favorites on click', async () => {
