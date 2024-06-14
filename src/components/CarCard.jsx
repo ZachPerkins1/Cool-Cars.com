@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Card, CardMedia, Typography, CardContent, IconButton} from '@mui/material';
+import { Box, Card, CardMedia, Typography, CardContent, IconButton } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState, useEffect, useContext } from 'react';
@@ -12,7 +12,7 @@ const getColors = async () => {
     return data;
 }
 
-function CarCard({car, userId, showFavoriteIcon = true}) {
+function CarCard({ car, userId, showFavoriteIcon = true }) {
     const [colorMap, setColorMap] = useState({})
     const { favorites, setFavorites } = useContext(FavoritesContext);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -26,15 +26,15 @@ function CarCard({car, userId, showFavoriteIcon = true}) {
             })
             setColorMap(colorObj)
         })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 
         if (favorites.some(favorite => favorite.car_id === carId)) {
             setIsFavorite(true);
         };
     }, [])
-    
+
     const handleFavoriteClick = async () => {
         try {
             if (isFavorite) {
@@ -66,7 +66,7 @@ function CarCard({car, userId, showFavoriteIcon = true}) {
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                     <Typography style={{display:'inline'}}>{car.year + ' ' + car.make + ' ' + car.model + ' '}</Typography>
                     <Dot color={colorMap[car.color_id]} />
-                    <IconButton aria-label="add to favorites" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none'}}>
+                    <IconButton aria-label="add to favorites" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none' }}>
                         {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                 </Box>
