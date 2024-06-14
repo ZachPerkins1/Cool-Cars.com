@@ -239,18 +239,6 @@ app.get('/favorite', async (req, res) => {
 });
 
 // GET User Favorites
-// app.get('/favorites', async (req, res) => {
-//     const userId = req.query.userId;
-//     console.log('query:', req.query, 'userId:', userId);
-//     try {
-//         const result = await pool.query('SELECT * FROM cars JOIN userfavorites ON cars.id = userfavorites.car_id WHERE user_id = $1', [userId]);
-//         console.log('db query result:', result.rows);
-//         res.json(result.rows);
-//     } catch (error) {
-//         console.error('Error getting favorites:', error);
-//         res.status(500).send('Server error');
-//     }
-// });
 app.get('/favorites', async (req, res) => {
     const userId = req.query.userId;
     console.log('query:', req.query, 'userId:', userId);
