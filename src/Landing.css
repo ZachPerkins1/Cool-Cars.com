@@ -1,7 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    overflow-x: hidden;
+}
+
 #landing-root {
     background-color: #bbdefb;
     font-family: 'Figtree';
     width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:visited {
+    text-decoration: none;
+    color: inherit;
 }
 
 .vehicle-item {

@@ -48,7 +48,7 @@ function LandingPage() {
         }
     ];
     
-    const salesBannerMessage = "Summer Sale begins June 12th! Buy one car, get one free for a limited time only! Get em while the gettin's good!";
+    const salesBannerMessage = "Summer Sale begins June 12th! Buy one car, get one free for a limited time only! Get em while the gettin's good!".toUpperCase();
 
     const navigate = useNavigate();
 

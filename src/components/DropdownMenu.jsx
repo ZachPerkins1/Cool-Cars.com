@@ -43,6 +43,15 @@ export default function BasicMenu({ anchor, loginStatus, handleLogout, user }) {
     <Menu
         id="basic-menu"
         anchorEl={anchorEl}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+        }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+        
+        }}
         open={open}
         onClose={handleClose}
         MenuListProps={{
