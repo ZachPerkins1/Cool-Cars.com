@@ -58,31 +58,33 @@ const AboutUs = () => {
     return (
         <>
             <NavBar />
-            <Container maxWidth="lg" style={{ marginTop: '2rem', backgroundColor: '#bbdefb', padding: '2rem', borderRadius: '8px' }} >
-                <HeaderSection />
-                <MeetTheTeam expandedCard={expandedCard} handleCardClick={handleCardClick} />
-                <Box className="carouselContainer" marginBottom={10} >
-                    <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
-                        Explore Our Dealership
-                    </Typography>
-                    <ImageCarousel />
-                </Box>
-                <Box className="mapContainer" sx={{ marginTop: 5 }}>
-                    <Typography variant='h4' align='center'>
-                        Visit Us
-                    </Typography>
-                    <GoogleMapComponent />
-                    <Typography variant='h6' align='center'>
-                        Cool Cars Dealership
-                        {'\n'}1234 Ocean Drive
-                        {'\n'}Miami, FL 33139
-                        {'\n'}USA
-                    </Typography>
-                </Box>
-                <Box className="reviewContainer" sx={{ marginTop: 5 }}>
-                    <CustomerReviews reviews={getFilteredReviews()} filter={filter} handleFilterChange={handleFilterChange} />
-                </Box>
-            </Container>
+            <Box bgcolor="#bbdefb" minHeight="100vh">
+                <Container maxWidth="lg" sx={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+                    <HeaderSection />
+                    <MeetTheTeam expandedCard={expandedCard} handleCardClick={handleCardClick} />
+                    <Box className="carouselContainer" marginBottom={10}>
+                        <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
+                            Explore Our Dealership
+                        </Typography>
+                        <ImageCarousel />
+                    </Box>
+                    <Box className="mapContainer" sx={{ marginTop: 5 }}>
+                        <Typography variant='h4' align='center'>
+                            Visit Us
+                        </Typography>
+                        <GoogleMapComponent />
+                        <Typography variant='h6' align='center'>
+                            Cool Cars Dealership
+                            {'\n'}1234 Ocean Drive
+                            {'\n'}Miami, FL 33139
+                            {'\n'}USA
+                        </Typography>
+                    </Box>
+                    <Box className="reviewContainer" sx={{ marginTop: 5 }}>
+                        <CustomerReviews reviews={getFilteredReviews()} filter={filter} handleFilterChange={handleFilterChange} />
+                    </Box>
+                </Container>
+            </Box>
         </>
     );
 };
