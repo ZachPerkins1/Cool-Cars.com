@@ -14,11 +14,17 @@ function InventoryPage() {
     const [cars, setCars] = useState([]);
     const [filteredCars, setFilteredCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [userId, setUserId] = useState(null);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const vehicleType = params.get('type');
 
     useEffect(() => {
+        const sessionUser = JSON.parse(sessionStorage.getItem('userData'));
+        if (sessionUser) {
+            setUserId(sessionUser.id);
+        }
+
         getCars().then((data) => {
             setCars(data);
             setFilteredCars(data);
@@ -34,11 +40,11 @@ function InventoryPage() {
                 setFilteredCars(cars);
             }
         }
-    }, [vehicleType, cars]);
+    }, [isLoading, vehicleType, cars]);
 
     const carCards = filteredCars.map((car) =>
         <Grid item key={car.id}>
-            <CarCard car={car}></CarCard>
+            <CarCard car={car} userId={userId}></CarCard>
         </Grid>
     );
 

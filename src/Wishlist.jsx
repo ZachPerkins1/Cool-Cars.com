@@ -9,8 +9,15 @@ import axios from 'axios';
 import { FavoritesContext } from './contexts/FavoritesContext.jsx';
 
 function Wishlist() {
-    const [userId, setUserId] = useState(1); // TODO: Update this to use the logged in user's ID
+    const [userId, setUserId] = useState(null); // TODO: Update this to use the logged in user's ID
     const { favorites, setFavorites } = useContext(FavoritesContext);
+
+    useEffect(() => {
+        const sessionUser = JSON.parse(sessionStorage.getItem('userData'));
+        if (sessionUser) {
+            setUserId(sessionUser.id);
+        }
+    }, []);
 
     useEffect(() => {
         axios.get(`http://localhost:3000/favorites`, { params: { userId } })
@@ -34,24 +41,30 @@ function Wishlist() {
     };
 
     return (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', justifyContent: 'space-between' }}>
             <NavBar />
-            <Container maxWidth='lg'>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mt: 4, mb: 4}}>
+            <Container maxWidth='lg' sx={{ flexGrow: 1}}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4, mb: 4}}>
                     <Typography variant="h4" component="div">Wishlist</Typography>
                     <Typography variant="body1" component="div">You have {favorites.length} saved items.</Typography>
-                    <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', mt: 2 }}>
-                        {favorites.map(car => (
-                            <Stack key={car.id}>
-                                <CarCard car={car} showFavoriteIcon={false}/>
-                                <Button variant='outlined' startIcon={<DeleteIcon />} onClick={() => handleDelete(car.car_id)}>Delete</Button>
-                            </Stack>
-                        ))}
-                    </Box>
+                    {
+                        favorites.length === 0 ? (
+                            <div>placeholder</div>
+                        ) : (
+                            <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', mt: 2 }}>
+                                {favorites.map(car => (
+                                    <Stack key={car.id}>
+                                        <CarCard car={car} userId={userId} showFavoriteIcon={false}/>
+                                        <Button variant='outlined' startIcon={<DeleteIcon />} onClick={() => handleDelete(car.car_id)}>Delete</Button>
+                                    </Stack>
+                                ))}
+                            </Box>
+                        )
+                    }
                 </Box>
             </Container>
             <Footer />
-        </>
+        </div>
     );
 };
 
