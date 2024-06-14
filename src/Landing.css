@@ -21,7 +21,7 @@ a {
 
 a:visited {
     text-decoration: none;
-    color: inherit; /* or any other color */
+    color: inherit;
 }
 
 .vehicle-item {
