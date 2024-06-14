@@ -14,7 +14,6 @@ function Wishlist() {
 
     useEffect(() => {
         const sessionUser = JSON.parse(sessionStorage.getItem('userData'));
-        console.log('sessionUser:', sessionUser);   
         if (sessionUser) {
             setUserId(sessionUser.id);
         }
