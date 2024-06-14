@@ -7,6 +7,7 @@ import MeetTheTeam from './MeetTheTeam.jsx';
 import ImageCarousel from '../components/ImageCarousel.jsx';
 import CustomerReviews from './CustomerReviews.jsx';
 import './AboutUs.css';
+import GoogleMapComponent from '../components/GoogleMap.jsx'; // Adjust the import path as needed
 
 
 
@@ -57,16 +58,30 @@ const AboutUs = () => {
     return (
         <>
             <NavBar />
-            <Container maxWidth="lg" style={{ marginTop: '2rem' }} >
+            <Container maxWidth="lg" style={{ marginTop: '2rem', backgroundColor: '#bbdefb', padding: '2rem', borderRadius: '8px' }} >
                 <HeaderSection />
                 <MeetTheTeam expandedCard={expandedCard} handleCardClick={handleCardClick} />
-                <Box marginBottom={10}>
+                <Box className="carouselContainer" marginBottom={10} >
                     <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
                         Explore Our Dealership
                     </Typography>
                     <ImageCarousel />
                 </Box>
-                <CustomerReviews reviews={getFilteredReviews()} filter={filter} handleFilterChange={handleFilterChange} />
+                <Box className="mapContainer" sx={{ marginTop: 5 }}>
+                    <Typography variant='h4' align='center'>
+                        Visit Us
+                    </Typography>
+                    <GoogleMapComponent />
+                    <Typography variant='h6' align='center'>
+                        Cool Cars Dealership
+                        {'\n'}1234 Ocean Drive
+                        {'\n'}Miami, FL 33139
+                        {'\n'}USA
+                    </Typography>
+                </Box>
+                <Box className="reviewContainer" sx={{ marginTop: 5 }}>
+                    <CustomerReviews reviews={getFilteredReviews()} filter={filter} handleFilterChange={handleFilterChange} />
+                </Box>
             </Container>
         </>
     );
