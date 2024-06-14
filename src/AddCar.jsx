@@ -14,7 +14,7 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs/index.js'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { YearCalendar } from '@mui/x-date-pickers/YearCalendar';
-import InputAdornment from "@material-ui/core/InputAdornment";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const getModels = async () => {
     const { data } = await axios.get('http://localhost:3000/models');
