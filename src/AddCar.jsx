@@ -139,16 +139,16 @@ export default function AddCar() {
         }
 
         console.log(pickedOptions)
-        // try {
-        //     const response = await axios.post('http://localhost:3000/cars', pickedOptions);
-        //     const carAdded = response.data;
-        //     console.log(carAdded)
+        try {
+            const response = await axios.post('http://localhost:3000/cars', pickedOptions);
+            const carAdded = response.data;
+            console.log(carAdded)
 
-        //     // Redirect to home page
-        //     navigate('/inventory');
-        // } catch (error) {
-        //     setError('Could not add car.');
-        // }
+            // Redirect to home page
+            navigate('/inventory');
+        } catch (error) {
+            setError('Could not add car.');
+        }
     };
 
     useEffect(() => {
@@ -275,6 +275,7 @@ export default function AddCar() {
                                     defaultValue={dayjs('2024')}
                                     minDate={dayjs('1990-01-25')}
                                     maxDate={dayjs('2024-01-25')}
+                                    yearsPerRow={4}
                                     onChange={handleYearChange}
                                     required
                                 />
