@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 app.get('/cars', async (req, res) => {
     const result = await pool.query(`
     SELECT 
-	Cars.id, name, mileage, arrival_date, year,
+	Cars.id, mileage, arrival_date, year,
 	price, availability, date_sold, 
 	image_id, review_id, color, make, 
 	model, body_style, fuel_type
@@ -116,9 +116,9 @@ app.post('/cars', async (req, res) => {
     try {
         const query = `
             INSERT INTO Cars (
-                name, year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id
+                year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id
             ) VALUES (
-                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
+                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
             ) RETURNING *;
         `;
         const values = [

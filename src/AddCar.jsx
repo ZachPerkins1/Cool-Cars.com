@@ -43,11 +43,21 @@ const getBodyStyles = async () => {
 
 
 export default function AddCar() {
+    // implement something like this later
+    // const [options, setOptions] = useState({
+    //     makes: [],
+    //     models: [],
+    // })
+    // 
+    // const [userPicked, setUserPicked] = useState({})
+
     const [make, setMake] = useState('')
     const [makes, setMakes] = useState([])
 
     const [model, setModel] = useState('')
     const [models, setModels] = useState([])
+
+    const [isDisabled, setDisabled] = useState(true)
 
     const [color, setColor] = useState('')
     const [colors, setColors] = useState([])
@@ -58,11 +68,18 @@ export default function AddCar() {
     const [bodyStyle, setBodyStyle] = useState('')
     const [bodyStyles, setBodyStyles] = useState([]);
 
+    const [VIN, setVIN] = useState('')
+
     const [miles, setMiles] = useState(0)
     const [price, setPrice] = useState(0)
+    const [year, setYear] = useState(0)
 
     const handleMakeChange = (event) => {
         setMake(event.target.value);
+        setDisabled(false)
+        setModels(models.filter((model) => {
+            return (Number(model.make_id)) === Number(event.target.value)
+        }))
     };
 
     const handleModelChange = (event) => {
@@ -78,13 +95,26 @@ export default function AddCar() {
     };
 
     const handleYearChange = (event) => {
-        setMake(event.target.value);
+        console.log(event.$y)
+        setYear(event.$y);
     };
 
     const handleFuelChange = (event) => {
-        console.log('fuel')
         setFuelType(event.target.value);
     };
+
+    const handleMileChange = (event) => {
+        setMiles(event.target.value)
+    }
+
+    const handlePriceChange = (event) => {
+        setPrice(event.target.value)
+    }
+
+    const handleVINChange = (event) => {
+        console.log(VIN)
+        setVIN(event.target.value);
+    }
 
 
     const [error, setError] = useState('');
@@ -92,15 +122,33 @@ export default function AddCar() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            // const response = await axios.post('/addcar', { username, password });
-            // const userData = response.data;
+        let pickedOptions =   {
+                        "year": year,
+                        "make_id": make,
+                        "model_id": model,
+                        "color_id": color,
+                        "body_id": bodyStyle,
+                        "mileage": miles,
+                        "fuel_id": fuelType,
+                        "promo_id": 1,
+                        "arrival_date": (new Date()).toISOString().split('T')[0],
+                        "price": price,
+                        "availability": true,
+                        "date_sold": null,
+                        "image_id": 1
+                    }
 
-            // Redirect to home page
-            navigate('/inventory');
-        } catch (error) {
-            setError('Could not add car.');
-        }
+        console.log(pickedOptions)
+        // try {
+        //     const response = await axios.post('http://localhost:3000/cars', pickedOptions);
+        //     const carAdded = response.data;
+        //     console.log(carAdded)
+
+        //     // Redirect to home page
+        //     navigate('/inventory');
+        // } catch (error) {
+        //     setError('Could not add car.');
+        // }
     };
 
     useEffect(() => {
@@ -115,11 +163,12 @@ export default function AddCar() {
     return (
         <>
             <NavBar />
+            
             <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Add a Car:
                 </Typography>
-
+                <form onSubmit={handleSubmit}>
                 <div>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-helper-label">Make</InputLabel>
@@ -130,11 +179,7 @@ export default function AddCar() {
                             label="Make"
                             onChange={handleMakeChange}
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {makes.map((make) => <MenuItem id={make.id} value={make.make} key={make.id}>{make.make}</MenuItem>)}
-                            <MenuItem value={10}>Ten</MenuItem>
+                            {makes.map((make) => <MenuItem id={make.id} value={make.id} key={make.id}>{make.make}</MenuItem>)}
                         </Select>
                         <FormHelperText>Choose a Make</FormHelperText>
                     </FormControl>
@@ -147,10 +192,7 @@ export default function AddCar() {
                             label="Model"
                             onChange={handleModelChange}
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {models.map((model) => <MenuItem id={model.id} value={model.model} key={model.id}>{model.model}</MenuItem>)}
+                            {models.map((model) => <MenuItem id={model.id} value={model.id} key={model.id} disabled={isDisabled}>{model.model}</MenuItem>)}
 
                         </Select>
                         <FormHelperText>Choose a Model</FormHelperText>
@@ -167,37 +209,52 @@ export default function AddCar() {
                             label="Color"
                             onChange={handleColorChange}
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {colors.map((color) => <MenuItem id={color.id} value={color.color} key={color.id}>{color.color}</MenuItem>)}
+                            {colors.map((color) => <MenuItem id={color.id} value={color.id} key={color.id}>{color.color}</MenuItem>)}
                         </Select>
                         <FormHelperText>What Color is the vehicle?</FormHelperText>
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="body-style-input">Body Style</InputLabel>
+                        <InputLabel id="body-style-input">Body</InputLabel>
                         <Select
                             labelId="body-style-input"
                             id="body-style-input-select"
                             value={bodyStyle}
+                            label='Body'
                             onChange={handleBodyChange}
                         >
-                            <MenuItem value="">
-                                <em>Body Style</em>
-                            </MenuItem>
-                            {bodyStyles.map((body) => <MenuItem id={body.id} value={body.body_style} key={body.id}>{body.body_style}</MenuItem>)}
+                            {bodyStyles.map((body) => <MenuItem id={body.id} value={body.id} key={body.id}>{body.body_style}</MenuItem>)}
                         </Select>
-                        <FormHelperText>Without label</FormHelperText>
+                        <FormHelperText>What kind of vehicle is it?</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id="fuel-type-label">Fuel</InputLabel>
+                        <Select
+                            labelId="fuel-type-label"
+                            id="fuel-type"
+                            value={fuelType}
+                            label="Fuel"
+                            onChange={handleFuelChange}
+                        >
+                            {fuelTypes.map((fuelType) => <MenuItem id={fuelType.id} value={fuelType.id} key={fuelType.id}>{fuelType.fuel_type}</MenuItem>)}
+
+                        </Select>
+                        <FormHelperText>Choose a Model</FormHelperText>
                     </FormControl>
                 </div>
                 <div>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <TextField inputProps={{ type: 'number' }} />
+                        <TextField
+                            onChange={handleMileChange}
+                            label="Mileage"
+                            inputProps={{ type: 'number' }} />
                     </FormControl>
                 </div>
                 <div>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <TextField InputProps={{
+                        <TextField 
+                            onChange={handlePriceChange}
+                            label="Price" 
+                            InputProps={{
                             type: 'number',
                             startAdornment: <InputAdornment position="start">$</InputAdornment>,
                         }} />
@@ -210,12 +267,12 @@ export default function AddCar() {
                                 defaultValue={dayjs('2024')}
                                 minDate={dayjs('1990-01-25')}
                                 maxDate={dayjs('2024-01-25')}
+                                onChange={handleYearChange}
+                                required
                             />
                         </DemoItem>
                     </DemoContainer>
                 </LocalizationProvider>
-
-                <form onSubmit={handleSubmit}>
                     {/* <Box sx={{ display: 'flex', gap: '1rem' }}>
                     </Box> */}
                     <TextField
@@ -223,12 +280,12 @@ export default function AddCar() {
                         label="VIN Number"
                         variant="outlined"
                         margin="normal"
-                        value='#################'
-                        // onChange={(e) => setEmail(e.target.value)}
+                        defaultValue='#################'
+                        // onFocus={(e) => e.target.select()}
+                        onFocus={(e) => e.target.setSelectionRange(0, e.target.value.length)}
+                        onChange={handleVINChange}
                         required
                     />
-
-
                     <input
                         type="file"
                         accept="image/*"
@@ -241,8 +298,6 @@ export default function AddCar() {
                     </Button>
                 </form>
             </Container>
-
-
 
             <Footer sx={{
                 marginTop: 'calc(10% + 60px)',
