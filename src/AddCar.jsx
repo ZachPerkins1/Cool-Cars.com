@@ -122,21 +122,21 @@ export default function AddCar() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let pickedOptions =   {
-                        "year": year,
-                        "make_id": make,
-                        "model_id": model,
-                        "color_id": color,
-                        "body_id": bodyStyle,
-                        "mileage": miles,
-                        "fuel_id": fuelType,
-                        "promo_id": 1,
-                        "arrival_date": (new Date()).toISOString().split('T')[0],
-                        "price": price,
-                        "availability": true,
-                        "date_sold": null,
-                        "image_id": 1
-                    }
+        let pickedOptions = {
+            "year": year,
+            "make_id": make,
+            "model_id": model,
+            "color_id": color,
+            "body_id": bodyStyle,
+            "mileage": miles,
+            "fuel_id": fuelType,
+            "promo_id": 1,
+            "arrival_date": (new Date()).toISOString().split('T')[0],
+            "price": price,
+            "availability": true,
+            "date_sold": null,
+            "image_id": 1
+        }
 
         console.log(pickedOptions)
         // try {
@@ -163,125 +163,131 @@ export default function AddCar() {
     return (
         <>
             <NavBar />
-            
+
             <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Add a Car:
                 </Typography>
                 <form onSubmit={handleSubmit}>
-                <div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-helper-label">Make</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            value={make}
-                            label="Make"
-                            onChange={handleMakeChange}
-                        >
-                            {makes.map((make) => <MenuItem id={make.id} value={make.id} key={make.id}>{make.make}</MenuItem>)}
-                        </Select>
-                        <FormHelperText>Choose a Make</FormHelperText>
-                    </FormControl>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="demo-simple-select-helper-label">Model</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            value={model}
-                            label="Model"
-                            onChange={handleModelChange}
-                        >
-                            {models.map((model) => <MenuItem id={model.id} value={model.id} key={model.id} disabled={isDisabled}>{model.model}</MenuItem>)}
-
-                        </Select>
-                        <FormHelperText>Choose a Model</FormHelperText>
-                    </FormControl>
-                </div>
-
-                <div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="color-input">Color</InputLabel>
-                        <Select
-                            labelId="color-input"
-                            id="color-input-select"
-                            value={color}
-                            label="Color"
-                            onChange={handleColorChange}
-                        >
-                            {colors.map((color) => <MenuItem id={color.id} value={color.id} key={color.id}>{color.color}</MenuItem>)}
-                        </Select>
-                        <FormHelperText>What Color is the vehicle?</FormHelperText>
-                    </FormControl>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="body-style-input">Body</InputLabel>
-                        <Select
-                            labelId="body-style-input"
-                            id="body-style-input-select"
-                            value={bodyStyle}
-                            label='Body'
-                            onChange={handleBodyChange}
-                        >
-                            {bodyStyles.map((body) => <MenuItem id={body.id} value={body.id} key={body.id}>{body.body_style}</MenuItem>)}
-                        </Select>
-                        <FormHelperText>What kind of vehicle is it?</FormHelperText>
-                    </FormControl>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id="fuel-type-label">Fuel</InputLabel>
-                        <Select
-                            labelId="fuel-type-label"
-                            id="fuel-type"
-                            value={fuelType}
-                            label="Fuel"
-                            onChange={handleFuelChange}
-                        >
-                            {fuelTypes.map((fuelType) => <MenuItem id={fuelType.id} value={fuelType.id} key={fuelType.id}>{fuelType.fuel_type}</MenuItem>)}
-
-                        </Select>
-                        <FormHelperText>Choose a Model</FormHelperText>
-                    </FormControl>
-                </div>
-                <div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <TextField
-                            onChange={handleMileChange}
-                            label="Mileage"
-                            inputProps={{ type: 'number' }} />
-                    </FormControl>
-                </div>
-                <div>
-                    <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <TextField 
-                            onChange={handlePriceChange}
-                            label="Price" 
-                            InputProps={{
-                            type: 'number',
-                            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                        }} />
-                    </FormControl>
-                </div>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
-                        <DemoItem label="What model year is the car?">
-                            <YearCalendar
-                                defaultValue={dayjs('2024')}
-                                minDate={dayjs('1990-01-25')}
-                                maxDate={dayjs('2024-01-25')}
-                                onChange={handleYearChange}
+                    <div>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-helper-label">Make</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                value={make}
+                                label="Make"
                                 required
-                            />
-                        </DemoItem>
-                    </DemoContainer>
-                </LocalizationProvider>
-                    {/* <Box sx={{ display: 'flex', gap: '1rem' }}>
-                    </Box> */}
+                                onChange={handleMakeChange}
+                            >
+                                {makes.map((make) => <MenuItem id={make.id} value={make.id} key={make.id}>{make.make}</MenuItem>)}
+                            </Select>
+                            <FormHelperText>Choose a Make</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="demo-simple-select-helper-label">Model</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                value={model}
+                                label="Model"
+                                required
+                                onChange={handleModelChange}
+                            >
+                                {models.map((model) => <MenuItem id={model.id} value={model.id} key={model.id} disabled={isDisabled}>{model.model}</MenuItem>)}
+
+                            </Select>
+                            <FormHelperText>Choose a Model</FormHelperText>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="color-input">Color</InputLabel>
+                            <Select
+                                labelId="color-input"
+                                id="color-input-select"
+                                value={color}
+                                label="Color"
+                                required
+                                onChange={handleColorChange}
+                            >
+                                {colors.map((color) => <MenuItem id={color.id} value={color.id} key={color.id}>{color.color}</MenuItem>)}
+                            </Select>
+                            <FormHelperText>What Color is the vehicle?</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="body-style-input">Body</InputLabel>
+                            <Select
+                                labelId="body-style-input"
+                                id="body-style-input-select"
+                                value={bodyStyle}
+                                label='Body'
+                                required
+                                onChange={handleBodyChange}
+                            >
+                                {bodyStyles.map((body) => <MenuItem id={body.id} value={body.id} key={body.id}>{body.body_style}</MenuItem>)}
+                            </Select>
+                            <FormHelperText>What kind of vehicle is it?</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                            <InputLabel id="fuel-type-label">Fuel</InputLabel>
+                            <Select
+                                labelId="fuel-type-label"
+                                id="fuel-type"
+                                value={fuelType}
+                                required
+                                label="Fuel"
+                                onChange={handleFuelChange}
+                            >
+                                {fuelTypes.map((fuelType) => <MenuItem id={fuelType.id} value={fuelType.id} key={fuelType.id}>{fuelType.fuel_type}</MenuItem>)}
+                            </Select>
+                            <FormHelperText>Choose a Model</FormHelperText>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                            <TextField
+                                onChange={handleMileChange}
+                                label="Mileage"
+                                required
+                                inputProps={{ type: 'number', min:0 }} />
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                            <TextField
+                                onChange={handlePriceChange}
+                                label="Price"
+                                required
+                                inputProps={{
+                                    type: 'number',
+                                    min:0,
+                                }}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                                }} />
+                        </FormControl>
+                    </div>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
+                            <DemoItem label="What model year is the car?">
+                                <YearCalendar
+                                    defaultValue={dayjs('2024')}
+                                    minDate={dayjs('1990-01-25')}
+                                    maxDate={dayjs('2024-01-25')}
+                                    onChange={handleYearChange}
+                                    required
+                                />
+                            </DemoItem>
+                        </DemoContainer>
+                    </LocalizationProvider>
                     <TextField
                         fullWidth
                         label="VIN Number"
                         variant="outlined"
                         margin="normal"
                         defaultValue='#################'
-                        // onFocus={(e) => e.target.select()}
+                        minLength='17'
                         onFocus={(e) => e.target.setSelectionRange(0, e.target.value.length)}
                         onChange={handleVINChange}
                         required
