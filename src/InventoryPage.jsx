@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './components/NavBar';
 import CarCard from './components/CarCard.jsx';
+import Footer from './components/Footer.jsx';
 
 const getCars = async (vehicleType) => {
     const { data } = await axios.get('http://localhost:3000/cars');
@@ -74,6 +75,7 @@ function InventoryPage() {
                     </Grid>
                 </Grid>
             </Grid>
+            <Footer />
         </>
     )
 }

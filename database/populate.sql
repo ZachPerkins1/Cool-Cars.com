@@ -15,22 +15,20 @@ INSERT INTO Makes (make) VALUES
 ('Mazda');
 
 -- Insert dummy data into the Models table
-INSERT INTO Models (model) VALUES
-('Corolla'),
-('Civic'),
-('Mustang'),
-('Malibu'),
-('Altima'),
-('3 Series'),
-('A4'),
-('C-Class'),
-('Golf'),
-('Elantra'),
-('Sorento'),
-('Outback'),
-('Mazda3'),
-('Sienna'),
-('Odyssey');
+INSERT INTO Models (model, make_id) VALUES
+('Corolla', 1),
+('Civic', 2),
+('Mustang', 3),
+('Malibu', 4),
+('Altima', 5),
+('3 Series', 6),
+('A4', 7),
+('C-Class', 8),
+('Golf', 9),
+('Elantra', 10),
+('Sorento', 11),
+('Outback', 12),
+('Mazda3', 13);
 
 -- Insert dummy data into the Colors table
 INSERT INTO Colors (color) VALUES
@@ -111,23 +109,20 @@ INSERT INTO Images (image_link, car_id, default_image) VALUES
 ('http://example.com/car15.jpg', 15, TRUE);
 
 -- Insert dummy data into the Cars table
-INSERT INTO Cars (name, year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id) VALUES
-('Toyota Corolla 2021', 2021, 1, 1, 1, 1, 15000, 1, 1, '2024-01-15', 20000, TRUE, NULL, 1),
-('Honda Civic 2022', 2022, 2, 2, 2, 1, 10000, 1, 1, '2024-02-20', 22000, TRUE, NULL, 2),
-('Ford Mustang 2020', 2020, 3, 3, 3, 3, 20000, 1, 2, '2024-03-25', 30000, TRUE, NULL, 3),
-('Chevrolet Malibu 2019', 2019, 4, 4, 4, 1, 25000, 1, 3, '2024-04-15', 18000, TRUE, NULL, 4),
-('Nissan Altima 2018', 2018, 5, 5, 5, 2, 30000, 1, 4, '2024-05-20', 17000, TRUE, NULL, 5),
-('BMW 3 Series 2021', 2021, 6, 6, 6, 3, 10000, 1, 5, '2024-06-25', 35000, TRUE, NULL, 6),
-('Audi A4 2020', 2020, 7, 7, 7, 3, 15000, 1, 6, '2024-07-30', 33000, TRUE, NULL, 7),
-('Mercedes-Benz C-Class 2021', 2021, 8, 8, 8, 1, 12000, 1, 7, '2024-08-10', 40000, TRUE, NULL, 8),
-('Volkswagen Golf 2019', 2019, 9, 9, 9, 2, 22000, 1, 8, '2024-09-15', 20000, TRUE, NULL, 9),
-('Hyundai Elantra 2018', 2018, 10, 10, 10, 4, 27000, 1, 9, '2024-10-20', 15000, TRUE, NULL, 10),
-('Kia Sorento 2017', 2017, 11, 11, 11, 5, 35000, 1, 10, '2024-11-25', 25000, TRUE, NULL, 11),
-('Subaru Outback 2020', 2020, 12, 12, 12, 6, 20000, 1, 11, '2024-12-30', 28000, TRUE, NULL, 12),
-('Mazda Mazda3 2019', 2019, 13, 13, 5, 3, 23000, 1, 12, '2024-01-05', 19000, TRUE, NULL, 13),
-('Toyota Sienna 2022', 2022, 1, 14, 1, 7, 5000, 1, 1, '2024-10-20', 30000, TRUE, NULL, 14),
-('Honda Odyssey 2021', 2021, 2, 15, 2, 7, 6000, 1, 1, '2024-11-25', 32000, TRUE, NULL, 15);
-
+INSERT INTO Cars (year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id) VALUES
+( 2021, 1, 1, 1, 1, 15000, 1, 1, '2024-01-15', 20000, TRUE, NULL, 1),
+( 2022, 2, 2, 2, 1, 10000, 1, 1, '2024-02-20', 22000, TRUE, NULL, 2),
+( 2020, 3, 3, 3, 3, 20000, 1, 2, '2024-03-25', 30000, TRUE, NULL, 3),
+( 2019, 4, 4, 4, 1, 25000, 1, 3, '2024-04-15', 18000, TRUE, NULL, 4),
+( 2018, 5, 5, 5, 2, 30000, 1, 4, '2024-05-20', 17000, TRUE, NULL, 5),
+( 2021, 6, 6, 6, 3, 10000, 1, 5, '2024-06-25', 35000, TRUE, NULL, 6),
+( 2020, 7, 7, 7, 3, 15000, 1, 6, '2024-07-30', 33000, TRUE, NULL, 7),
+( 2021, 8, 8, 8, 1, 12000, 1, 7, '2024-08-10', 40000, TRUE, NULL, 8),
+( 2019, 9, 9, 9, 2, 22000, 1, 8, '2024-09-15', 20000, TRUE, NULL, 9),
+( 2018, 10, 10, 10, 4, 27000, 1, 9, '2024-10-20', 15000, TRUE, NULL, 10),
+( 2017, 11, 11, 11, 5, 35000, 1, 10, '2024-11-25', 25000, TRUE, NULL, 11),
+( 2020, 12, 12, 12, 6, 20000, 1, 11, '2024-12-30', 28000, TRUE, NULL, 12),
+( 2019, 13, 13, 5, 3, 23000, 1, 12, '2024-01-05', 19000, TRUE, NULL, 13);
 
 -- Insert dummy data into the Users table
 -- INSERT INTO Users (first_name, last_name, role, email, username, password, avatar) VALUES
