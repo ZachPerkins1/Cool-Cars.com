@@ -29,7 +29,7 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static" style={{ width: '100vw', margin: 0, msOverflowX: 'hidden' }}>
+    <AppBar position="static" style={{ width: '100vw', margin: 0 }}>
       <Toolbar>
         <Box mr={4} ml={2}>
           <HomeLink />

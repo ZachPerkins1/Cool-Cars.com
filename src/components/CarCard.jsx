@@ -12,14 +12,12 @@ const getColors = async () => {
     return data;
 }
 
-function CarCard({car, showFavoriteIcon = true}) {
+function CarCard({car, userId, showFavoriteIcon = true}) {
     const [colorMap, setColorMap] = useState({})
     const { favorites, setFavorites } = useContext(FavoritesContext);
     const [isFavorite, setIsFavorite] = useState(false);
-    const userId = 1; // TODO: Update this to use the logged in user's ID
     const carId = car.id;
 
-    
     useEffect(() => {
         const result = getColors().then((data) => {
             let colorObj = {}
