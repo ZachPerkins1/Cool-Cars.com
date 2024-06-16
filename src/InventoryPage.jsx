@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, TextField, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './components/NavBar';
 import CarCard from './components/CarCard.jsx';
 import Footer from './components/Footer.jsx';
+import { SnippetFolder } from '@mui/icons-material';
 
 const getCars = async (vehicleType) => {
     const { data } = await axios.get('http://localhost:3000/cars');
@@ -13,9 +14,11 @@ const getCars = async (vehicleType) => {
 
 function InventoryPage() {
     const [cars, setCars] = useState([]);
+    const [filters, setFilters] = useState([]);
     const [filteredCars, setFilteredCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [userId, setUserId] = useState(null);
+    const navigate = useNavigate();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const vehicleType = params.get('type');
@@ -31,17 +34,40 @@ function InventoryPage() {
             setFilteredCars(data);
             setIsLoading(false);
         });
+
+        if (vehicleType) {
+            setFilters([vehicleType]);
+        }
+
     }, []);
 
     useEffect(() => {
         if (!isLoading) {
+            let filtered = cars;
             if (vehicleType) {
-                setFilteredCars(cars.filter((car) => car.body_style === vehicleType));
+                // setFilteredCars(cars.filter((car) => car.body_style === vehicleType));
+                filtered = filtered.filter((car) => car.body_style === vehicleType);
+            } 
+            if (filters.length > 0) {
+                filtered = filtered.filter((car) => filters.includes(car.body_style));
             } else {
-                setFilteredCars(cars);
+                filtered = cars;
             }
+            setFilteredCars(filtered);
         }
-    }, [isLoading, vehicleType, cars]);
+    }, [isLoading, vehicleType, filters, cars]);
+
+    const handleFilterChange = (event) => {
+        const { name, checked } = event.target;
+        setFilters(prevFilters => {
+            const newFilters = checked ? [...prevFilters, name] : prevFilters.filter(filter => filter !== name);
+            navigate({
+                pathname: '/inventory',
+                search: newFilters.length > 0 ? `?type=${newFilters.join(',')}` : '',
+            });
+            return newFilters;
+        });
+    };
 
     const carCards = filteredCars.map((car) =>
         <Grid item key={car.id}>
@@ -59,12 +85,12 @@ function InventoryPage() {
                         Filters:
                     </h2>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="Automatic Transmission" />
-                        <FormControlLabel control={<Checkbox />} label="Manual Transmission" />
-                        <FormControlLabel control={<Checkbox />} label="SUV" />
-                        <FormControlLabel control={<Checkbox />} label="Two Doors" />
-                        <FormControlLabel control={<Checkbox />} label="Four Doors" />
-                        <FormControlLabel control={<Checkbox />} label="Convertible" />
+                        <FormControlLabel control={<Checkbox checked={filters.includes('Sedan')} name='Sedan' onChange={handleFilterChange}/>} label="Sedan" />
+                        <FormControlLabel control={<Checkbox checked={filters.includes('SUV')} name='SUV' onChange={handleFilterChange}/>} label="SUV" />
+                        <FormControlLabel control={<Checkbox checked={filters.includes('Convertible')} name='Convertible' onChange={handleFilterChange}/>} label="Convertible" />
+                        <FormControlLabel control={<Checkbox checked={filters.includes('Pickup Truck')} name='Pickup Truck' onChange={handleFilterChange}/>} label="Truck" />
+                        <FormControlLabel control={<Checkbox checked={filters.includes('Minivan')} name='Minivan' onChange={handleFilterChange}/>} label="Van" />
+                        <FormControlLabel control={<Checkbox checked={filters.includes('Coupe')} name='Coupe' onChange={handleFilterChange}/>} label="Coupe" />
                     </FormGroup>
                 </Grid>
                 <Grid item lg={8} sx={{ mt: 4, ml: -8 }}>
