@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Container, TextField, Button, Typography, Box, FormControlLabel, Checkbox } from '@mui/material';
 import NavBar from './components/NavBar.jsx';
+import Footer from './components/Footer.jsx';
 
 const Register = () => {
     const [firstName, setFirstName] = useState('');
@@ -72,9 +73,9 @@ const Register = () => {
     };
 
     return (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
             <NavBar />
-            <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
+            <Container maxWidth="sm" style={{ marginTop: '2rem', flexGrow: 1 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Register
                 </Typography>
@@ -166,7 +167,8 @@ const Register = () => {
                     </Button>
                 </form>
             </Container>
-        </>
+            <Footer />
+        </div>
     );
 };
 
