@@ -30,6 +30,32 @@ function InventoryPage() {
         }
     }
 
+    function sortCarsByMiles(event) {
+        let sortedCars = []
+        if(event.target.value === 'ascending'){
+            sortedCars = filteredCars.sort((currentCar, nextCar) => {
+                return currentCar.mileage - nextCar.mileage
+            })
+        }
+        else {
+            sortedCars = (filteredCars.sort((currentCar, nextCar) => nextCar.mileage - currentCar.mileage))
+        }
+        setFilteredCars([...sortedCars])
+    }
+
+    function sortCarsByPrice(event) {
+        let sortedCars = []
+        if(event.target.value === 'ascending'){
+            sortedCars = filteredCars.sort((currentCar, nextCar) => {
+                return currentCar.price - nextCar.price
+            })
+        }
+        else {
+            sortedCars = (filteredCars.sort((currentCar, nextCar) => nextCar.price - currentCar.price))
+        }
+        setFilteredCars([...sortedCars])
+    }
+
     const getCars = async (vehicleType) => {
         const { data } = await axios.get('http://localhost:3000/cars');
         return data;
@@ -105,19 +131,30 @@ function InventoryPage() {
                             <FormControlLabel control={<Checkbox checked={filters.includes('Minivan')} name='Minivan' onChange={handleFilterChange} />} label="Van" />
                             <FormControlLabel control={<Checkbox checked={filters.includes('Coupe')} name='Coupe' onChange={handleFilterChange} />} label="Coupe" />
                         </FormGroup>
+                        <FormControl sx={{mt: 4}}>
                         <h2>Mileage</h2>
-                        {/* <FormControl>
-                            <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                            <FormLabel id="sort-by-mileage-radio-buttons-group-label">Order by Miles</FormLabel>
                             <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="female"
-                                name="radio-buttons-group"
+                                aria-labelledby="sort-by-mileage-radio-buttons-group-label"
+                                name="sort-miles-radio-buttons-group"
+                                onChange={sortCarsByMiles}
                             >
-                                <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                <FormControlLabel value="male" control={<Radio />} label="Male" />
-                                <FormControlLabel value="other" control={<Radio />} label="Other" />
+                                <FormControlLabel value="ascending" control={<Radio />} label="Ascending" />
+                                <FormControlLabel value="descending" control={<Radio />} label="Descending" />
                             </RadioGroup>
-                        </FormControl> */}
+                        </FormControl>
+                        <FormControl sx={{mt: 4}}>
+                        <h2>Price</h2>
+                            <FormLabel id="sort-by-price-radio-group-label">Order by Price</FormLabel>
+                            <RadioGroup
+                                aria-labelledby="sort-by-price-radio-group"
+                                name="sort-price-radio-buttons-group"
+                                onChange={sortCarsByPrice}
+                            >
+                                <FormControlLabel value="ascending" control={<Radio />} label="Ascending" />
+                                <FormControlLabel value="descending" control={<Radio />} label="Descending" />
+                            </RadioGroup>
+                        </FormControl>
                     </Grid>
                     <Grid item lg={8} sx={{ mt: 4, ml: -8 }}>
                         <h1>Search for a car:</h1>
