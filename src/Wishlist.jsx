@@ -7,16 +7,25 @@ import CarCard from './components/CarCard.jsx';
 import Footer from './components/Footer.jsx';
 import axios from 'axios';
 import { FavoritesContext } from './contexts/FavoritesContext.jsx';
+import sadMiata2 from './assets/sad_miata2.png';
+import sadMiata3 from './assets/sad_miata3.png';
+import sadMiata4 from './assets/sad_miata4.png';
 
 function Wishlist() {
-    const [userId, setUserId] = useState(null); // TODO: Update this to use the logged in user's ID
+    const [userId, setUserId] = useState(null);
     const { favorites, setFavorites } = useContext(FavoritesContext);
+    const [currentSadMiata, setCurrentSadMiata] = useState(null);
+
+    const sadMiatas = [sadMiata2, sadMiata3, sadMiata4];
 
     useEffect(() => {
         const sessionUser = JSON.parse(sessionStorage.getItem('userData'));
         if (sessionUser) {
             setUserId(sessionUser.id);
         }
+
+        setCurrentSadMiata(sadMiatas[Math.floor(Math.random() * sadMiatas.length)]);
+
     }, []);
 
     useEffect(() => {
@@ -49,7 +58,9 @@ function Wishlist() {
                     <Typography variant="body1" component="div">You have {favorites.length} saved items.</Typography>
                     {
                         favorites.length === 0 ? (
-                            <div>placeholder</div>
+                            <Box m={4}>
+                                <img src={currentSadMiata} />
+                            </Box>
                         ) : (
                             <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', mt: 2 }}>
                                 {favorites.map(car => (
