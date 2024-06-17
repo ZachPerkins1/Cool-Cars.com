@@ -6,6 +6,8 @@ import Navbar from './components/NavBar';
 import CarCard from './components/CarCard.jsx';
 import Footer from './components/Footer.jsx';
 import './App.css';
+// import { ThemeProvider } from '@mui/material/styles';
+// import { theme } from './Theme.jsx'
 
 const getCars = async (vehicleType) => {
     const { data } = await axios.get('http://localhost:3000/cars');
@@ -95,7 +97,7 @@ function InventoryPage() {
                 </Grid>
                 <Grid item lg={8} sx={{ mt: 4, ml: -8 }}>
                     <h1>Search for a car:</h1>
-                    <TextField id="outlined-basic" label="Search for a Car" variant="outlined" sx={{ width: '90%',  }} />
+                    <TextField id="outlined-basic" label="Search for a Car" variant="outlined" sx={{ width: '90%', mt:1 }} />
                     <Grid container sx={{ mt: 3 }} spacing={4}>
                         {carCards}
                     </Grid>
