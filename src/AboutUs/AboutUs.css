@@ -9,6 +9,7 @@
 
 .textContainer {
     padding: 16px;
+    font-family: 'Figtree';
 }
 
 .gridItem {
@@ -33,7 +34,6 @@
 .expandedCard {
     width: 100%;
     max-width: 345px;
-
 }
 
 .avatar {
@@ -56,6 +56,7 @@
 .teamContainer h4 {
     margin-bottom: 24px;
     font-weight: 600;
+    font-family: 'Figtree';
 }
 
 .carouselContainer {
@@ -90,6 +91,7 @@
     text-overflow: ellipsis;
     /* Add ellipsis if the text overflows */
     white-space: normal;
+    font-family: 'Figtree';
     max-width: 100%;
 }
 
@@ -105,6 +107,7 @@
 .mapContainer h4 {
     margin-bottom: 20px;
     font-weight: bold;
+    font-family: 'Figtree';
 }
 
 .mapContainer h6 {
@@ -112,6 +115,7 @@
     white-space: pre-line;
     /* Preserve line breaks */
     font-weight: normal;
+    font-family: 'Figtree';
     color: #555;
 }
 
