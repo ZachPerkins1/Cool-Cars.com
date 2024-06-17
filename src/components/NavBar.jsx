@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AppBar, Button, Box, Toolbar, Typography } from '@mui/material/';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DropdownMenu from './DropdownMenu';
+import { FavoritesContext } from '../contexts/FavoritesContext';
 import './NavBar.css';
 
 
 function NavBar() {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { favorites, setFavorites } = useContext(FavoritesContext);
 
   useEffect(() => {
     const loggedInUser = sessionStorage.getItem('userData');
@@ -26,6 +28,7 @@ function NavBar() {
   const handleLogout = () => {
     sessionStorage.removeItem('userData');
     setUser(null);
+    setFavorites([]);
     setIsLoggedIn(false);
   };
 
