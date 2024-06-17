@@ -4,7 +4,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import Dot from './Dot';
+// import Dot from './Dot';
 import { FavoritesContext } from '../contexts/FavoritesContext';
 
 import carolla from '../assets/toyota-carolla-2004.png';
@@ -82,14 +82,12 @@ function CarCard({ car, userId, showFavoriteIcon = true, image }) {
             if (isFavorite) {
                 await axios.delete('http://localhost:3000/favorites', { data: { userId, carId } });
                 setFavorites(favorites.filter(favorite => favorite.car_id !== carId));
-                // setFavorites(prevFavorites => prevFavorites.filter(favorite => favorite.car_id !== carId));
                 setIsFavorite(false);
             } else {
                 const alreadyFavorite = favorites.some(favorite => favorite.car_id === carId);
                 if (!alreadyFavorite) {
                     await axios.post('http://localhost:3000/favorites', { userId, carId });
                     setFavorites([...favorites, car]);
-                    // setFavorites(prevFavorites => [...prevFavorites, { car_id: carId, user_id: userId }]);
                     setIsFavorite(true);
                 }
             }

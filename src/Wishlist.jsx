@@ -51,7 +51,6 @@ function Wishlist() {
                 console.log("delete response: ", response.data);
                 console.log("FAVORITES: ", favorites);
                 setFavorites(favorites.filter(favorite => favorite.car_id !== carId))
-                // setFavorites(prevFavorites => prevFavorites.filter(favorite => favorite.car_id !== carId));
 
             })
             .catch((error) => {
