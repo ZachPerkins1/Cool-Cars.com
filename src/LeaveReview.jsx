@@ -3,6 +3,9 @@ import { Container, TextField, Button, Typography, Rating, Box } from '@mui/mate
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
+import theme from './theme.jsx';
+import { ThemeProvider } from '@mui/material/styles';
+
 
 const LeaveReview = () => {
     const [review, setReview] = useState('');
@@ -44,38 +47,40 @@ const LeaveReview = () => {
 
     return (
         <>
-            <NavBar />
-            <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Leave a Review
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        fullWidth
-                        label="Review"
-                        variant="outlined"
-                        margin="normal"
-                        multiline
-                        rows={4}
-                        value={review}
-                        onChange={(e) => setReview(e.target.value)}
-                        required
-                    />
-                    <Box component="fieldset" mb={3} borderColor="transparent">
-                        <Typography component="legend">Rating</Typography>
-                        <Rating
-                            name="rating"
-                            value={rating}
-                            onChange={(event, newValue) => setRating(newValue)}
+            <ThemeProvider theme={theme}>
+                <NavBar />
+                <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
+                    <Typography variant="h4" align="center" gutterBottom>
+                        Leave a Review
+                    </Typography>
+                    <form onSubmit={handleSubmit}>
+                        <TextField
+                            fullWidth
+                            label="Review"
+                            variant="outlined"
+                            margin="normal"
+                            multiline
+                            rows={4}
+                            value={review}
+                            onChange={(e) => setReview(e.target.value)}
                             required
                         />
-                    </Box>
-                    {error && <Typography color="error">{error}</Typography>}
-                    <Button type="submit" variant="contained" fullWidth>
-                        Submit Review
-                    </Button>
-                </form>
-            </Container>
+                        <Box component="fieldset" mb={3} borderColor="transparent">
+                            <Typography component="legend">Rating</Typography>
+                            <Rating
+                                name="rating"
+                                value={rating}
+                                onChange={(event, newValue) => setRating(newValue)}
+                                required
+                            />
+                        </Box>
+                        {error && <Typography color="error">{error}</Typography>}
+                        <Button type="submit" variant="contained" fullWidth>
+                            Submit Review
+                        </Button>
+                    </form>
+                </Container>
+            </ThemeProvider>
         </>
     );
 };
