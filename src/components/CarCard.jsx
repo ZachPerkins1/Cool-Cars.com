@@ -4,7 +4,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import Dot from './Dot';
+// import Dot from './Dot';
 import { FavoritesContext } from '../contexts/FavoritesContext';
 
 import carolla from '../assets/toyota-carolla-2004.png';
@@ -32,7 +32,7 @@ const getColors = async () => {
     return data;
 }
 
-function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
+function CarCard({ car, userId, showFavoriteIcon = true, image }) {
     const [colorMap, setColorMap] = useState({})
     const { favorites, setFavorites } = useContext(FavoritesContext);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -61,7 +61,7 @@ function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
     }
 
     useEffect(() => {
-        console.log('CAAARRRRR: ', car);
+        // console.log('CAAARRRRR: ', car);
         const result = getColors().then((data) => {
             let colorObj = {}
             data.forEach((color) => {
@@ -72,6 +72,18 @@ function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
             .catch((error) => {
                 console.error('Error:', error);
             });
+      
+        // const result = getColors().then((data) => {
+        //     let colorObj = {}
+        //     data.forEach((color) => {
+        //         colorObj[color.id] = color.name
+        //     })
+        //     setColorMap(colorObj)
+        // })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     });
+
 
         if (favorites.some(favorite => favorite.car_id === carId)) {
             setIsFavorite(true);
@@ -102,20 +114,20 @@ function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
             <CardMedia
                 component="img"
                 height="194"
-                image={carImages[car.id]}
+                image={carImages[image]}
                 alt="Paella dish"
             />
             <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    <Typography style={{display:'inline'}}>{car.year + ' ' + car.make + ' ' + car.model + ' '}</Typography>
-                    <Dot color={colorMap[car.color_id]} />
+                    <Typography variant="h6" style={{display:'inline', fontFamily:'Figtree'}}>{car.year + ' ' + car.make + ' ' + car.model + ' '}</Typography>
+                    {/* <Dot color={colorMap[car.color_id]} /> */}
                     <IconButton aria-label="add to favorites" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none' }}>
                         {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                 </Box>
-                <Typography>${car.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
-                <Typography>Miles: {car.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography style={{display:'inline', fontFamily:'Figtree'}}>Price: ${car.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
+                <Typography style={{display:'inline', fontFamily:'Figtree'}} sx={{ml:3}}>Miles: {car.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
+                <Typography sx={{mt:1}} variant="body2" color="text.secondary">
                     Experience the thrill of driving with this stunning 2019 Mazda
                     Miata in vibrant Sunshine Yellow. This iconic roadster combines
                     classic sports car charm with modern technology, offering an exhilarating

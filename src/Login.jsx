@@ -8,6 +8,7 @@ import { FavoritesContext } from './contexts/FavoritesContext.jsx';
 import theme from './theme.jsx';
 import { ThemeProvider } from '@mui/material/styles';
 
+
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

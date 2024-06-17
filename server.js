@@ -242,7 +242,7 @@ app.get('/favorites', async (req, res) => {
     try {
         const result = await pool.query(`
             SELECT 
-                Cars.id, mileage, arrival_date, year,
+                Cars.id AS car_id, mileage, arrival_date, year,
                 price, availability, date_sold, 
                 image_id, review_id, color, make, 
                 model, body_style, fuel_type
