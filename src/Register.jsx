@@ -4,6 +4,8 @@ import { Container, TextField, Button, Typography, Box, FormControlLabel, Checkb
 import NavBar from './components/NavBar.jsx';
 import { useNavigate } from 'react-router-dom';
 import Footer from './components/Footer.jsx';
+import theme from './theme.jsx';
+import { ThemeProvider } from '@mui/material/styles';
 
 const Register = () => {
     const [firstName, setFirstName] = useState('');
@@ -75,102 +77,104 @@ const Register = () => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
-            <NavBar />
-            <Container maxWidth="sm" style={{ marginTop: '2rem', flexGrow: 1 }}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Register
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <Box sx={{ display: 'flex', gap: '1rem' }}>
+        <ThemeProvider theme={theme}>
+            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                <NavBar />
+                <Container maxWidth="sm" style={{ marginTop: '2rem', flexGrow: 1 }}>
+                    <Typography variant="h4" align="center" gutterBottom>
+                        Register
+                    </Typography>
+                    <form onSubmit={handleSubmit}>
+                        <Box sx={{ display: 'flex', gap: '1rem' }}>
+                            <TextField
+                                fullWidth
+                                label="First Name"
+                                variant="outlined"
+                                margin="normal"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                required
+                            />
+                            <TextField
+                                fullWidth
+                                label="Last Name"
+                                variant="outlined"
+                                margin="normal"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                required
+                            />
+                        </Box>
                         <TextField
                             fullWidth
-                            label="First Name"
+                            label="Email"
                             variant="outlined"
                             margin="normal"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                         <TextField
                             fullWidth
-                            label="Last Name"
+                            label="Username"
                             variant="outlined"
                             margin="normal"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             required
                         />
-                    </Box>
-                    <TextField
-                        fullWidth
-                        label="Email"
-                        variant="outlined"
-                        margin="normal"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        label="Username"
-                        variant="outlined"
-                        margin="normal"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        label="Password"
-                        variant="outlined"
-                        margin="normal"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        label="Confirm Password"
-                        variant="outlined"
-                        margin="normal"
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setAvatar(e.target.files[0])}
-                        style={{ marginTop: '1rem' }}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} />}
-                        label="Is Admin"
-                    />
-                    {isAdmin && (
                         <TextField
                             fullWidth
-                            label="Admin Password"
+                            label="Password"
                             variant="outlined"
                             margin="normal"
                             type="password"
-                            value={adminPassword}
-                            onChange={(e) => setAdminPassword(e.target.value)}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                    )}
-                    {error && <Typography color="error">{error}</Typography>}
-                    <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '1rem' }}>
-                        Register
-                    </Button>
-                </form>
-            </Container>
-            <Footer />
-        </div>
+                        <TextField
+                            fullWidth
+                            label="Confirm Password"
+                            variant="outlined"
+                            margin="normal"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setAvatar(e.target.files[0])}
+                            style={{ marginTop: '1rem' }}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} />}
+                            label="Is Admin"
+                        />
+                        {isAdmin && (
+                            <TextField
+                                fullWidth
+                                label="Admin Password"
+                                variant="outlined"
+                                margin="normal"
+                                type="password"
+                                value={adminPassword}
+                                onChange={(e) => setAdminPassword(e.target.value)}
+                                required
+                            />
+                        )}
+                        {error && <Typography color="error">{error}</Typography>}
+                        <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '1rem' }}>
+                            Register
+                        </Button>
+                    </form>
+                </Container>
+                <Footer />
+            </div>
+        </ThemeProvider>
     );
 };
 

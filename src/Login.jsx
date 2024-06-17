@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Container, TextField, Button, Typography, Alert } from '@mui/material';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
 import Footer from './components/Footer.jsx';
+import { FavoritesContext } from './contexts/FavoritesContext.jsx';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -12,6 +13,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [successMessage, setSuccessMessage] = useState('');
     const location = useLocation();
+    const { setFavorites } = useContext(FavoritesContext);
 
     useEffect(() => {
         if (location.state && location.state.message) {
@@ -24,10 +26,14 @@ const Login = () => {
         try {
             const response = await axios.post('/login', { username, password });
             const userData = response.data;
-
+            const userId = userData.id;
 
             // Store user data in session storage
             sessionStorage.setItem('userData', JSON.stringify(userData));
+
+            // Get user favorites and set favorites context
+            const favoritesResponse = await axios.get(`http://localhost:3000/favorites`, { params: { userId } });
+            setFavorites(favoritesResponse.data);
 
             // Redirect to home page
             navigate('/');
@@ -80,4 +86,3 @@ const Login = () => {
 };
 
 export default Login;
-

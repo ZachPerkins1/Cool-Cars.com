@@ -12,7 +12,7 @@ import './AboutUs.css';
 import GoogleMapComponent from '../components/GoogleMap.jsx';
 import Footer from '../components/Footer.jsx';
 import theme from '../theme.jsx';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
 const WhiteTextButton = styled(Button)({
     color: 'white',
