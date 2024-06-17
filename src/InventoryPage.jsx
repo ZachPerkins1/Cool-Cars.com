@@ -9,7 +9,7 @@ import CarCard from './components/CarCard.jsx';
 import Footer from './components/Footer.jsx';
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
-import  theme  from './theme.jsx'
+import theme from './theme.jsx'
 
 const getCars = async (vehicleType) => {
     const { data } = await axios.get('http://localhost:3000/cars');
@@ -31,14 +31,14 @@ function InventoryPage() {
     function searchCars(event) {
         let searchString = event.target.value.toUpperCase()
         setFilteredCars(cars.filter((car) => car.model.toUpperCase().includes(searchString) || car.make.toUpperCase().includes(searchString)))
-        if(searchString === '') {
+        if (searchString === '') {
             setFilteredCars(cars)
         }
     }
 
     function sortCarsByMiles(event) {
         let sortedCars = []
-        if(event.target.value === 'ascending'){
+        if (event.target.value === 'ascending') {
             sortedCars = filteredCars.sort((currentCar, nextCar) => {
                 return currentCar.mileage - nextCar.mileage
             })
@@ -51,7 +51,7 @@ function InventoryPage() {
 
     function sortCarsByPrice(event) {
         let sortedCars = []
-        if(event.target.value === 'ascending'){
+        if (event.target.value === 'ascending') {
             sortedCars = filteredCars.sort((currentCar, nextCar) => {
                 return currentCar.price - nextCar.price
             })
@@ -119,10 +119,10 @@ function InventoryPage() {
     );
 
     return (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <ThemeProvider theme={theme}>
                 <Navbar></Navbar>
-                <Grid container style={{ fontFamily: 'Figtree' }}>
+                <Grid container style={{ fontFamily: 'Figtree', flexGrow:1}}>
                     <Grid item lg={3} sx={{ ml: 12, mt: 4 }}>
                         <h2>
                             Filters:
@@ -135,8 +135,8 @@ function InventoryPage() {
                             <FormControlLabel control={<Checkbox checked={filters.includes('Minivan')} name='Minivan' onChange={handleFilterChange} />} label="Van" />
                             <FormControlLabel control={<Checkbox checked={filters.includes('Coupe')} name='Coupe' onChange={handleFilterChange} />} label="Coupe" />
                         </FormGroup>
-                        <FormControl sx={{mt: 4}}>
-                        <h2>Mileage</h2>
+                        <FormControl sx={{ mt: 4 }}>
+                            <h2>Mileage</h2>
                             <FormLabel id="sort-by-mileage-radio-buttons-group-label">Order by Miles</FormLabel>
                             <RadioGroup
                                 aria-labelledby="sort-by-mileage-radio-buttons-group-label"
@@ -147,8 +147,8 @@ function InventoryPage() {
                                 <FormControlLabel value="descending" control={<Radio />} label="Descending" />
                             </RadioGroup>
                         </FormControl>
-                        <FormControl sx={{mt: 4}}>
-                        <h2>Price</h2>
+                        <FormControl sx={{ mt: 4 }}>
+                            <h2>Price</h2>
                             <FormLabel id="sort-by-price-radio-group-label">Order by Price</FormLabel>
                             <RadioGroup
                                 aria-labelledby="sort-by-price-radio-group"
@@ -162,9 +162,9 @@ function InventoryPage() {
                     </Grid>
                     <Grid item lg={8} sx={{ mt: 4, ml: -8 }}>
                         <h1>Search for a car:</h1>
-                        <TextField 
-                        onChange={searchCars}
-                        id="outlined-basic" label="Search for a Car" variant="outlined" sx={{ width: '90%', mt: 1 }} />
+                        <TextField
+                            onChange={searchCars}
+                            id="outlined-basic" label="Search for a Car" variant="outlined" sx={{ width: '90%', mt: 1 }} />
                         <Grid container sx={{ mt: 3 }} spacing={4}>
                             {carCards}
                         </Grid>
@@ -172,7 +172,7 @@ function InventoryPage() {
                 </Grid>
                 <Footer />
             </ThemeProvider>
-        </>
+        </div>
     )
 }
 

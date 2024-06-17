@@ -24,17 +24,17 @@ const getCars = async () => {
 
 const changeAvailability = async (id) => {
   const result = await axios.patch(`http://localhost:3000/availability/${id}`)
-  .then(response => console.log(response.data))
-  .catch(error => console.error(error));
+    .then(response => console.log(response.data))
+    .catch(error => console.error(error));
   return result
 }
 
 const handleAvailableClick = (e) => {
   console.log(e.target)
   if (e.target.innerHTML === 'Available') {
-      e.target.innerHTML = 'Unavailable'
+    e.target.innerHTML = 'Unavailable'
   } else {
-      e.target.innerHTML = 'Available'           
+    e.target.innerHTML = 'Available'
   }
   changeAvailability(e.target.id)
 }
@@ -129,7 +129,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+  const { order, orderBy, onRequestSort } =
     props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -224,10 +224,6 @@ export default function AdminPage() {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
@@ -243,12 +239,12 @@ export default function AdminPage() {
   );
 
   return (
-    <>
-      <NavBar/>
-      <Typography variant="h3" component="h3" sx={{ width: '80%', mb:'6', mt: 5, ml:'auto', mr: 'auto'}}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <NavBar />
+      <Typography variant="h3" component="h3" sx={{ width: '80%', mb: '6', mt: 5, ml: 'auto', mr: 'auto' }}>
         Admin Console:
       </Typography>
-      <Box sx={{ width: '100%', m: 'auto' }}>
+      <Box sx={{ width: '100%', m: 'auto'}} style={{flexGrow: 1}}>
         <Paper sx={{ width: '80%', mt: 5, m: 'auto' }}>
           <TableContainer>
             <Table
@@ -315,6 +311,6 @@ export default function AdminPage() {
         </Paper>
       </Box>
       <Footer />
-    </>
+    </div>
   );
 }
