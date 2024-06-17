@@ -48,8 +48,6 @@ function Wishlist() {
     const handleDelete = (carId) => {
         axios.delete(`http://localhost:3000/favorites`, { data: { userId, carId } })
             .then((response) => {
-                console.log("delete response: ", response.data);
-                console.log("FAVORITES: ", favorites);
                 setFavorites(favorites.filter(favorite => favorite.car_id !== carId))
 
             })
