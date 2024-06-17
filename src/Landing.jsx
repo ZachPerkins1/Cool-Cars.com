@@ -1,3 +1,4 @@
+import React from 'react';
 import { Container, ImageList, ImageListItem , Button, Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './components/NavBar';
@@ -115,7 +116,7 @@ function LandingPage() {
                     Car buying made easy
                 </Typography>
                 <Box sx={{ mt: 4 }}>
-                    <Button variant="contained" onClick={() => handleViewInventory()} sx={{ fontFamily: 'Figtree, Roboto, sans-serif', bgcolor: '#bbdefb', color: '#333', ml: 2 }}>Click here to view all inventory</Button>
+                    <Button aria-label='View Inventory' variant="contained" onClick={() => handleViewInventory()} sx={{ fontFamily: 'Figtree, Roboto, sans-serif', bgcolor: '#bbdefb', color: '#333', ml: 2 }}>Click here to view all inventory</Button>
                 </Box>
             </Box>
             <Container maxWidth='xl'>
@@ -123,8 +124,8 @@ function LandingPage() {
                     <Box sx={{ width: '60%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mr: 8 }}>
                         <Typography variant="h4" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', mt: 4 }}>View by vehicle type</Typography>
                         <ImageList sx={{ width: '100%', maxHeight: 450 }} cols={3} rowHeight={200}>
-                            {vehicleTypes.map((vehicle) => (
-                                <ImageListItem key={vehicle.img} className="vehicle-item" onClick={() => handleVehicleTypeClick(vehicle.type)}>
+                            {vehicleTypes.map((vehicle, index) => (
+                                <ImageListItem key={index} className="vehicle-item" onClick={() => handleVehicleTypeClick(vehicle.type)}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%'}}>
                                         <img
                                             srcSet={`${vehicle.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
