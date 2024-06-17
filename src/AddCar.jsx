@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {Grid} from '@mui/material';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs/index.js'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -163,7 +164,6 @@ export default function AddCar() {
     return (
         <>
             <NavBar />
-
             <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Add a Car:
@@ -250,7 +250,7 @@ export default function AddCar() {
                                 onChange={handleMileChange}
                                 label="Mileage"
                                 required
-                                inputProps={{ type: 'number', min:0 }} />
+                                inputProps={{ type: 'number', min: 0 }} />
                         </FormControl>
                     </div>
                     <div>
@@ -261,7 +261,7 @@ export default function AddCar() {
                                 required
                                 inputProps={{
                                     type: 'number',
-                                    min:0,
+                                    min: 0,
                                 }}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -269,15 +269,16 @@ export default function AddCar() {
                         </FormControl>
                     </div>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
+                        <DemoContainer components={['YearCalendar']}>
                             <DemoItem label="What model year is the car?">
                                 <YearCalendar
                                     defaultValue={dayjs('2024')}
-                                    minDate={dayjs('1990-01-25')}
+                                    minDate={dayjs('1989-01-25')}
                                     maxDate={dayjs('2024-01-25')}
                                     yearsPerRow={4}
                                     onChange={handleYearChange}
                                     required
+                                    sx={{ '&::-webkit-scrollbar': { display: 'none' }, flexFlow: "row-reverse wrap-reverse" }}
                                 />
                             </DemoItem>
                         </DemoContainer>
