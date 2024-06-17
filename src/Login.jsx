@@ -5,6 +5,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
 import Footer from './components/Footer.jsx';
 import { FavoritesContext } from './contexts/FavoritesContext.jsx';
+import theme from './theme.jsx';
+import { ThemeProvider } from '@mui/material/styles';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -43,45 +45,47 @@ const Login = () => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            <NavBar />
-            <Container maxWidth="sm" style={{ marginTop: '2rem', flexGrow: 1 }}>
-                {successMessage && (
-                    <Alert severity="success" sx={{ mb: 2 }}>
-                        {successMessage}
-                    </Alert>
-                )}
-                <Typography variant="h4" align="center" gutterBottom>
-                    Login
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        fullWidth
-                        label="Username"
-                        variant="outlined"
-                        margin="normal"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        fullWidth
-                        label="Password"
-                        variant="outlined"
-                        margin="normal"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    {error && <Typography color="error">{error}</Typography>}
-                    <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '1rem' }}>
+        <ThemeProvider theme={theme}>
+            <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                <NavBar />
+                <Container maxWidth="sm" style={{ marginTop: '2rem', flexGrow: 1 }}>
+                    {successMessage && (
+                        <Alert severity="success" sx={{ mb: 2 }}>
+                            {successMessage}
+                        </Alert>
+                    )}
+                    <Typography variant="h4" align="center" gutterBottom>
                         Login
-                    </Button>
-                </form>
-            </Container>
-            <Footer />
-        </div>
+                    </Typography>
+                    <form onSubmit={handleSubmit}>
+                        <TextField
+                            fullWidth
+                            label="Username"
+                            variant="outlined"
+                            margin="normal"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                        <TextField
+                            fullWidth
+                            label="Password"
+                            variant="outlined"
+                            margin="normal"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        {error && <Typography color="error">{error}</Typography>}
+                        <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '1rem' }}>
+                            Login
+                        </Button>
+                    </form>
+                </Container>
+                <Footer />
+            </div>
+        </ThemeProvider>
     );
 };
 
