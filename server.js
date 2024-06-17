@@ -97,7 +97,6 @@ app.get('/reviews', async (req, res) => {
 
 app.post('/cars', async (req, res) => {
     const {
-        name,
         year,
         make_id,
         model_id,
@@ -105,12 +104,10 @@ app.post('/cars', async (req, res) => {
         body_id,
         mileage,
         fuel_id,
-        promo_id,
         arrival_date,
         price,
         availability,
         date_sold,
-        image_id,
     } = req.body;
 
     try {
@@ -122,7 +119,7 @@ app.post('/cars', async (req, res) => {
             ) RETURNING *;
         `;
         const values = [
-            name, year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id
+            year, make_id, model_id, color_id, body_id, mileage, fuel_id, 1, arrival_date, price, availability, date_sold, 1
         ];
 
         const result = await pool.query(query, values);
@@ -243,7 +240,22 @@ app.get('/favorites', async (req, res) => {
     const userId = req.query.userId;
     console.log('query:', req.query, 'userId:', userId);
     try {
-        const result = await pool.query('SELECT * FROM cars JOIN userfavorites ON cars.id = userfavorites.car_id WHERE user_id = $1', [userId]);
+        const result = await pool.query(`
+            SELECT 
+                Cars.id, mileage, arrival_date, year,
+                price, availability, date_sold, 
+                image_id, review_id, color, make, 
+                model, body_style, fuel_type
+            FROM Cars 
+            JOIN userfavorites ON Cars.id = userfavorites.car_id
+            JOIN Colors ON Cars.color_id = Colors.id
+            JOIN Makes ON Cars.make_id = Makes.id
+            JOIN Models ON Cars.model_id = Models.id
+            JOIN Bodies ON Cars.body_id = Bodies.id
+            JOIN Fueltype ON Cars.fuel_id = Fueltype.id
+            WHERE user_id = $1
+        `, [userId]);
+        console.log('db query result:', result.rows);
         res.json(result.rows);
     } catch (error) {
         console.error('Error getting favorites:', error);

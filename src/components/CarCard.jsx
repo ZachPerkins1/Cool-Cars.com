@@ -7,18 +7,61 @@ import axios from 'axios';
 import Dot from './Dot';
 import { FavoritesContext } from '../contexts/FavoritesContext';
 
+import carolla from '../assets/toyota-carolla-2004.png';
+import civic from '../assets/1995-Honda-Civic.png';
+import previa from '../assets/1996-toyota-previa.png';
+import altima from '../assets/2017_nissan_altima.png';
+import odysee from '../assets/2018_honda_odyssey.png';
+import outback from '../assets/2018-Subaru-Outback.png';
+import malibu from '../assets/2019-chevrolet-malibu.png';
+import mustang from '../assets/2020-Ford-Mustang.png';
+import tacoma from '../assets/2020-toyota-tacoma.png';
+import bmw from '../assets/2021-bmw-330e-sedan.png';
+import cclass from '../assets/2021-mercedes-benz-c-class.png';
+import golf from '../assets/2022-VW-Golf-GTI-2.png';
+import a4 from '../assets/audi-a4.png';
+import portofino from '../assets/ferrari-portofino.png';
+import elantra from '../assets/hyundai-elantra.png';
+import mazda3 from '../assets/Mazda3.png';
+import carrera from '../assets/porsche-911-carrera.png';
+import cybertruck from '../assets/tesla-cybertruck-giga-texas-car-designboom-03.png';
+import sorento from '../assets/sorento_2019.png';
+
 const getColors = async () => {
     const { data } = await axios.get('http://localhost:3000/colors');
     return data;
 }
 
-function CarCard({ car, userId, showFavoriteIcon = true }) {
+function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
     const [colorMap, setColorMap] = useState({})
     const { favorites, setFavorites } = useContext(FavoritesContext);
     const [isFavorite, setIsFavorite] = useState(false);
     const carId = car.id;
 
+    const carImages = {
+        1: carolla,
+        2: civic,
+        3: mustang,
+        4: malibu,
+        5: altima,
+        6: bmw,
+        7: a4,
+        8: cclass,
+        9: golf,
+        10: elantra,
+        11: sorento,
+        12: outback,
+        13: mazda3,
+        14: previa,
+        15: tacoma,
+        16: odysee,
+        17: cybertruck,
+        18: carrera,
+        19: portofino
+    }
+
     useEffect(() => {
+        console.log('CAAARRRRR: ', car);
         const result = getColors().then((data) => {
             let colorObj = {}
             data.forEach((color) => {
@@ -59,7 +102,7 @@ function CarCard({ car, userId, showFavoriteIcon = true }) {
             <CardMedia
                 component="img"
                 height="194"
-                image="https://hips.hearstapps.com/hmg-prod/images/mac01634-1661870031.jpg?crop=0.668xw:1.00xh;0.167xw,0&resize=1200:*"
+                image={carImages[car.id]}
                 alt="Paella dish"
             />
             <CardContent>
