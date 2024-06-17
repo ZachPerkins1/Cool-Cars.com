@@ -61,6 +61,18 @@ function CarCard({ car, userId, showFavoriteIcon = true, image }) {
     }
 
     useEffect(() => {
+        // console.log('CAAARRRRR: ', car);
+        const result = getColors().then((data) => {
+            let colorObj = {}
+            data.forEach((color) => {
+                colorObj[color.id] = color.name
+            })
+            setColorMap(colorObj)
+        })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+      
         // const result = getColors().then((data) => {
         //     let colorObj = {}
         //     data.forEach((color) => {
@@ -71,6 +83,7 @@ function CarCard({ car, userId, showFavoriteIcon = true, image }) {
         //     .catch((error) => {
         //         console.error('Error:', error);
         //     });
+
 
         if (favorites.some(favorite => favorite.car_id === carId)) {
             setIsFavorite(true);
@@ -106,15 +119,15 @@ function CarCard({ car, userId, showFavoriteIcon = true, image }) {
             />
             <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    <Typography style={{display:'inline'}}>{car.year + ' ' + car.make + ' ' + car.model + ' '}</Typography>
+                    <Typography variant="h6" style={{display:'inline', fontFamily:'Figtree'}}>{car.year + ' ' + car.make + ' ' + car.model + ' '}</Typography>
                     {/* <Dot color={colorMap[car.color_id]} /> */}
                     <IconButton aria-label="add to favorites" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none' }}>
                         {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                 </Box>
-                <Typography>${car.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
-                <Typography>Miles: {car.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography style={{display:'inline', fontFamily:'Figtree'}}>Price: ${car.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
+                <Typography style={{display:'inline', fontFamily:'Figtree'}} sx={{ml:3}}>Miles: {car.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
+                <Typography sx={{mt:1}} variant="body2" color="text.secondary">
                     Experience the thrill of driving with this stunning 2019 Mazda
                     Miata in vibrant Sunshine Yellow. This iconic roadster combines
                     classic sports car charm with modern technology, offering an exhilarating
