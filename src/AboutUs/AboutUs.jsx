@@ -11,6 +11,8 @@ import CustomerReviews from './CustomerReviews.jsx';
 import './AboutUs.css';
 import GoogleMapComponent from '../components/GoogleMap.jsx';
 import Footer from '../components/Footer.jsx';
+import theme from '../theme.jsx';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const WhiteTextButton = styled(Button)({
     color: 'white',
@@ -62,40 +64,42 @@ const AboutUs = () => {
 
     return (
         <>
-            <NavBar />
-            <Box bgcolor="#f0f0f0" minHeight="100vh">
-                <Container maxWidth="lg" sx={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-                    <HeaderSection />
-                    <MeetTheTeam expandedCard={expandedCard} handleCardClick={handleCardClick} />
-                    <Box className="carouselContainer" marginBottom={10}>
-                        <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
-                            Explore Our Dealership
-                        </Typography>
-                        <ImageCarousel />
-                    </Box>
-                    <Box className="mapContainer" sx={{ marginTop: 5 }}>
-                        <Typography variant='h4' align='center'>
-                            Visit Us
-                        </Typography>
-                        <GoogleMapComponent />
-                        <Typography variant='h6' align='center'>
-                            Cool Cars Dealership
-                            {'\n'}1234 Ocean Drive
-                            {'\n'}Miami, FL 33139
-                            {'\n'}USA
-                        </Typography>
-                    </Box>
-                    <Box className="reviewContainer" sx={{ marginTop: 10 }}>
-                        <CustomerReviews reviews={getFilteredReviews()} filter={filter} handleFilterChange={handleFilterChange} />
-                        <Box display="flex" justifyContent="center" sx={{ marginTop: 5, color: 'white' }}>
-                            <WhiteTextButton variant="contained" component={Link} to="/leaveReview">
-                                Leave a Review
-                            </WhiteTextButton>
+            <ThemeProvider theme={theme}>
+                <NavBar />
+                <Box bgcolor="#f0f0f0" minHeight="100vh">
+                    <Container maxWidth="lg" sx={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+                        <HeaderSection sx={{ fontFamily: 'Figtree' }} />
+                        <MeetTheTeam expandedCard={expandedCard} handleCardClick={handleCardClick} />
+                        <Box className="carouselContainer" marginBottom={10}>
+                            <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
+                                Explore Our Dealership
+                            </Typography>
+                            <ImageCarousel />
                         </Box>
-                    </Box>
-                </Container>
-                <Footer />
-            </Box>
+                        <Box className="mapContainer" sx={{ marginTop: 5 }}>
+                            <Typography variant='h4' align='center'>
+                                Visit Us
+                            </Typography>
+                            <GoogleMapComponent />
+                            <Typography variant='h6' align='center'>
+                                Cool Cars Dealership
+                                {'\n'}1234 Ocean Drive
+                                {'\n'}Miami, FL 33139
+                                {'\n'}USA
+                            </Typography>
+                        </Box>
+                        <Box className="reviewContainer" sx={{ marginTop: 10 }}>
+                            <CustomerReviews reviews={getFilteredReviews()} filter={filter} handleFilterChange={handleFilterChange} />
+                            <Box display="flex" justifyContent="center" sx={{ marginTop: 5, color: 'white' }}>
+                                <WhiteTextButton variant="contained" component={Link} to="/leaveReview">
+                                    Leave a Review
+                                </WhiteTextButton>
+                            </Box>
+                        </Box>
+                    </Container>
+                    <Footer />
+                </Box>
+            </ThemeProvider >
 
         </>
     );
