@@ -5,7 +5,7 @@ import axios from 'axios';
 import Navbar from './components/NavBar';
 import CarCard from './components/CarCard.jsx';
 import Footer from './components/Footer.jsx';
-import { SnippetFolder } from '@mui/icons-material';
+import './App.css';
 
 const getCars = async (vehicleType) => {
     const { data } = await axios.get('http://localhost:3000/cars');
@@ -79,7 +79,7 @@ function InventoryPage() {
     return (
         <>
             <Navbar></Navbar>
-            <Grid container>
+            <Grid container style={{fontFamily:'Figtree'}}>
                 <Grid item lg={3} sx={{ ml: 12, mt: 4 }}>
                     <h2>
                         Filters:
@@ -94,8 +94,8 @@ function InventoryPage() {
                     </FormGroup>
                 </Grid>
                 <Grid item lg={8} sx={{ mt: 4, ml: -8 }}>
-                    <h2>Search for a car:</h2>
-                    <TextField id="outlined-basic" label="Search for a Car" variant="outlined" sx={{ width: '90%' }} />
+                    <h1>Search for a car:</h1>
+                    <TextField id="outlined-basic" label="Search for a Car" variant="outlined" sx={{ width: '90%',  }} />
                     <Grid container sx={{ mt: 3 }} spacing={4}>
                         {carCards}
                     </Grid>
