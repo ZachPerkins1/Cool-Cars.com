@@ -16,6 +16,8 @@ import Register from './Register.jsx';
 import { FavoritesProvider } from './contexts/FavoritesContext.jsx';
 import Login from './Login.jsx';
 import AddCar from './AddCar.jsx'
+const sessionUser = JSON.parse(sessionStorage.getItem('userData')) || null;
+const userId = sessionUser ? sessionUser.id : null;
 
 const router = createBrowserRouter([
   {
@@ -67,7 +69,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <FavoritesProvider>
+    <FavoritesProvider userId={userId}>
       <RouterProvider router={router} />
     </FavoritesProvider>
   </React.StrictMode>,

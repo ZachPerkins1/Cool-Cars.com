@@ -32,7 +32,7 @@ const getColors = async () => {
     return data;
 }
 
-function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
+function CarCard({ car, userId, showFavoriteIcon = true, image }) {
     const [colorMap, setColorMap] = useState({})
     const { favorites, setFavorites } = useContext(FavoritesContext);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -61,17 +61,16 @@ function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
     }
 
     useEffect(() => {
-        console.log('CAAARRRRR: ', car);
-        const result = getColors().then((data) => {
-            let colorObj = {}
-            data.forEach((color) => {
-                colorObj[color.id] = color.name
-            })
-            setColorMap(colorObj)
-        })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        // const result = getColors().then((data) => {
+        //     let colorObj = {}
+        //     data.forEach((color) => {
+        //         colorObj[color.id] = color.name
+        //     })
+        //     setColorMap(colorObj)
+        // })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     });
 
         if (favorites.some(favorite => favorite.car_id === carId)) {
             setIsFavorite(true);
@@ -83,12 +82,14 @@ function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
             if (isFavorite) {
                 await axios.delete('http://localhost:3000/favorites', { data: { userId, carId } });
                 setFavorites(favorites.filter(favorite => favorite.car_id !== carId));
+                // setFavorites(prevFavorites => prevFavorites.filter(favorite => favorite.car_id !== carId));
                 setIsFavorite(false);
             } else {
                 const alreadyFavorite = favorites.some(favorite => favorite.car_id === carId);
                 if (!alreadyFavorite) {
                     await axios.post('http://localhost:3000/favorites', { userId, carId });
                     setFavorites([...favorites, car]);
+                    // setFavorites(prevFavorites => [...prevFavorites, { car_id: carId, user_id: userId }]);
                     setIsFavorite(true);
                 }
             }
@@ -102,13 +103,13 @@ function CarCard({ car, userId, showFavoriteIcon = true }, image ) {
             <CardMedia
                 component="img"
                 height="194"
-                image={carImages[car.id]}
+                image={carImages[image]}
                 alt="Paella dish"
             />
             <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                     <Typography style={{display:'inline'}}>{car.year + ' ' + car.make + ' ' + car.model + ' '}</Typography>
-                    <Dot color={colorMap[car.color_id]} />
+                    {/* <Dot color={colorMap[car.color_id]} /> */}
                     <IconButton aria-label="add to favorites" onClick={() => handleFavoriteClick()} style={{ display: showFavoriteIcon ? 'block' : 'none' }}>
                         {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>

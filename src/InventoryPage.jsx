@@ -71,10 +71,9 @@ function InventoryPage() {
 
     const carCards = filteredCars.map((car) =>
         <Grid item key={car.id}>
-            <CarCard car={car} userId={userId}></CarCard>
+            <CarCard car={car} userId={userId} image={car.id}></CarCard>
         </Grid>
     );
-
 
     return (
         <>
