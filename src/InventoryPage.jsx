@@ -31,7 +31,7 @@ function InventoryPage() {
 
         getCars().then((data) => {
             setCars(data);
-            setFilteredCars(data);
+            setFilteredCars(data.reverse());
             setIsLoading(false);
         });
 

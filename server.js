@@ -97,7 +97,6 @@ app.get('/reviews', async (req, res) => {
 
 app.post('/cars', async (req, res) => {
     const {
-        name,
         year,
         make_id,
         model_id,
@@ -105,12 +104,10 @@ app.post('/cars', async (req, res) => {
         body_id,
         mileage,
         fuel_id,
-        promo_id,
         arrival_date,
         price,
         availability,
         date_sold,
-        image_id,
     } = req.body;
 
     try {
@@ -122,7 +119,7 @@ app.post('/cars', async (req, res) => {
             ) RETURNING *;
         `;
         const values = [
-            name, year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id
+            year, make_id, model_id, color_id, body_id, mileage, fuel_id, 1, arrival_date, price, availability, date_sold, 1
         ];
 
         const result = await pool.query(query, values);
