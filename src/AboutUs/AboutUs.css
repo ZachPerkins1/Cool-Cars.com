@@ -58,18 +58,12 @@
     font-weight: 600;
 }
 
-#reviewButton {
-    margin-top: 5px;
-    background-color: #3f51b5;
-    color: #fafafa;
-}
-
 .carouselContainer {
     margin-top: 32px;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* border: 1px solid #ddd; */
+    /* border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     background-color: #fafafa;
 }
 

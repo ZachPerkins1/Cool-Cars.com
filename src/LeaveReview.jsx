@@ -71,7 +71,7 @@ const LeaveReview = () => {
                         />
                     </Box>
                     {error && <Typography color="error">{error}</Typography>}
-                    <Button type="submit" variant="contained" color="primary" fullWidth>
+                    <Button type="submit" variant="contained" fullWidth>
                         Submit Review
                     </Button>
                 </form>

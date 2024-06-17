@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Container, TextField, Button, Typography, Alert } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
 import Footer from './components/Footer.jsx';
 
@@ -10,12 +10,21 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const [successMessage, setSuccessMessage] = useState('');
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state && location.state.message) {
+            setSuccessMessage(location.state.message);
+        }
+    }, [location.state]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('/login', { username, password });
             const userData = response.data;
+
 
             // Store user data in session storage
             sessionStorage.setItem('userData', JSON.stringify(userData));
@@ -31,6 +40,11 @@ const Login = () => {
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <NavBar />
             <Container maxWidth="sm" style={{ marginTop: '2rem', flexGrow: 1 }}>
+                {successMessage && (
+                    <Alert severity="success" sx={{ mb: 2 }}>
+                        {successMessage}
+                    </Alert>
+                )}
                 <Typography variant="h4" align="center" gutterBottom>
                     Login
                 </Typography>
@@ -66,3 +80,4 @@ const Login = () => {
 };
 
 export default Login;
+
