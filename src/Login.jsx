@@ -3,6 +3,7 @@ import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar.jsx';
+import Footer from './components/Footer.jsx';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -27,9 +28,9 @@ const Login = () => {
     };
 
     return (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <NavBar />
-            <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
+            <Container maxWidth="sm" style={{ marginTop: '2rem', flexGrow: 1 }}>
                 <Typography variant="h4" align="center" gutterBottom>
                     Login
                 </Typography>
@@ -59,7 +60,8 @@ const Login = () => {
                     </Button>
                 </form>
             </Container>
-        </>
+            <Footer />
+        </div>
     );
 };
 
