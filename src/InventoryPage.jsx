@@ -5,7 +5,6 @@ import axios from 'axios';
 import Navbar from './components/NavBar';
 import CarCard from './components/CarCard.jsx';
 import Footer from './components/Footer.jsx';
-import { SnippetFolder } from '@mui/icons-material';
 
 const getCars = async (vehicleType) => {
     const { data } = await axios.get('http://localhost:3000/cars');
@@ -45,7 +44,6 @@ function InventoryPage() {
         if (!isLoading) {
             let filtered = cars;
             if (vehicleType) {
-                // setFilteredCars(cars.filter((car) => car.body_style === vehicleType));
                 filtered = filtered.filter((car) => car.body_style === vehicleType);
             } 
             if (filters.length > 0) {
@@ -71,10 +69,9 @@ function InventoryPage() {
 
     const carCards = filteredCars.map((car) =>
         <Grid item key={car.id}>
-            <CarCard car={car} userId={userId}></CarCard>
+            <CarCard car={car} userId={userId} image={car.id}></CarCard>
         </Grid>
     );
-
 
     return (
         <>
