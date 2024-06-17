@@ -11,6 +11,12 @@ import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
 import  theme  from './theme.jsx'
 
+const getCars = async (vehicleType) => {
+    const { data } = await axios.get('http://localhost:3000/cars');
+    return data;
+}
+
+
 function InventoryPage() {
     const [cars, setCars] = useState([]);
     const [filters, setFilters] = useState([]);
@@ -83,7 +89,6 @@ function InventoryPage() {
         if (!isLoading) {
             let filtered = cars;
             if (vehicleType) {
-                // setFilteredCars(cars.filter((car) => car.body_style === vehicleType));
                 filtered = filtered.filter((car) => car.body_style === vehicleType);
             }
             if (filters.length > 0) {
@@ -109,10 +114,9 @@ function InventoryPage() {
 
     const carCards = filteredCars.map((car) =>
         <Grid item key={car.id}>
-            <CarCard car={car} userId={userId}></CarCard>
+            <CarCard car={car} userId={userId} image={car.id}></CarCard>
         </Grid>
     );
-
 
     return (
         <>

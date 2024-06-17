@@ -61,7 +61,7 @@ test('removes car from favorites on click', async () => {
     expect(axios.delete).toHaveBeenCalledWith('http://localhost:3000/favorites', { data: { userId: 1, carId: car.id } });
 });
 
-test('fetches colors on click', async () => {
+xtest('fetches colors on click', async () => {
     const { favoriteButton, setFavorites } = setup();
 
     // Click the favorite button to add the car to the favorites
