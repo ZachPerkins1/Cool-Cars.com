@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Container, TextField, Button, Typography, Box, FormControlLabel, Checkbox } from '@mui/material';
 import NavBar from './components/NavBar.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [firstName, setFirstName] = useState('');
@@ -14,6 +15,7 @@ const Register = () => {
     const [adminPassword, setAdminPassword] = useState('');
     const [avatar, setAvatar] = useState(null);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,7 +52,7 @@ const Register = () => {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                alert('user added successfully!');
+                navigate('/login', { state: { message: 'Registration successful!' } });
                 setFirstName('');
                 setLastName('');
                 setEmail(0);

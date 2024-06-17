@@ -16,11 +16,6 @@ const CustomerReviewsSection = ({ reviews, filter, handleFilterChange }) => (
                 </Grid>
             ))}
         </Grid>
-        <Box display="flex" justifyContent="center" marginTop={5}>
-            <Button variant="contained" color="primary" component={Link} to="/leaveReview">
-                Leave a Review
-            </Button>
-        </Box>
     </Box>
 );
 
