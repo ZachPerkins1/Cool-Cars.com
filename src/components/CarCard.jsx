@@ -99,7 +99,6 @@ function CarCard({ car, userId, showFavoriteIcon = true, image }) {
 
     return (
         <Card sx={{ maxWidth: 345 }}>
-            {console.log(car, carImages[image])}
             <CardMedia
                 component="img"
                 height="194"
