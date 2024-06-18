@@ -72,18 +72,6 @@ function CarCard({ car, userId, showFavoriteIcon = true, image }) {
             .catch((error) => {
                 console.error('Error:', error);
             });
-      
-        // const result = getColors().then((data) => {
-        //     let colorObj = {}
-        //     data.forEach((color) => {
-        //         colorObj[color.id] = color.name
-        //     })
-        //     setColorMap(colorObj)
-        // })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
-
 
         if (favorites.some(favorite => favorite.car_id === carId)) {
             setIsFavorite(true);
@@ -111,11 +99,12 @@ function CarCard({ car, userId, showFavoriteIcon = true, image }) {
 
     return (
         <Card sx={{ maxWidth: 345 }}>
+            {console.log(car, carImages[image])}
             <CardMedia
                 component="img"
                 height="194"
-                image={carImages[image]}
-                alt="Paella dish"
+                image={carImages[car.image_id]}
+                alt="picture of a car"
             />
             <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
