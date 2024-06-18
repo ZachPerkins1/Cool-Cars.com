@@ -1,36 +1,34 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import { visuallyHidden } from '@mui/utils';
 import axios from 'axios';
 import NavBar from './components/NavBar.jsx';
-import { styled } from '@mui/material/styles';
 import Footer from './components/Footer.jsx';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
+import EnhancedTableHead from './components/AdminHeader.jsx';
 
 const getCars = async () => {
   const { data } = await axios.get('http://localhost:3000/cars');
   return data;
 }
 
+let rows = await getCars();
+
 const changeAvailability = async (id) => {
   const result = await axios.patch(`http://localhost:3000/availability/${id}`)
-    .then(response => console.log(response.data))
     .catch(error => console.error(error));
   return result
 }
 
 const handleAvailableClick = (e) => {
-  console.log(e.target)
   if (e.target.innerHTML === 'Available') {
     e.target.innerHTML = 'Unavailable'
   } else {
@@ -38,8 +36,6 @@ const handleAvailableClick = (e) => {
   }
   changeAvailability(e.target.id)
 }
-
-const rows = await getCars();
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -69,117 +65,13 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const headCells = [
-  {
-    id: 'make',
-    numeric: false,
-    disablePadding: false,
-    label: 'Make',
-  },
-  {
-    id: 'model',
-    numeric: false,
-    disablePadding: false,
-    label: 'Model',
-  },
-  {
-    id: 'year',
-    numeric: true,
-    disablePadding: false,
-    label: 'Year',
-  },
-  {
-    id: 'mileage',
-    numeric: true,
-    disablePadding: false,
-    label: 'Mileage',
-  },
-  {
-    id: 'price',
-    numeric: true,
-    disablePadding: false,
-    label: 'Price',
-  },
-  {
-    id: 'color',
-    numeric: false,
-    disablePadding: false,
-    label: 'Color',
-  },
-  {
-    id: 'fuel_type',
-    numeric: false,
-    disablePadding: false,
-    label: 'Fuel',
-  },
-  {
-    id: 'availability',
-    numeric: false,
-    disablePadding: false,
-    label: 'Available',
-  },
-];
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: 'RGB(112,155,203)',
-    color: theme.palette.common.white,
-    fontSize: '20px'
-  },
-}));
-
-function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } =
-    props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <StyledTableCell
-            key={headCell.id}
-            align="left"
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </StyledTableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
 export default function AdminPage() {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('Price');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rows, setRows] = React.useState([])
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -224,6 +116,21 @@ export default function AdminPage() {
     setPage(0);
   };
 
+  const handleDelete = async (id) => {
+    const result = await axios.delete(`http://localhost:3000/cars`,
+      {
+        data:
+          { "id": id }
+      }
+    )
+      .then(response => {
+        setRows(rows.filter((car) => car.id !== id))
+        navigate('/inventory', { state: { message: 'Car deleted successfully!' } });
+      })
+      .catch(error => console.error(error));
+    return result
+  }
+
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
@@ -235,8 +142,16 @@ export default function AdminPage() {
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       ),
-    [order, orderBy, page, rowsPerPage],
+    [order, orderBy, page, rowsPerPage, rows],
   );
+
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    getCars().then((data) => {
+      setRows(data.reverse());
+    });
+  }, [])
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -244,13 +159,13 @@ export default function AdminPage() {
       <Typography variant="h3" component="h3" sx={{ width: '80%', mb: '6', mt: 5, ml: 'auto', mr: 'auto' }}>
         Admin Console:
       </Typography>
-      <Box sx={{ width: '100%', m: 'auto'}} style={{flexGrow: 1}}>
+      <Box sx={{ width: '100%', m: 'auto' }} style={{ flexGrow: 1 }}>
         <Paper sx={{ width: '80%', mt: 5, m: 'auto' }}>
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
               aria-labelledby="tableTitle"
-              size={dense ? 'small' : 'medium'}
+              size='medium'
             >
               <EnhancedTableHead
                 numSelected={selected.length}
@@ -284,13 +199,14 @@ export default function AdminPage() {
                       <TableCell>{row.color}</TableCell>
                       <TableCell>{row.fuel_type}</TableCell>
                       <TableCell id={row.id} onClick={(e) => handleAvailableClick(e)}>{row.availability ? 'Available' : 'Not Available'}</TableCell>
+                      <TableCell id={row.id} onClick={() => handleDelete(row.id)} sx={{ textAlign: "center" }}><DeleteIcon /></TableCell>
                     </TableRow>
                   );
                 })}
                 {emptyRows > 0 && (
                   <TableRow
                     style={{
-                      height: (dense ? 33 : 53) * emptyRows,
+                      height: (53) * emptyRows,
                     }}
                   >
                     <TableCell colSpan={6} />

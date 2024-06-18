@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, TextField, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
+import { Grid, TextField, Checkbox, FormGroup, FormControlLabel, FormControl, FormLabel, Alert } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,11 +11,6 @@ import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme.jsx'
 
-const getCars = async (vehicleType) => {
-    const { data } = await axios.get('http://localhost:3000/cars');
-    return data;
-}
-
 
 function InventoryPage() {
     const [cars, setCars] = useState([]);
@@ -23,10 +18,11 @@ function InventoryPage() {
     const [filteredCars, setFilteredCars] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [userId, setUserId] = useState(null);
+    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const vehicleType = params.get('type');
+    const vehicleType = params.get('type')
 
     function searchCars(event) {
         let searchString = event.target.value.toUpperCase()
@@ -83,6 +79,10 @@ function InventoryPage() {
             setFilters([vehicleType]);
         }
 
+        if (location.state && location.state.message) {
+            setSuccessMessage(location.state.message);
+        }
+
     }, []);
 
     useEffect(() => {
@@ -122,6 +122,11 @@ function InventoryPage() {
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <ThemeProvider theme={theme}>
                 <Navbar></Navbar>
+                {successMessage && (
+                        <Alert severity="success" sx={{ mb: 2, justifyContent:'center' }}>
+                            {successMessage}
+                        </Alert>
+                    )}
                 <Grid container style={{ fontFamily: 'Figtree', flexGrow:1}}>
                     <Grid item lg={3} sx={{ ml: 12, mt: 4 }}>
                         <h2>
