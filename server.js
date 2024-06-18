@@ -64,6 +64,14 @@ app.get('/cars', async (req, res) => {
     res.json(result.rows)
 });
 
+app.delete('/cars', async (req, res) => {
+    const result = await pool.query(`
+        DELETE FROM Cars WHERE id=${req.body.id} 
+        `).then((result) => {
+            return res.status(204).send(result)
+        })
+})
+
 app.get('/colors', async (req, res) => {
     const result = await pool.query('SELECT * FROM colors;');
     res.json(result.rows)
