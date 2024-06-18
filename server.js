@@ -53,7 +53,7 @@ app.get('/cars', async (req, res) => {
 	Cars.id, mileage, arrival_date, year,
 	price, availability, date_sold, 
 	image_id, review_id, color, make, 
-	model, body_style, fuel_type
+	model, body_style, fuel_type, description
 	FROM Cars 
 	JOIN Colors ON Cars.color_id=Colors.id
 	JOIN Makes ON Cars.make_id=Makes.id
