@@ -7,9 +7,81 @@ import bcrypt from 'bcrypt';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import pool from './database/database.js';
+import OpenAI from 'openai';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const openai = new OpenAI();
+
+const makeNewDescription = async (make, model, year, color) => {
+    const completion = await openai.chat.completions.create({
+        model: 'gpt-3.5-turbo',
+        messages: [{
+            role: 'user', content:
+                `Make a description for selling a ${year} ${make} ${model}.
+                Following the example: Experience the thrill of driving with this stunning ${year} ${make}
+                ${model} in vibrant ${color}. This iconic car combines
+                classic sports car charm with modern technology, offering an exhilarating driving experience.
+                But limit the description to between 170 and 180 characters.
+            ` }],
+    });
+    // console.log(completion.choices[0]?.message?.content);
+    return completion;
+}
+
+const carModels = {
+    1: 'Corolla',
+    2: 'Civic',
+    3: 'Mustang',
+    4: 'Malibu',
+    5: 'Altima',
+    6: '3 Series',
+    7: 'A4',
+    8: 'C-Class',
+    9: 'Golf',
+    10: 'Elantra',
+    11: 'Sorento',
+    12: 'Outback',
+    13: 'Mazda3',
+    14: 'Cybertruck',
+    15: '911 Carrera',
+    16: 'Portofino'
+};
+
+const carMakes = {
+    1: 'Toyota',
+    2: 'Honda',
+    3: 'Ford',
+    4: 'Chevrolet',
+    5: 'Nissan',
+    6: 'BMW',
+    7: 'Audi',
+    8: 'Mercedes-Benz',
+    9: 'Volkswagen',
+    10: 'Hyundai',
+    11: 'Kia',
+    12: 'Subaru',
+    13: 'Mazda',
+    14: 'Tesla',
+    15: 'Porsche',
+    16: 'Ferrari'
+};
+
+const carColors = {
+    1: 'Red',
+    2: 'Blue',
+    3: 'Green',
+    4: 'Black',
+    5: 'White',
+    6: 'Silver',
+    7: 'Gray',
+    8: 'Yellow',
+    9: 'Orange',
+    10: 'Purple',
+    11: 'Brown',
+    12: 'Pink'
+};
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -68,8 +140,8 @@ app.delete('/cars', async (req, res) => {
     const result = await pool.query(`
         DELETE FROM Cars WHERE id=${req.body.id} 
         `).then((result) => {
-            return res.status(204).send(result)
-        })
+        return res.status(204).send(result)
+    })
 })
 
 app.get('/colors', async (req, res) => {
@@ -121,18 +193,21 @@ app.post('/cars', async (req, res) => {
     try {
         const query = `
             INSERT INTO Cars (
-                year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id
+                year, make_id, model_id, color_id, body_id, mileage, fuel_id, promo_id, arrival_date, price, availability, date_sold, image_id, description
             ) VALUES (
-                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
+                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
             ) RETURNING *;
         `;
         const values = [
             year, make_id, model_id, color_id, body_id, mileage, fuel_id, 1, arrival_date, price, availability, date_sold, 1
         ];
 
-        const result = await pool.query(query, values);
-
-        res.status(201).json(result.rows[0]);
+        makeNewDescription(carMakes[make_id], carModels[model_id], year, carColors[color_id])
+        .then(async (response) => {
+            values.push(response.choices[0]?.message?.content)
+            const result = await pool.query(query, values);
+            res.status(201).json(result.rows[0]);
+        })
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });

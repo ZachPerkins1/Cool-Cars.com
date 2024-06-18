@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import {Button, Menu, MenuItem, Typography } from '@mui/material';
+import { Button, Menu, MenuItem, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function BasicMenu({ anchor, loginStatus, handleLogout, user }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(loginStatus);
 
-    useEffect(() => {
-        setIsLoggedIn(loginStatus)
-    }, [loginStatus])
+  useEffect(() => {
+    setIsLoggedIn(loginStatus)
+  }, [loginStatus])
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -35,89 +35,105 @@ export default function BasicMenu({ anchor, loginStatus, handleLogout, user }) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         sx={{
-            color: '#fff',
+          color: '#fff',
         }}
       >
         {anchor}
       </Button>
-    <Menu
+      <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
+          vertical: 'bottom',
+          horizontal: 'right',
         }}
         transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        
+          vertical: 'top',
+          horizontal: 'right',
+
         }}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-            'aria-labelledby': 'basic-button',
+          'aria-labelledby': 'basic-button',
         }}
-    >
-    {isLoggedIn ? (
-        user && (user.role === 'admin') ? [
+      >
+        {isLoggedIn ? (
+          user && (user.role === 'admin') ? [
             <MenuItem key={'admin'} onClick={handleClose}>
-                <AdminPageLink />
+              <AdminPageLink />
             </MenuItem>,
             <MenuItem
-                key={'logout'} onClick={() => handleLogoutClick()}
-                sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}
+              key={'addcar'}
+              sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}
             >
-                Logout
-            </MenuItem>
-        ] : [
+              <AddCarPageLink />
+            </MenuItem>,
             <MenuItem
-                key={'logout'} onClick={() => handleLogoutClick()}
-                sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}
+              key={'logout'} onClick={() => handleLogoutClick()}
+              sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}
             >
-                Logout
+              Logout
             </MenuItem>
-        ]
-    ) : [
-        <MenuItem key={'login'} onClick={handleClose}>
+          ] : [
+            <MenuItem
+              key={'logout'} onClick={() => handleLogoutClick()}
+              sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}
+            >
+              Logout
+            </MenuItem>
+          ]
+        ) : [
+          <MenuItem key={'login'} onClick={handleClose}>
             <LoginLink />
-        </MenuItem>,
-        <MenuItem key={'register'} onClick={handleClose}>
+          </MenuItem>,
+          <MenuItem key={'register'} onClick={handleClose}>
             <RegisterLink />
-        </MenuItem>
-    ]}
-    </Menu>
+          </MenuItem>
+        ]}
+      </Menu>
     </div>
   );
 }
 
 
 function RegisterLink() {
-    return (
-      <Link to={`/register`}>
-        <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
-          Register
-        </Typography>
-      </Link>
-    );
+  return (
+    <Link to={`/register`}>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
+        Register
+      </Typography>
+    </Link>
+  );
 }
 
 
 function LoginLink() {
-    return (
-        <Link to={`/login`}>
-        <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
-            Login
-        </Typography>
-        </Link>
-    );
+  return (
+    <Link to={`/login`}>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
+        Login
+      </Typography>
+    </Link>
+  );
 }
 
 function AdminPageLink() {
-    return (
-        <Link to={`/adminPage`}>
-        <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
-            Admin Page
-        </Typography>
-        </Link>
-    );
+  return (
+    <Link to={`/adminPage`}>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
+        Admin Page
+      </Typography>
+    </Link>
+  );
+}
+
+function AddCarPageLink() {
+  return (
+    <Link to={`/addcar`}>
+      <Typography variant="h7" sx={{ fontFamily: 'Figtree, Roboto, sans-serif', color: '#1976d2' }}>
+        Add Car Page
+      </Typography>
+    </Link>
+  );
 }
