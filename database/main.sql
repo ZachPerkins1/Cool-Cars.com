@@ -36,7 +36,9 @@ CREATE TABLE Cars(
     "price" BIGINT NOT NULL,
     "availability" BOOLEAN NOT NULL,
     "date_sold" DATE NULL,
-    "image_id" BIGINT NULL
+    "image_id" BIGINT NULL,
+    "description" TEXT NOT NULL,
+    "review_id" BIGINT NULL
 );
 CREATE TABLE Makes(
     "id" SERIAL PRIMARY KEY,
@@ -71,8 +73,6 @@ CREATE TABLE UserFavorites(
     "user_id" INTEGER NOT NULL,
     "car_id" INTEGER NOT NULL
 );
-ALTER TABLE Cars
-ADD COLUMN review_id INTEGER;
 
 ALTER TABLE Cars ADD CONSTRAINT cars_color_id_foreign FOREIGN KEY(color_id) REFERENCES Colors(id);
 ALTER TABLE Cars ADD CONSTRAINT cars_make_id_foreign FOREIGN KEY(make_id) REFERENCES Makes(id);

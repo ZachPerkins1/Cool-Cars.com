@@ -116,10 +116,7 @@ function CarCard({ car, userId, showFavoriteIcon = true, image }) {
                 <Typography style={{display:'inline', fontFamily:'Figtree'}}>Price: ${car.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                 <Typography style={{display:'inline', fontFamily:'Figtree'}} sx={{ml:3}}>Miles: {car.mileage.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                 <Typography sx={{mt:1}} variant="body2" color="text.secondary">
-                    Experience the thrill of driving with this stunning 2019 Mazda
-                    Miata in vibrant Sunshine Yellow. This iconic roadster combines
-                    classic sports car charm with modern technology, offering an exhilarating
-                    open-air driving experience.
+                    {car.description}
                 </Typography>
             </CardContent>
         </Card>
